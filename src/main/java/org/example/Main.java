@@ -2,11 +2,6 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello Test9!");
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+        System.out.println("Hello wordl!");
     }
 }
