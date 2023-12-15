@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>com.unicam.cs.PiattaformaTuristi</groupId>
     <artifactId>PiattaformaTuristi23_24</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -24,7 +24,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.example.Main</mainClass>
+                            <mainClass>com.unicam.cs.PiattaformaTuristi.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
