@@ -1,7 +1,7 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
-import com.unicam.cs.PiattaformaTuristi.Model.TipiPoi;
+import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
 
 public abstract class PoiGenerico  {
     private String titolo;
@@ -9,7 +9,7 @@ public abstract class PoiGenerico  {
 
     private Coordinate coord;
 
-    private TipiPoi tipo;
+    private TipoPoi tipo;
 
     //Contenuti
 
@@ -19,18 +19,14 @@ public abstract class PoiGenerico  {
     }
 
     public void setDescrizione(String descrizione) {
-        if(descrizione == null || descrizione.isEmpty())
-            throw new NullPointerException("descrizione vuota o nulla");
         this.descrizione = descrizione;
     }
 
     public void setTitolo(String titolo) {
-        if(titolo == null || titolo.isEmpty())
-            throw new NullPointerException("titolo vuota o nullo");
         this.titolo = titolo;
     }
 
-    public void setTipo(TipiPoi tipo) {
+    public void setTipo(TipoPoi tipo) {
         this.tipo = tipo;
     }
 
@@ -46,7 +42,7 @@ public abstract class PoiGenerico  {
         return coord;
     }
 
-    public TipiPoi getTipo() {
+    public TipoPoi getTipo() {
         return tipo;
     }
 

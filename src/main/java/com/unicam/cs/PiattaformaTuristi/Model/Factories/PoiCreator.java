@@ -4,9 +4,9 @@ import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Poi;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 
-public class PoiCreator extends PoiFactoryCreator{
+public class PoiCreator extends PoiFactory {
     @Override
-    public PoiGenerico createPoi(Coordinate c) {
+    public PoiGenerico creaPoi(Coordinate c) {
         return new Poi(c);
     }
 }

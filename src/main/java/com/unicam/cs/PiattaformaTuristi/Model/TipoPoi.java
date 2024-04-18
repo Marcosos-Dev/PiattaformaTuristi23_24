@@ -1,6 +1,6 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
-public enum TipiPoi {
+public enum TipoPoi {
     POI,
     EVENTO
 }
