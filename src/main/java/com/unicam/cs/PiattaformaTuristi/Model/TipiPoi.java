@@ -1,4 +1,6 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
-public interface ContenutoMultimediale {
+public enum TipiPoi {
+    POI,
+    EVENTO
 }
