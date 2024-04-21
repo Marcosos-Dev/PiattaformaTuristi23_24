@@ -9,4 +9,12 @@ public class Poi extends PoiGenerico{
         super(c);
         this.setTipo(TipoPoi.POI);
     }
+
+    public String toString(){
+        return "Tipo POI: " + this.getTipo() +
+                "; Nome POI: " + this.getTitolo() +
+                "; Descrizione POI: " + this.getDescrizione();
+    }
+
+
 }

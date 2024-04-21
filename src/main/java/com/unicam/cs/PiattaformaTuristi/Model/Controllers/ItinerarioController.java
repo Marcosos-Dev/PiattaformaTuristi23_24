@@ -47,4 +47,16 @@ public class ItinerarioController {
             percorsoE.setPeriodo(periodo);
         comune.inserisciItinerarioDaValidare(itinerarioDaInserire);
     }
+
+    public ItinerarioGenerico ottieniItinerario(ItinerarioGenerico itinerario){
+        return this.comune.getItinerariValidati().stream().filter(p -> p.equals(itinerario)).findFirst().orElse(null);
+    }
+
+    public List<ItinerarioGenerico> ottieniListaItinerariValidati(){
+        return this.comune.getItinerariValidati();
+    }
+
+    public List<ItinerarioGenerico> ottieniListaItinerariDaValidare(){
+        return this.comune.getItinerariDaValidare();
+    }
 }

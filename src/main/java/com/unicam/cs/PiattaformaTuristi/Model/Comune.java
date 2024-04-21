@@ -8,13 +8,13 @@ import java.util.List;
 
 public class Comune {
     private String nome;
-    List<PoiGenerico> poiValidati;
+    private List<PoiGenerico> poiValidati;
 
-    List<PoiGenerico> poiDaValidare;
+    private List<PoiGenerico> poiDaValidare;
 
-    List<ItinerarioGenerico> itinerariValidati;
+    private List<ItinerarioGenerico> itinerariValidati;
 
-    List<ItinerarioGenerico> itinerariDaValidare;
+    private List<ItinerarioGenerico> itinerariDaValidare;
 
     public Comune(){
         this.poiValidati = new ArrayList<>();
@@ -52,10 +52,6 @@ public class Comune {
 
     public List<ItinerarioGenerico> getItinerariDaValidare(){
         return itinerariDaValidare;
-    }
-
-    public PoiGenerico ottieniPoi(PoiGenerico poi){
-        return this.poiValidati.stream().filter(p -> p.equals(poi)).findFirst().orElse(null);
     }
 
     public boolean internoAlComune(Coordinate coord) {

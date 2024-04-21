@@ -22,7 +22,6 @@ public class Main {
         Percorso i3 = new Percorso();
         PercorsoEvento i4 = new PercorsoEvento();
 
-
         ProgramExecutor pExec = new ProgramExecutor(new Comune());
 
 
@@ -61,11 +60,6 @@ public class Main {
                         42,
                         0));
 
-        //p3.setPeriodo(periodo1);
-        //p4.setPeriodo(periodo2);
-
-
-
         //pExec.aggiungiPoiDaValidare(p1,null);
         pExec.aggiungiPoiValidato(p1,null);
         pExec.aggiungiPoiValidato(p2,null);
@@ -95,84 +89,9 @@ public class Main {
         pExec.aggiungiItinerarioValidato(i3, list3,null);
         pExec.aggiungiItinerarioDaValidare(i4, list4,periodo2);
 
-        List<PoiGenerico> pois = new ArrayList<>();
-        pois.addAll(pExec.ottieniPoiDaValidare());
-        pois.addAll(pExec.ottieniPoiValidati());
-
-        List<ItinerarioGenerico> itinerari = new ArrayList<>();
-        itinerari.addAll(pExec.ottieniItinerariDaValidare());
-        itinerari.addAll(pExec.ottieniItinerariValidati());
-
-        stampaPOI(pois);
+        pExec.stampaPOI();
         System.out.println("------------------------------------------------------------------------------------------------");
-        stampaItinerari(itinerari);
+        pExec.stampaItinerari();
 
-    }
-
-    private static void stampaPOI(List<PoiGenerico> pois){
-        for(PoiGenerico p : pois){
-            if(p instanceof PoiEvento pe){
-                System.out.println(
-                        "Tipo POI: " + pe.getTipo() +
-                                "; Nome POI: " + pe.getTitolo() +
-                                "; Descrizione POI: " + pe.getDescrizione() +
-                                "; Data Inizio POI: " + pe.getPeriodo().getDataInizio() +
-                                "; Data Fine POI: " + pe.getPeriodo().getDataFine()
-                );
-            } else {
-                System.out.println(
-                        "Tipo POI: " + p.getTipo() +
-                                "; Nome POI: " + p.getTitolo() +
-                                "; Descrizione POI: " + p.getDescrizione()
-
-                );
-            }
-        }
-    }
-
-    private static void stampaItinerari(List<ItinerarioGenerico> itinerari){
-        for(ItinerarioGenerico i : itinerari){
-            if(i instanceof ItinerarioEvento iE){
-                System.out.println(
-                        "Tipo itinerario: " + iE.getTipo() +
-                                "; Nome Itinerario: " + iE.getTitolo() +
-                                "; Descrizione Itinerario: " + iE.getDescrizione() +
-                                "; POI: "
-                );
-                stampaPOI(iE.getPoi());
-            }
-
-            if(i instanceof Percorso p){
-                System.out.println(
-                        "Tipo itinerario: " + p.getTipo() +
-                                "; Nome Itinerario: " + p.getTitolo() +
-                                "; Descrizione Itinerario: " + p.getDescrizione() +
-                                "; POI: "
-                );
-                stampaPOI(p.getPoi());
-            }
-
-            if(i instanceof PercorsoEvento pE){
-                System.out.println(
-                        "Tipo itinerario: " + pE.getTipo() +
-                                "; Nome POI: " + pE.getTitolo() +
-                                "; Descrizione POI: " + pE.getDescrizione() +
-                                "; POI: "
-                );
-                stampaPOI(pE.getPoi());
-            }
-
-            if(i instanceof Itinerario){
-                System.out.println(
-                        "Tipo itinerario: " + i.getTipo() +
-                                "; Nome Itinerario: " + i.getTitolo() +
-                                "; Descrizione Itinerario: " + i.getDescrizione() +
-                                "; POI: "
-                );
-                stampaPOI(i.getPoi());
-            }
-
-
-        }
     }
 }

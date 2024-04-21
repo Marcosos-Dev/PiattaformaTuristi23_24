@@ -4,7 +4,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.TipoItinerario;
 
 import java.util.List;
 
-public class ItinerarioGenerico {
+public abstract class ItinerarioGenerico {
     private String titolo;
     private String descrizione;
     private List<PoiGenerico>  poi;

@@ -2,11 +2,11 @@ package com.unicam.cs.PiattaformaTuristi.Model;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Model.Controllers.PoiController;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.*;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ProgramExecutor {
 
@@ -41,7 +41,7 @@ public class ProgramExecutor {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        poiController.creaPoiValidato(factory,poi,periodo);
+        this.poiController.creaPoiValidato(factory,poi,periodo);
     }
 
     public void aggiungiItinerarioDaValidare(ItinerarioGenerico itinerario, List<PoiGenerico> listaPoi, Periodo periodo){
@@ -55,7 +55,7 @@ public class ProgramExecutor {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        itinerarioController.creaItinerarioDaValidare(factory,itinerario,listaPoi,periodo);
+        this.itinerarioController.creaItinerarioDaValidare(factory,itinerario,listaPoi,periodo);
     }
 
     public void aggiungiItinerarioValidato(ItinerarioGenerico itinerario, List<PoiGenerico> listaPoi, Periodo periodo){
@@ -69,28 +69,40 @@ public class ProgramExecutor {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        itinerarioController.creaItinerarioValidato(factory,itinerario,listaPoi,periodo);
+        this.itinerarioController.creaItinerarioValidato(factory,itinerario,listaPoi,periodo);
     }
 
     public PoiGenerico ottieniPoi(PoiGenerico poi){
-        return comune.ottieniPoi(poi);
+        return this.poiController.ottieniPoi(poi);
     }
 
 
     public List<PoiGenerico> ottieniPoiDaValidare(){
-        return comune.getPoiDaValidare();
+        return this.poiController.ottieniListaPoiDaValidare();
     }
 
     public List<PoiGenerico> ottieniPoiValidati(){
-        return comune.getPoiValidati();
+        return this.poiController.ottieniListaPoiValidati();
     }
 
     public List<ItinerarioGenerico> ottieniItinerariDaValidare(){
-        return comune.getItinerariDaValidare();
+        return this.itinerarioController.ottieniListaItinerariDaValidare();
     }
 
     public List<ItinerarioGenerico> ottieniItinerariValidati(){
-        return comune.getItinerariValidati();
+        return this.itinerarioController.ottieniListaItinerariValidati();
     }
 
+    public void stampaPOI(){
+        for(PoiGenerico p : Stream.concat(ottieniPoiValidati().stream(), ottieniPoiDaValidare().stream()).toList()){
+            System.out.println(p);
+        }
+    }
+
+    public void stampaItinerari(){
+        for(ItinerarioGenerico i : Stream.concat(ottieniItinerariValidati().stream(), ottieniItinerariDaValidare().stream()).toList()){
+            System.out.println(i);
+            stampaPOI();
+        }
+    }
 }

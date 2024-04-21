@@ -18,4 +18,13 @@ public class PercorsoEvento extends ItinerarioGenerico{
     public void setPeriodo(Periodo periodo) {
         this.periodo = periodo;
     }
+
+    public String toString(){
+        return "Tipo itinerario: " + this.getTipo() +
+                "; Nome Itinerario: " + this.getTitolo() +
+                "; Descrizione Itinerario: " + this.getDescrizione() +
+                "; Data Inizio Itinerario: " + this.getPeriodo().getDataInizio() +
+                "; Data Fine Itinerario: " + this.getPeriodo().getDataFine() +
+                "; POI: ";
+    }
 }

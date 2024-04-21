@@ -6,8 +6,9 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.PoiFactory;
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
 
-public class PoiController {
+import java.util.List;
 
+public class PoiController {
     private Comune comune;
 
     public PoiController(Comune comune){
@@ -38,6 +39,18 @@ public class PoiController {
         if(comune.poiDuplicato(poiDaInserire))
             throw new IllegalArgumentException("Punto già presente");
         comune.inserisciPoiValidato(poiDaInserire);
+    }
+
+    public PoiGenerico ottieniPoi(PoiGenerico poi){
+        return this.comune.getPoiValidati().stream().filter(p -> p.equals(poi)).findFirst().orElse(null);
+    }
+
+    public List<PoiGenerico> ottieniListaPoiValidati(){
+        return this.comune.getPoiValidati();
+    }
+
+    public List<PoiGenerico> ottieniListaPoiDaValidare(){
+        return this.comune.getPoiDaValidare();
     }
 
     //Aggiungi contenuto al POI

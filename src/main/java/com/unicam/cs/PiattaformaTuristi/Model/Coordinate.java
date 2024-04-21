@@ -1,7 +1,5 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
-
 public class Coordinate {
     private double longitudine;
     private double latitudine;

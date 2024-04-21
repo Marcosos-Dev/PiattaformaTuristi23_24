@@ -7,4 +7,10 @@ public class Percorso extends ItinerarioGenerico{
         this.setTipo(TipoItinerario.PERCORSO);
     }
 
+    public String toString(){
+        return "Tipo itinerario: " + this.getTipo() +
+                "; Nome Itinerario: " + this.getTitolo() +
+                "; Descrizione Itinerario: " + this.getDescrizione() +
+                "; POI: ";
+    }
 }
