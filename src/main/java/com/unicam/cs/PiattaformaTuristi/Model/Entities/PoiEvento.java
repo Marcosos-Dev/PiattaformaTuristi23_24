@@ -11,6 +11,10 @@ public class PoiEvento extends PoiGenerico{
         this.setTipo(TipoPoi.EVENTO);
     }
 
+    public Periodo getPeriodo() {
+        return periodo;
+    }
+
     public void setPeriodo(Periodo periodo) {
         this.periodo = periodo;
     }

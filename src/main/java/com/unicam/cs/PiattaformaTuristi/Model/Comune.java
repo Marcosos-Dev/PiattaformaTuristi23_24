@@ -1,7 +1,9 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Comune {
@@ -10,32 +12,50 @@ public class Comune {
 
     List<PoiGenerico> poiDaValidare;
 
-    List<PoiGenerico> itinerariValidati;
+    List<ItinerarioGenerico> itinerariValidati;
 
-    List<PoiGenerico> itinerariDaValidare;
+    List<ItinerarioGenerico> itinerariDaValidare;
 
-    public void creaPoiDaValidare(){
-        //TODO controllare che non sia nullo il titolo
+    public Comune(){
+        this.poiValidati = new ArrayList<>();
+        this.poiDaValidare = new ArrayList<>();
+        this.itinerariValidati = new ArrayList<>();
+        this.itinerariDaValidare = new ArrayList<>();
+    }
+    public void inserisciPoiDaValidare(PoiGenerico poi){
+        this.poiDaValidare.add(poi);
     }
 
-    public void creaPoiValidato(){
-        //TODO controllare che non sia nullo il titolo
+    public void inserisciPoiValidato(PoiGenerico poi){
+        this.poiValidati.add(poi);
     }
 
-    public void creaItinerarioDaValidare(){
-        //TODO controllare che non sia nullo il titolo
+    public void inserisciItinerarioDaValidare(ItinerarioGenerico itinerario){
+        this.itinerariDaValidare.add(itinerario);
     }
 
-    public void creaItinerarioValidato(){
-        //TODO controllare che non sia nullo il titolo
+    public void inserisciItinerarioValidato(ItinerarioGenerico itinerario){
+        this.itinerariValidati.add(itinerario);
     }
 
     public List<PoiGenerico> getPoiValidati() {
         return poiValidati;
     }
 
-    public List<PoiGenerico> getItinerariValidati() {
+    public List<PoiGenerico> getPoiDaValidare() {
+        return poiDaValidare;
+    }
+
+    public List<ItinerarioGenerico> getItinerariValidati() {
         return itinerariValidati;
+    }
+
+    public List<ItinerarioGenerico> getItinerariDaValidare(){
+        return itinerariDaValidare;
+    }
+
+    public PoiGenerico ottieniPoi(PoiGenerico poi){
+        return this.poiValidati.stream().filter(p -> p.equals(poi)).findFirst().orElse(null);
     }
 
     public boolean internoAlComune(Coordinate coord) {
@@ -44,6 +64,10 @@ public class Comune {
     }
 
     public boolean poiDuplicato(PoiGenerico poi) {
-        return true;
+        for(PoiGenerico p : poiValidati){
+            if(poi.equals(p))
+                return true;
+        }
+        return false;
     }
 }
