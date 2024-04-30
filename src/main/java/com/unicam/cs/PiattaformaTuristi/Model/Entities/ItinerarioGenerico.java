@@ -5,6 +5,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.TipoItinerario;
 import java.util.List;
 
 public abstract class ItinerarioGenerico {
+    private int idItinerario;
     private String titolo;
     private String descrizione;
     private List<PoiGenerico>  poi;
@@ -15,9 +16,7 @@ public abstract class ItinerarioGenerico {
 
     }
 
-    public List<PoiGenerico> getPoi() {
-        return poi;
-    }
+    public void setIdItinerario(int idItinerario) { this.idItinerario = idItinerario; }
 
     public void setPoi(List<PoiGenerico> poi) {
         this.poi = poi;
@@ -39,6 +38,10 @@ public abstract class ItinerarioGenerico {
         this.tipo = tipo;
     }
 
+    public List<PoiGenerico> getPoi() {
+        return poi;
+    }
+
     public TipoItinerario getTipo() {
         return tipo;
     }
@@ -51,5 +54,13 @@ public abstract class ItinerarioGenerico {
         return descrizione;
     }
 
+    public int getIdItinerario() { return idItinerario; }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ItinerarioGenerico)) return false;
+        ItinerarioGenerico itinerario = (ItinerarioGenerico) o;
+        return itinerario.getIdItinerario() == this.getIdItinerario();
+    }
 }

@@ -1,0 +1,5 @@
+package com.unicam.cs.PiattaformaTuristi.Model;
+
+public enum RuoliUtenti {
+    TURISTA, TURISTA_AUTENTICATO, CONTRIBUTORE, CONTRIBUTORE_AUTORIZZATO, ANIMATORE, CURATORE, GESTORE_PIATTAFORMA
+}

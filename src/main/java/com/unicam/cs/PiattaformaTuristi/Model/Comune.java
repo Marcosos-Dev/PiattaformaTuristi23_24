@@ -1,5 +1,6 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 
@@ -8,6 +9,7 @@ import java.util.List;
 
 public class Comune {
     private String nome;
+
     private List<PoiGenerico> poiValidati;
 
     private List<PoiGenerico> poiDaValidare;
@@ -16,23 +18,23 @@ public class Comune {
 
     private List<ItinerarioGenerico> itinerariDaValidare;
 
+    private List<Contest> contestAperti;
+
+    private List<Contest> contestChiusi;
+
     public Comune(){
         this.poiValidati = new ArrayList<>();
         this.poiDaValidare = new ArrayList<>();
         this.itinerariValidati = new ArrayList<>();
         this.itinerariDaValidare = new ArrayList<>();
     }
-    public void inserisciPoiDaValidare(PoiGenerico poi){
-        this.poiDaValidare.add(poi);
-    }
+    public void inserisciPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.add(poi); }
 
     public void inserisciPoiValidato(PoiGenerico poi){
         this.poiValidati.add(poi);
     }
 
-    public void inserisciItinerarioDaValidare(ItinerarioGenerico itinerario){
-        this.itinerariDaValidare.add(itinerario);
-    }
+    public void inserisciItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.add(itinerario); }
 
     public void inserisciItinerarioValidato(ItinerarioGenerico itinerario){
         this.itinerariValidati.add(itinerario);
@@ -54,8 +56,13 @@ public class Comune {
         return itinerariDaValidare;
     }
 
-    public boolean internoAlComune(Coordinate coord) {
+    //Metodo di utilità per ottenere l'ultimo id, l'id verrà assegnato al poi solo se validato
+    public int getLastPoiId(){
+        return this.getPoiValidati().isEmpty() ?
+                1 : this.getPoiValidati().getLast().getIdPoi()+1;
+    }
 
+    public boolean internoAlComune(Coordinate coord) {
         return true;
     }
 

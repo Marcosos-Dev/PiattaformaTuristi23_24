@@ -6,9 +6,17 @@ import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
 
 public class PoiEvento extends PoiGenerico{
     private Periodo periodo;
+
     public PoiEvento(Coordinate c) {
         super(c);
         this.setTipo(TipoPoi.EVENTO);
+    }
+
+    public PoiEvento(String titolo, String descrizione, Coordinate c) {
+        super(c);
+        this.setTitolo(titolo);
+        this.setDescrizione(descrizione);
+        this.setTipo(TipoPoi.POI);
     }
 
     public Periodo getPeriodo() {
@@ -20,7 +28,8 @@ public class PoiEvento extends PoiGenerico{
     }
 
     public String toString(){
-        return "Tipo POI: " + this.getTipo() +
+        return "ID POI: " + this.getIdPoi() +
+                "; Tipo POI: " + this.getTipo() +
                 "; Nome POI: " + this.getTitolo() +
                 "; Descrizione POI: " + this.getDescrizione() +
                 "; Data Inizio POI: " + this.getPeriodo().getDataInizio() +

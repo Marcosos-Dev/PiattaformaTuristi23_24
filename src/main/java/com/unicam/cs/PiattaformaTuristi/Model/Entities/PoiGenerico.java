@@ -3,15 +3,16 @@ package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
 
+import java.util.List;
+
 public abstract class PoiGenerico  {
+    private int idPoi;
     private String titolo;
     private String descrizione;
-
     private Coordinate coord;
-
     private TipoPoi tipo;
-
-    //Contenuti
+    private List<Contenuto> contenutiDaValidare;
+    private List<Contenuto> contenutiValidati;
 
     public PoiGenerico(Coordinate c){
         if(c == null) throw new NullPointerException("Coordinate null");
@@ -29,6 +30,30 @@ public abstract class PoiGenerico  {
     public void setTipo(TipoPoi tipo) {
         this.tipo = tipo;
     }
+
+    public void setIdPoi(int idPoi) { this.idPoi = idPoi; }
+
+    public void setCoord(Coordinate coord) {
+        this.coord = coord;
+    }
+
+    public void addContenutiValidati(Contenuto contenuto) {
+        this.contenutiValidati.add(contenuto);
+    }
+
+    public void addContenutiDaValidare(Contenuto contenuto) {
+        this.contenutiDaValidare.add(contenuto);
+    }
+
+    public void removeContenutoValidato(Contenuto contenuto) {
+        this.contenutiDaValidare.remove(contenuto);
+    }
+
+    public void removeContenutoDaValidare(Contenuto contenuto) {
+        this.contenutiDaValidare.remove(contenuto);
+    }
+
+    public int getIdPoi() { return idPoi; }
 
     public String getTitolo() {
         return titolo;
@@ -51,7 +76,7 @@ public abstract class PoiGenerico  {
         if (this == o) return true;
         if (!(o instanceof PoiGenerico)) return false;
         PoiGenerico poi = (PoiGenerico) o;
-        return poi.getCoord().equals(this.getCoord());
+        return poi.getIdPoi() == this.getIdPoi();
     }
 
 }
