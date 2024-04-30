@@ -3,6 +3,7 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
 import com.unicam.cs.PiattaformaTuristi.Model.*;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
@@ -61,9 +62,11 @@ public class InterfacciaContributore {
 
     }
 
-    //TODO realizzare (differenza in base al contributor)
-    public void caricaContenuto(){
-
+    public void caricaContenuto(Contenuto c, int idPoi){
+        if(utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
+            this.poiController.caricaContenutoValidato(c,idPoi);
+        else
+            this.poiController.caricaContenutoDaValidare(c,idPoi);
     }
 
     public PoiGenerico getPoi(int idPoi){ return this.poiController.getPoi(idPoi); }
