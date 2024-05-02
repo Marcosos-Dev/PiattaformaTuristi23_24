@@ -27,7 +27,14 @@ public class Comune {
         this.poiDaValidare = new ArrayList<>();
         this.itinerariValidati = new ArrayList<>();
         this.itinerariDaValidare = new ArrayList<>();
+        this.contestAperti = new ArrayList<>();
+        this.contestChiusi = new ArrayList<>();
     }
+
+    public void inserisciContestAperto(Contest contest){ this.contestAperti.add(contest); }
+
+    public void inserisciContestChiuso(Contest contest){ this.contestAperti.add(contest); }
+
     public void inserisciPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.add(poi); }
 
     public void inserisciPoiValidato(PoiGenerico poi){
@@ -56,10 +63,19 @@ public class Comune {
         return itinerariDaValidare;
     }
 
+    public List<Contest> getContestAperti() { return contestAperti; }
+
+    public List<Contest> getContestChiusi() { return contestChiusi; }
+
     //Metodo di utilità per ottenere l'ultimo id, l'id verrà assegnato al poi solo se validato
     public int getLastPoiId(){
         return this.getPoiValidati().isEmpty() ?
                 1 : this.getPoiValidati().getLast().getIdPoi()+1;
+    }
+
+    public int getLastContestId(){
+        return this.getContestAperti().isEmpty() ?
+                1 : this.getContestAperti().getLast().getIdContest()+1;
     }
 
     public boolean internoAlComune(Coordinate coord) {

@@ -1,12 +1,10 @@
 package com.unicam.cs.PiattaformaTuristi.Views;
 
+import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
 import com.unicam.cs.PiattaformaTuristi.Model.*;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.*;
 
 import java.util.List;
@@ -15,6 +13,7 @@ import java.util.stream.Stream;
 public class InterfacciaContributore {
     private ItinerarioController itinerarioController;
     private PoiController poiController;
+    private ContestController contestController;
     private Comune comune;
     private UtenteAutenticato utente;
 
@@ -22,6 +21,7 @@ public class InterfacciaContributore {
         this.comune = comune;
         this.poiController = new PoiController(this.comune);
         this.itinerarioController = new ItinerarioController(this.comune);
+        this.contestController = new ContestController(this.comune);
         this.utente = utente;
     }
 
@@ -34,7 +34,7 @@ public class InterfacciaContributore {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        if(utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
+        if(this.utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
             this.poiController.creaPoiValidato(factory,poi,null,periodo);
         else
             this.poiController.creaPoiDaValidare(factory,poi,null,periodo);
@@ -51,15 +51,14 @@ public class InterfacciaContributore {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        if(utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
+        if(this.utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
             this.itinerarioController.creaItinerarioValidato(factory,itinerario,listaPoi,periodo);
         else
             this.itinerarioController.creaItinerarioDaValidare(factory,itinerario,listaPoi,periodo);
     }
 
-    //TODO realizzare
-    public void partecipaContest(){
-
+    public void partecipaContest(Contest contest,Contenuto contenuto){
+        this.contestController.partecipaContest(contest,contenuto,this.utente);
     }
 
     public void caricaContenuto(Contenuto c, int idPoi){
@@ -68,8 +67,6 @@ public class InterfacciaContributore {
         else
             this.poiController.caricaContenutoDaValidare(c,idPoi);
     }
-
-    public PoiGenerico getPoi(int idPoi){ return this.poiController.getPoi(idPoi); }
 
     public List<PoiGenerico> getPoiDaValidare(){
         return this.poiController.getPoiDaValidare();
