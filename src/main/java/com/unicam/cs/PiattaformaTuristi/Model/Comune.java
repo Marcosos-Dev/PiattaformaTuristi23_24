@@ -67,10 +67,13 @@ public class Comune {
 
     public List<Contest> getContestChiusi() { return contestChiusi; }
 
-    //Metodo di utilità per ottenere l'ultimo id, l'id verrà assegnato al poi solo se validato
     public int getLastPoiId(){
-        return this.getPoiValidati().isEmpty() ?
-                1 : this.getPoiValidati().getLast().getIdPoi()+1;
+        return Math.max(
+                this.getPoiValidati().isEmpty() ?
+                    1 : this.getPoiValidati().getLast().getIdPoi()+1,
+                this.getPoiDaValidare().isEmpty() ?
+                        1 : this.getPoiDaValidare().getLast().getIdPoi()+1
+        );
     }
 
     public int getLastContestId(){

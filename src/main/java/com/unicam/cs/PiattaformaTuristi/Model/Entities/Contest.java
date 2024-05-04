@@ -13,11 +13,16 @@ public class Contest {
     private List<UtenteAutenticato> invitati;
     private List<ContenutoContest> contenutiCaricati;
     private ContenutoContest contenutoVincitore;
+    private UtenteAutenticato creatoreContest;
 
     public Contest(){
         this.invitati = new ArrayList<>();
         this.contenutiCaricati = new ArrayList<>();
     }
+
+    public void addTuttiInvitati(List<UtenteAutenticato> invitati) { this.invitati.addAll(invitati); }
+
+    public void setCreatoreContest(UtenteAutenticato creatoreContest) { this.creatoreContest = creatoreContest; }
 
     public void setIdContest(int idContest) { this.idContest = idContest; }
 
@@ -31,6 +36,7 @@ public class Contest {
 
     public void addContenuto(ContenutoContest contenuto) { this.contenutiCaricati.add(contenuto); }
 
+    public UtenteAutenticato getCreatoreContest() { return creatoreContest; }
 
     public int getIdContest() { return idContest; }
 

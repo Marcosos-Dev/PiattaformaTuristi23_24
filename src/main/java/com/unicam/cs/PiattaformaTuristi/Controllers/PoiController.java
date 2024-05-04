@@ -27,6 +27,7 @@ public class PoiController {
         //Punto con informazioni valide
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
+        poiDaInserire.setIdPoi(comune.getLastPoiId()); //TODO rimuovere con aggiunto di database
         if(con != null)
             poiDaInserire.addContenutiDaValidare(con);
         if(poiDaInserire instanceof PoiEvento poiE)
@@ -45,7 +46,7 @@ public class PoiController {
         //Punto con informazioni valide
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
-        poiDaInserire.setIdPoi(comune.getLastPoiId());
+        poiDaInserire.setIdPoi(comune.getLastPoiId()); //TODO rimuovere con aggiunto di database
         if(con != null)
             poiDaInserire.addContenutiValidati(con);
         if(poiDaInserire instanceof PoiEvento poiE)
