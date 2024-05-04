@@ -32,6 +32,8 @@ public class Contest {
 
     public void setPrivato(boolean privato) { this.privato = privato; }
 
+    public void setContenutoVincitore(ContenutoContest contenutoVincitore) { this.contenutoVincitore = contenutoVincitore; }
+
     public void addInvitato(UtenteAutenticato utente) { this.invitati.add(utente); }
 
     public void addContenuto(ContenutoContest contenuto) { this.contenutiCaricati.add(contenuto); }

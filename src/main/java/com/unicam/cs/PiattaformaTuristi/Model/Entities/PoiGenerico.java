@@ -71,6 +71,10 @@ public abstract class PoiGenerico  {
         return tipo;
     }
 
+    public List<Contenuto> getContenutiDaValidare() { return contenutiDaValidare; }
+
+    public List<Contenuto> getContenutiValidati() { return contenutiValidati; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

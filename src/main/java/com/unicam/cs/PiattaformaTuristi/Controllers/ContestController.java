@@ -31,6 +31,22 @@ public class ContestController {
         return comune.getContestAperti().stream().filter(c -> c.equals(contest)).findAny().orElse(null);
     }
 
+    public List<Contest> getContestUtente(UtenteAutenticato utente){
+        return comune.getContestAperti().stream().filter(c -> c.getCreatoreContest().equals(utente)).toList();
+    }
+
+    public List<ContenutoContest> getContenutiContest(Contest contest){
+        Contest contenuti = comune.getContestAperti().stream().filter(c -> c.equals(contest)).findAny().orElse(null);
+        if(contenuti==null)
+            throw new RuntimeException("Contest senza partecipanti");
+        return contenuti.getContenutiCaricati();
+    }
+
+    public void setVincitoreContest(Contest c, ContenutoContest vincitore){
+        c.setContenutoVincitore(vincitore);
+        this.comune.chiudiContest(c);
+    }
+
     public List<Contest> getContestPrivati(UtenteAutenticato utente){
         return comune.getContestAperti().stream().filter(c -> c.getPrivato() && c.getCreatoreContest().equals(utente)).toList();
     }
@@ -43,7 +59,7 @@ public class ContestController {
         contest.addContenuto(new ContenutoContest(contenuto,utente));
     }
 
-    //Metodo di utilità per far selezionare all'utente il contest
+    //Metodo per far selezionare all'utente il contest
     //Per semplificare l'utilizzo non è stato usato nella vista
     public List<Contest> getTuttiContestPartecipabili(UtenteAutenticato utente){
         return Stream.concat(

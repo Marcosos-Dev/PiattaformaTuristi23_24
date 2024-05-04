@@ -1,5 +1,6 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
@@ -31,17 +32,24 @@ public class Comune {
         this.contestChiusi = new ArrayList<>();
     }
 
+    public void chiudiContest(Contest c){
+        this.contestChiusi.add(c);
+        this.contestAperti.remove(c);
+    }
+
     public void inserisciContestAperto(Contest contest){ this.contestAperti.add(contest); }
 
-    public void inserisciContestChiuso(Contest contest){ this.contestAperti.add(contest); }
-
     public void inserisciPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.add(poi); }
+
+    public void rimuoviPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.remove(poi); }
 
     public void inserisciPoiValidato(PoiGenerico poi){
         this.poiValidati.add(poi);
     }
 
     public void inserisciItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.add(itinerario); }
+
+    public void rimuoviItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.remove(itinerario); }
 
     public void inserisciItinerarioValidato(ItinerarioGenerico itinerario){
         this.itinerariValidati.add(itinerario);
@@ -66,6 +74,19 @@ public class Comune {
     public List<Contest> getContestAperti() { return contestAperti; }
 
     public List<Contest> getContestChiusi() { return contestChiusi; }
+
+    public List<Contenuto> getContenutiValidati() { return this.getPoiValidati().stream().filter(c -> !c.getContenutiValidati().isEmpty()).flatMap(p -> p.getContenutiValidati().stream()).toList(); }
+
+    public List<Contenuto> getContenutiDaValidare() { return this.getPoiValidati().stream().filter(c -> !c.getContenutiDaValidare().isEmpty()).flatMap(p -> p.getContenutiDaValidare().stream()).toList(); }
+
+    public int getLastIdItinerario(){
+        return Math.max(
+                this.getItinerariDaValidare().isEmpty() ?
+                        1 : this.getItinerariDaValidare().getLast().getIdItinerario()+1,
+                this.getItinerariValidati().isEmpty() ?
+                        1 : this.getItinerariValidati().getLast().getIdItinerario()+1
+        );
+    }
 
     public int getLastPoiId(){
         return Math.max(
