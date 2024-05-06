@@ -7,6 +7,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class Comune {
     private String nome;
@@ -41,7 +42,7 @@ public class Comune {
 
     public void inserisciPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.add(poi); }
 
-    public void rimuoviPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.remove(poi); }
+    public void removePoiDaValidare(PoiGenerico poi){ this.poiDaValidare.remove(poi); }
 
     public void inserisciPoiValidato(PoiGenerico poi){
         this.poiValidati.add(poi);
@@ -49,7 +50,7 @@ public class Comune {
 
     public void inserisciItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.add(itinerario); }
 
-    public void rimuoviItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.remove(itinerario); }
+    public void removeItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.remove(itinerario); }
 
     public void inserisciItinerarioValidato(ItinerarioGenerico itinerario){
         this.itinerariValidati.add(itinerario);
@@ -88,7 +89,7 @@ public class Comune {
         );
     }
 
-    public int getLastPoiId(){
+    public int getUltimoIdPoi(){
         return Math.max(
                 this.getPoiValidati().isEmpty() ?
                     1 : this.getPoiValidati().getLast().getIdPoi()+1,
@@ -97,7 +98,7 @@ public class Comune {
         );
     }
 
-    public int getLastContestId(){
+    public int getUltimoIdContest(){
         return this.getContestAperti().isEmpty() ?
                 1 : this.getContestAperti().getLast().getIdContest()+1;
     }
@@ -112,5 +113,33 @@ public class Comune {
                 return true;
         }
         return false;
+    }
+
+    public void stampaPOIValidati(){
+        for(PoiGenerico p : getPoiValidati()){
+            System.out.println(p);
+        }
+    }
+
+    public void stampaPOIDaValidare(){
+        for(PoiGenerico p : getPoiDaValidare()){
+            System.out.println(p);
+        }
+    }
+
+    public void stampaItinerariValidati(){
+        for(ItinerarioGenerico i : getItinerariValidati()){
+            System.out.println(i);
+            for(PoiGenerico p : i.getPoi())
+                System.out.println(p);
+        }
+    }
+
+    public void stampaItinerariDaValidare(){
+        for(ItinerarioGenerico i : getItinerariDaValidare()){
+            System.out.println(i);
+            for(PoiGenerico p : i.getPoi())
+                System.out.println(p);
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
+import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
@@ -9,9 +10,12 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 public class InterfacciaCuratore {
     private ItinerarioController itinerarioController;
     private PoiController poiController;
+    private Comune comune;
 
-    public InterfacciaCuratore(){
-
+    public InterfacciaCuratore(Comune comune){
+        this.comune=comune;
+        this.poiController = new PoiController(this.comune);
+        this.itinerarioController = new ItinerarioController(this.comune);
     }
 
     public void validaElemento(String elemento, PoiGenerico poi, ItinerarioGenerico itinerario, int idContenuto){

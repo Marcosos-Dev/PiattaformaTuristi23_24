@@ -3,6 +3,7 @@ package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class PoiGenerico  {
@@ -17,6 +18,8 @@ public abstract class PoiGenerico  {
     public PoiGenerico(Coordinate c){
         if(c == null) throw new NullPointerException("Coordinate null");
         this.coord = c;
+        this.contenutiDaValidare = new ArrayList<>();
+        this.contenutiValidati = new ArrayList<>();
     }
 
     public void setDescrizione(String descrizione) {
@@ -37,11 +40,11 @@ public abstract class PoiGenerico  {
         this.coord = coord;
     }
 
-    public void addContenutiValidati(Contenuto contenuto) {
+    public void addContenutoValidato(Contenuto contenuto) {
         this.contenutiValidati.add(contenuto);
     }
 
-    public void addContenutiDaValidare(Contenuto contenuto) {
+    public void addContenutoDaValidare(Contenuto contenuto) {
         this.contenutiDaValidare.add(contenuto);
     }
 

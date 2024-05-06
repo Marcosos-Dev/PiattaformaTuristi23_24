@@ -12,11 +12,11 @@ public class GestoreUtenti {
         this.utenti = new ArrayList<>();
     }
 
-    public void aggiungiUtente(UtenteAutenticato utente){ this.utenti.add(utente); }
+    public void addUtente(UtenteAutenticato utente){ this.utenti.add(utente); }
 
     public List<UtenteAutenticato> getUtenti() { return utenti; }
 
     public List<UtenteAutenticato> getTuttiContributori(){
-        return this.utenti.stream().filter(u -> u.getRuolo() == RuoliUtenti.CONTRIBUTORE || u.getRuolo() == RuoliUtenti.CONTRIBUTORE_AUTORIZZATO).toList();
+        return this.utenti.stream().filter(u -> u.getRuolo() == RuoloUtente.CONTRIBUTORE || u.getRuolo() == RuoloUtente.CONTRIBUTORE_AUTORIZZATO).toList();
     }
 }

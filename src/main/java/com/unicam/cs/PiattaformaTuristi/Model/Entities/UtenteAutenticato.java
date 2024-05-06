@@ -1,19 +1,22 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
-import com.unicam.cs.PiattaformaTuristi.Model.RuoliUtenti;
+import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
 
 public class UtenteAutenticato implements Utente{
     private int idUtente;
-    private RuoliUtenti ruolo;
+    private RuoloUtente ruolo;
 
-    public UtenteAutenticato(RuoliUtenti ruolo){
+    public UtenteAutenticato(RuoloUtente ruolo){
         this.ruolo = ruolo;
     }
 
     public int getIdUtente() { return idUtente; }
 
     @Override
-    public RuoliUtenti getRuolo() { return ruolo; }
+    public RuoloUtente getRuolo() { return ruolo; }
+
+    @Override
+    public void setRuolo(RuoloUtente ruolo) {this.ruolo=ruolo;}
 
     public void setIdUtente(int idUtente) { this.idUtente = idUtente; }
 

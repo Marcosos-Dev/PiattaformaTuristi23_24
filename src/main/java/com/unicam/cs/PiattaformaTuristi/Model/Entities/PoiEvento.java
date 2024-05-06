@@ -16,7 +16,7 @@ public class PoiEvento extends PoiGenerico{
         super(c);
         this.setTitolo(titolo);
         this.setDescrizione(descrizione);
-        this.setTipo(TipoPoi.POI);
+        this.setTipo(TipoPoi.EVENTO);
     }
 
     public Periodo getPeriodo() {

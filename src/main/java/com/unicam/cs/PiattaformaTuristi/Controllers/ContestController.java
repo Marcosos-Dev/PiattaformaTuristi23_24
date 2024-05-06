@@ -21,7 +21,7 @@ public class ContestController {
     public void creaContest(Contest contest, UtenteAutenticato animatore){
         if(contest.getTitolo()==null || contest.getTitolo().isEmpty())
             throw new IllegalArgumentException("Titolo vuoto o nullo");
-        contest.setIdContest(comune.getLastContestId()); //TODO rimuovere con aggiunto di database
+        contest.setIdContest(comune.getUltimoIdContest()); //TODO rimuovere con aggiunto di database
         contest.setCreatoreContest(animatore);
         this.comune.inserisciContestAperto(contest);
     }

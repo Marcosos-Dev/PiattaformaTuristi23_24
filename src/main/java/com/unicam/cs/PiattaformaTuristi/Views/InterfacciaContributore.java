@@ -25,33 +25,33 @@ public class InterfacciaContributore {
         this.utente = utente;
     }
 
-    public void aggiungiPoi(PoiGenerico poi, Periodo periodo) {
+    public void aggiungiPoi(PoiGenerico poi, Contenuto con, Periodo periodo) {
         PoiFactory factory;
         switch (poi.getTipo()){
-            case TipoPoi.POI -> factory = new PoiCreator();
-            case TipoPoi.EVENTO -> factory = new PoiEventoCreator();
+            case POI -> factory = new PoiCreator();
+            case EVENTO -> factory = new PoiEventoCreator();
             default -> {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        if(this.utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
-            this.poiController.creaPoiValidato(factory,poi,null,periodo);
+        if(this.utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
+            this.poiController.creaPoiValidato(factory,poi,con,periodo);
         else
-            this.poiController.creaPoiDaValidare(factory,poi,null,periodo);
+            this.poiController.creaPoiDaValidare(factory,poi,con,periodo);
     }
 
     public void aggiungiItinerarioDaValidare(ItinerarioGenerico itinerario, List<PoiGenerico> listaPoi, Periodo periodo){
         ItinerarioFactory factory;
         switch (itinerario.getTipo()){
-            case TipoItinerario.ITINERARIO -> factory = new ItinerarioCreator();
-            case TipoItinerario.ITINERARIO_EVENTO -> factory = new ItinerarioEventoCreator();
-            case TipoItinerario.PERCORSO -> factory = new PercorsoCreator();
-            case TipoItinerario.PERCORSO_EVENTO -> factory = new PercorsoEventoCreator();
+            case ITINERARIO -> factory = new ItinerarioCreator();
+            case ITINERARIO_EVENTO -> factory = new ItinerarioEventoCreator();
+            case PERCORSO -> factory = new PercorsoCreator();
+            case PERCORSO_EVENTO -> factory = new PercorsoEventoCreator();
             default -> {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        if(this.utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
+        if(this.utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
             this.itinerarioController.creaItinerarioValidato(factory,itinerario,listaPoi,periodo);
         else
             this.itinerarioController.creaItinerarioDaValidare(factory,itinerario,listaPoi,periodo);
@@ -62,7 +62,7 @@ public class InterfacciaContributore {
     }
 
     public void caricaContenuto(Contenuto c, int idPoi){
-        if(utente.getRuolo()==RuoliUtenti.CONTRIBUTORE_AUTORIZZATO)
+        if(utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
             this.poiController.caricaContenutoValidato(c,idPoi);
         else
             this.poiController.caricaContenutoDaValidare(c,idPoi);
@@ -84,17 +84,4 @@ public class InterfacciaContributore {
         return this.itinerarioController.getItinerarioValidato();
     }
 
-    public void stampaPOI(){
-        for(PoiGenerico p : Stream.concat(getPoiValidati().stream(), getPoiDaValidare().stream()).toList()){
-            System.out.println(p);
-        }
-    }
-
-    public void stampaItinerari(){
-        for(ItinerarioGenerico i : Stream.concat(getItinerariValidati().stream(), getItinerariDaValidare().stream()).toList()){
-            System.out.println(i);
-            for(PoiGenerico p : i.getPoi())
-                System.out.println(p);
-        }
-    }
 }
