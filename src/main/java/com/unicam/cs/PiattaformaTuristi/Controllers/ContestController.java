@@ -6,6 +6,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -56,17 +57,22 @@ public class ContestController {
     }
 
     public void partecipaContest(Contest contest, Contenuto contenuto, UtenteAutenticato utente){
-        contest.addContenuto(new ContenutoContest(contenuto,utente));
+        int idContenutoContest = contest.getContenutiCaricati().isEmpty() ? 1 : contest.getContenutiCaricati().getLast().getIdContenutoContest()+1;
+        contest.addContenuto(new ContenutoContest(idContenutoContest,contenuto,utente));
     }
 
     //Metodo per far selezionare all'utente il contest
     //Per semplificare l'utilizzo non è stato usato nella vista
     public List<Contest> getTuttiContestPartecipabili(UtenteAutenticato utente){
-        return Stream.concat(
-                this.comune.getContestAperti().stream().filter(c -> c.getInvitati().contains(utente)).toList().stream(),
-                this.comune.getContestAperti().stream().filter(
-                        c -> c.getContenutiCaricati().stream().noneMatch(contenuto -> contenuto.getUtente().equals(utente)
-                        )).toList().stream()).toList();
+        List<Contest> contestPrivatiNonPartecipati = this.comune.getContestAperti().stream().filter(c ->
+                c.getPrivato() &&
+                c.getInvitati().contains(utente) &&
+                c.getContenutiCaricati().stream().noneMatch(contenuto -> contenuto.getUtente().equals(utente))).toList();
+        List<Contest> contestPubbliciNonPartecipati = this.comune.getContestAperti().stream().filter(c ->
+                !c.getPrivato() &&
+                c.getContenutiCaricati().stream().noneMatch(contenuto -> contenuto.getUtente().equals(utente))).toList();
+
+        return Stream.concat(contestPrivatiNonPartecipati.stream(), contestPubbliciNonPartecipati.stream()).toList();
     }
 
     //Metodo di utilità per far selezionare all'utente il contest

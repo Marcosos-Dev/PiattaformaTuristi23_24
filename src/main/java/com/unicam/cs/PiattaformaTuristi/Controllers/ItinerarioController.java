@@ -23,7 +23,7 @@ public class ItinerarioController {
         itinerarioDaInserire.setTitolo(itinerario.getTitolo());
         itinerarioDaInserire.setDescrizione(itinerario.getDescrizione());
         itinerarioDaInserire.setPoi(pois);
-        itinerarioDaInserire.setIdItinerario(this.comune.getLastIdItinerario());
+        itinerarioDaInserire.setIdItinerario(comune.getLastIdItinerario());
         if(itinerarioDaInserire instanceof ItinerarioEvento itinerarioE)
             itinerarioE.setPeriodo(periodo);
         if(itinerarioDaInserire instanceof PercorsoEvento percorsoE)
@@ -40,12 +40,12 @@ public class ItinerarioController {
         itinerarioDaInserire.setTitolo(itinerario.getTitolo());
         itinerarioDaInserire.setDescrizione(itinerario.getDescrizione());
         itinerarioDaInserire.setPoi(pois);
-        itinerarioDaInserire.setIdItinerario(this.comune.getLastIdItinerario());
+        itinerarioDaInserire.setIdItinerario(comune.getLastIdItinerario());
         if(itinerarioDaInserire instanceof ItinerarioEvento itinerarioE)
             itinerarioE.setPeriodo(periodo);
         if(itinerarioDaInserire instanceof PercorsoEvento percorsoE)
             percorsoE.setPeriodo(periodo);
-        comune.inserisciItinerarioDaValidare(itinerarioDaInserire);
+        comune.inserisciItinerarioValidato(itinerarioDaInserire);
     }
 
     public void validaItinerario(ItinerarioGenerico itinerario, boolean esito){

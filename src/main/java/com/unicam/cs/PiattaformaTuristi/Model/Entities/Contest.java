@@ -20,6 +20,14 @@ public class Contest {
         this.contenutiCaricati = new ArrayList<>();
     }
 
+    public Contest(String titolo, String descrizione, boolean privato){
+        this.invitati = new ArrayList<>();
+        this.contenutiCaricati = new ArrayList<>();
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+        this.privato = privato;
+    }
+
     public void addTuttiInvitati(List<UtenteAutenticato> invitati) { this.invitati.addAll(invitati); }
 
     public void setCreatoreContest(UtenteAutenticato creatoreContest) { this.creatoreContest = creatoreContest; }
@@ -48,6 +56,8 @@ public class Contest {
 
     public boolean getPrivato() { return privato; }
 
+    public ContenutoContest getContenutoVincitore() { return contenutoVincitore; }
+
     public List<UtenteAutenticato> getInvitati() { return invitati; }
 
     public List<ContenutoContest> getContenutiCaricati() { return contenutiCaricati; }
@@ -58,5 +68,13 @@ public class Contest {
         if (!(o instanceof Contest)) return false;
         Contest contest = (Contest) o;
         return contest.getIdContest() == this.getIdContest();
+    }
+
+    public String toString(){
+        return "ID contest: " + this.getIdContest() +
+                "; Titolo contest: " + this.getTitolo() +
+                "; Descrizione contest: " + this.getDescrizione() +
+                "; Privato : " + this.getPrivato() +
+                "; Vincitore contest: \n   " + this.getContenutoVincitore();
     }
 }

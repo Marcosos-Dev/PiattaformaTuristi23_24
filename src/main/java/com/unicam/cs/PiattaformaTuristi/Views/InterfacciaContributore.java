@@ -8,7 +8,6 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.*;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class InterfacciaContributore {
     private ItinerarioController itinerarioController;
@@ -40,7 +39,7 @@ public class InterfacciaContributore {
             this.poiController.creaPoiDaValidare(factory,poi,con,periodo);
     }
 
-    public void aggiungiItinerarioDaValidare(ItinerarioGenerico itinerario, List<PoiGenerico> listaPoi, Periodo periodo){
+    public void aggiungiItinerario(ItinerarioGenerico itinerario, List<PoiGenerico> listaPoi, Periodo periodo){
         ItinerarioFactory factory;
         switch (itinerario.getTipo()){
             case ITINERARIO -> factory = new ItinerarioCreator();
@@ -51,7 +50,7 @@ public class InterfacciaContributore {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        if(this.utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
+        if(this.utente.getRuolo() == RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
             this.itinerarioController.creaItinerarioValidato(factory,itinerario,listaPoi,periodo);
         else
             this.itinerarioController.creaItinerarioDaValidare(factory,itinerario,listaPoi,periodo);

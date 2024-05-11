@@ -27,10 +27,10 @@ public class PoiController {
         //Punto con informazioni valide
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
-        poiDaInserire.setIdPoi(comune.getUltimoIdPoi()); //TODO rimuovere con aggiunto di database
+        poiDaInserire.setIdPoi(comune.getUltimoIdPoi());
         if(con != null){
             validaEstensioneFile(con);
-            poiDaInserire.addContenutoDaValidare(con);
+            poiDaInserire.addContenutiValidati(con);
         }
         if(poiDaInserire instanceof PoiEvento poiE)
             poiE.setPeriodo(periodo);
@@ -48,28 +48,30 @@ public class PoiController {
         //Punto con informazioni valide
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
-        poiDaInserire.setIdPoi(comune.getUltimoIdPoi()); //TODO rimuovere con aggiunto di database
+        poiDaInserire.setIdPoi(comune.getUltimoIdPoi());
         if(con != null){
             validaEstensioneFile(con);
-            poiDaInserire.addContenutoValidato(con);
+            poiDaInserire.addContenutiValidati(con);
         }
         if(poiDaInserire instanceof PoiEvento poiE)
             poiE.setPeriodo(periodo);
         comune.inserisciPoiValidato(poiDaInserire);
     }
 
-    public void caricaContenutoDaValidare(Contenuto c, int idPoi){
-        validaEstensioneFile(c);
+    public void caricaContenutoDaValidare(Contenuto contenuto, int idPoi){
+        validaEstensioneFile(contenuto);
         if(this.getPoi(idPoi)==null)
             throw new IllegalArgumentException("Nessun poi trovato");
-        this.getPoi(idPoi).addContenutoDaValidare(c);
+        contenuto.setIdContenuto(comune.getLastIdContenuto());
+        this.getPoi(idPoi).addContenutiDaValidare(contenuto);
     }
 
-    public void caricaContenutoValidato(Contenuto c, int idPoi){
-        validaEstensioneFile(c);
+    public void caricaContenutoValidato(Contenuto contenuto, int idPoi){
+        validaEstensioneFile(contenuto);
         if(this.getPoi(idPoi)==null)
             throw new IllegalArgumentException("Nessun poi trovato");
-        this.getPoi(idPoi).addContenutoValidato(c);
+        contenuto.setIdContenuto(comune.getLastIdContenuto());
+        this.getPoi(idPoi).addContenutiValidati(contenuto);
     }
 
     private void validaEstensioneFile(Contenuto c){
@@ -91,7 +93,7 @@ public class PoiController {
     public Contenuto getContenuto(PoiGenerico poi, int idContenuto){ return getContenutiDaValidarePoi(poi).stream().filter(c -> c.getIdContenuto() == idContenuto).findFirst().orElse(null); }
 
     public void validaContenuto(PoiGenerico poi, Contenuto c, boolean esito){
-        if(esito) poi.addContenutoValidato(c);
+        if(esito) poi.addContenutiValidati(c);
         poi.removeContenutoDaValidare(c);
     }
 

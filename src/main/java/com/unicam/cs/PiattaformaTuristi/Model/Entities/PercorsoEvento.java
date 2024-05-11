@@ -10,6 +10,12 @@ public class PercorsoEvento extends ItinerarioGenerico{
         this.setTipo(TipoItinerario.PERCORSO_EVENTO);
     }
 
+    public PercorsoEvento(String titolo, String descrizione) {
+        this.setTitolo(titolo);
+        this.setDescrizione(descrizione);
+        this.setTipo(TipoItinerario.PERCORSO_EVENTO);
+    }
+
 
     public Periodo getPeriodo() {
         return periodo;
@@ -20,7 +26,8 @@ public class PercorsoEvento extends ItinerarioGenerico{
     }
 
     public String toString(){
-        return "Tipo itinerario: " + this.getTipo() +
+        return "ID Percorso: " + this.getIdItinerario() +
+                " Tipo itinerario: " + this.getTipo() +
                 "; Nome Itinerario: " + this.getTitolo() +
                 "; Descrizione Itinerario: " + this.getDescrizione() +
                 "; Data Inizio Itinerario: " + this.getPeriodo().getDataInizio() +

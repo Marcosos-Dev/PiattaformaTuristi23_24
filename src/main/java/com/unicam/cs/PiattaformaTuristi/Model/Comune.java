@@ -80,6 +80,15 @@ public class Comune {
 
     public List<Contenuto> getContenutiDaValidare() { return this.getPoiValidati().stream().filter(c -> !c.getContenutiDaValidare().isEmpty()).flatMap(p -> p.getContenutiDaValidare().stream()).toList(); }
 
+    public int getLastIdContenuto(){
+        return Math.max(
+                this.getContenutiDaValidare().isEmpty() ?
+                        1 : this.getContenutiDaValidare().getLast().getIdContenuto()+1,
+                this.getContenutiValidati().isEmpty() ?
+                        1 : this.getContenutiValidati().getLast().getIdContenuto()+1
+        );
+    }
+
     public int getLastIdItinerario(){
         return Math.max(
                 this.getItinerariDaValidare().isEmpty() ?
@@ -118,12 +127,20 @@ public class Comune {
     public void stampaPOIValidati(){
         for(PoiGenerico p : getPoiValidati()){
             System.out.println(p);
+            for(Contenuto cont : p.getContenutiDaValidare())
+                System.out.println(cont);
+            for(Contenuto cont : p.getContenutiValidati())
+                System.out.println(cont);
         }
     }
 
     public void stampaPOIDaValidare(){
         for(PoiGenerico p : getPoiDaValidare()){
             System.out.println(p);
+            for(Contenuto cont : p.getContenutiDaValidare())
+                System.out.println(cont);
+            for(Contenuto cont : p.getContenutiValidati())
+                System.out.println(cont);
         }
     }
 
@@ -140,6 +157,18 @@ public class Comune {
             System.out.println(i);
             for(PoiGenerico p : i.getPoi())
                 System.out.println(p);
+        }
+    }
+
+    public void stampaContestAperti(){
+        for(Contest p : getContestAperti()){
+            System.out.println(p);
+        }
+    }
+
+    public void stampaContestChiusi(){
+        for(Contest p : getContestChiusi()){
+            System.out.println(p);
         }
     }
 }

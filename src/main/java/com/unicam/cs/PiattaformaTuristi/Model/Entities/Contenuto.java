@@ -47,4 +47,9 @@ public class Contenuto {
         Contenuto c = (Contenuto) o;
         return c.getIdContenuto() == this.getIdContenuto();
     }
+
+    public String toString(){
+        return "ID contenuto: " + this.getIdContenuto() +
+                "; Descrizione contenuto: " + this.getDescrizione();
+    }
 }

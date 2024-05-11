@@ -18,8 +18,8 @@ public abstract class PoiGenerico  {
     public PoiGenerico(Coordinate c){
         if(c == null) throw new NullPointerException("Coordinate null");
         this.coord = c;
-        this.contenutiDaValidare = new ArrayList<>();
         this.contenutiValidati = new ArrayList<>();
+        this.contenutiDaValidare = new ArrayList<>();
     }
 
     public void setDescrizione(String descrizione) {
@@ -40,11 +40,11 @@ public abstract class PoiGenerico  {
         this.coord = coord;
     }
 
-    public void addContenutoValidato(Contenuto contenuto) {
+    public void addContenutiValidati(Contenuto contenuto) {
         this.contenutiValidati.add(contenuto);
     }
 
-    public void addContenutoDaValidare(Contenuto contenuto) {
+    public void addContenutiDaValidare(Contenuto contenuto) {
         this.contenutiDaValidare.add(contenuto);
     }
 

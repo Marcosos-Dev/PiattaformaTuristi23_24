@@ -8,14 +8,14 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 
 public class InterfacciaCuratore {
+    private Comune comune;
     private ItinerarioController itinerarioController;
     private PoiController poiController;
-    private Comune comune;
 
     public InterfacciaCuratore(Comune comune){
-        this.comune=comune;
-        this.poiController = new PoiController(this.comune);
-        this.itinerarioController = new ItinerarioController(this.comune);
+        this.comune = comune;
+        this.poiController = new PoiController(comune);
+        this.itinerarioController = new ItinerarioController(comune);
     }
 
     public void validaElemento(String elemento, PoiGenerico poi, ItinerarioGenerico itinerario, int idContenuto){
@@ -23,7 +23,7 @@ public class InterfacciaCuratore {
             case "Poi":{
                 //richiede lista poi
                 //richiedi esito
-                boolean esito = false;
+                boolean esito = true;
                 poiController.validaPoi(poi,esito);
                 break;
             }
@@ -31,7 +31,7 @@ public class InterfacciaCuratore {
             case "Itinerario":{
                 //richiede lista itinerari
                 //richiedi esito
-                boolean esito = false;
+                boolean esito = true;
                 itinerarioController.validaItinerario(itinerario,esito);
                 break;
             }
@@ -41,7 +41,7 @@ public class InterfacciaCuratore {
                 // -getContenutiDaValidarePoi
                 //richiedi esito
                 Contenuto contenuto = poiController.getContenuto(poi,idContenuto);
-                boolean esito = false;
+                boolean esito = true;
                 poiController.validaContenuto(poi,contenuto,esito);
                 break;
             }

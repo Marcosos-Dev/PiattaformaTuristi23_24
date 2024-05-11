@@ -16,7 +16,6 @@ public class InterfacciaAnimatore {
     public InterfacciaAnimatore(Comune comune, UtenteAutenticato utente){
         this.comune = comune;
         this.contestController = new ContestController(this.comune);
-
         this.animatore = utente;
     }
 
