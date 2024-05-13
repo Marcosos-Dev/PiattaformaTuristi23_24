@@ -52,7 +52,7 @@ public class TestingGestionRuoli {
     public void testGestisciRuoli(){
         UtenteAutenticato gestore_piattaforma = new UtenteAutenticato(RuoloUtente.GESTORE_PIATTAFORMA);
         InterfacciaGestore i = new InterfacciaGestore(gestore_piattaforma, gestore);
-        i.gestisciRuoli(gestore.getUtenti().get(0),RuoloUtente.CONTRIBUTORE);
+        i.gestisciRuolo(gestore.getUtenti().get(0).getIdUtente(),RuoloUtente.CONTRIBUTORE);
         if(gestore.getUtenti().get(1).getRuolo().equals(RuoloUtente.CONTRIBUTORE_AUTORIZZATO) &&
                 gestore.getUtenti().get(0).getRuolo().equals(RuoloUtente.CONTRIBUTORE))
             System.out.println("OK");

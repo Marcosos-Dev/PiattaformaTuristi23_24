@@ -20,12 +20,18 @@ public class GestoreUtenti {
 
     public void rimuoviRichiestaRuolo(Richiesta richiesta) { this.richiesteCambioRuolo.remove(richiesta); }
 
+    public void modificaRuolo(int idUtente, RuoloUtente ruolo){ getUtente(idUtente).setRuolo(ruolo); }
+
     public List<Richiesta> getRichiesteCambioRuolo() { return richiesteCambioRuolo; }
 
     public List<UtenteAutenticato> getUtenti() { return utenti; }
 
     public List<UtenteAutenticato> getTuttiContributori(){
         return this.utenti.stream().filter(u -> u.getRuolo() == RuoloUtente.CONTRIBUTORE || u.getRuolo() == RuoloUtente.CONTRIBUTORE_AUTORIZZATO).toList();
+    }
+
+    public UtenteAutenticato getUtente(int idUtente){
+        return getUtenti().stream().filter(u -> u.getIdUtente()==idUtente).findFirst().orElse(null);
     }
 
     public int getUltimoIdRichiesta(){

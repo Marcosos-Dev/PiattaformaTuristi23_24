@@ -16,8 +16,8 @@ public class InterfacciaGestore {
     }
 
     //Modifica il ruolo a piacimento
-    public void gestisciRuoli(UtenteAutenticato utente, RuoloUtente nuovoRuolo){
-        this.utentiController.modificaRuolo(utente,nuovoRuolo);
+    public void gestisciRuolo(int idUtente, RuoloUtente nuovoRuolo){
+        this.utentiController.gestisciRuolo(idUtente,nuovoRuolo);
     }
 
     //accetta o rifiuta i cambi di ruolo

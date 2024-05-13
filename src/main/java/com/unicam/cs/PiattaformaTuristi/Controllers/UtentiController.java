@@ -23,10 +23,12 @@ public class UtentiController {
     }
 
     public void gestisciRichiestaRuolo(Richiesta richiesta, boolean esito){
-        if(esito) modificaRuolo(
-                getUtente(richiesta.getIdUtente()),
-                richiesta.getRuoloRichiesto());
+        if(esito) this.gestoreUtenti.modificaRuolo(richiesta.getIdUtente(), richiesta.getRuoloRichiesto());
         this.gestoreUtenti.rimuoviRichiestaRuolo(richiesta);
+    }
+
+    public void gestisciRuolo(int idUtente, RuoloUtente nuovoRuolo){
+        this.gestoreUtenti.modificaRuolo(idUtente, nuovoRuolo);
     }
 
     public void richiediRuolo(int idUtente, RuoloUtente ruolo){
@@ -35,11 +37,8 @@ public class UtentiController {
         this.gestoreUtenti.aggiungiRichiestaRuolo(richiesta);
     }
 
-    public void modificaRuolo(UtenteAutenticato utente, RuoloUtente ruolo){ utente.setRuolo(ruolo); }
 
     public List<UtenteAutenticato> getTuttiContributori(){ return this.gestoreUtenti.getTuttiContributori(); }
 
-    public UtenteAutenticato getUtente(int idUtente){
-        return this.gestoreUtenti.getUtenti().stream().filter(u -> u.getIdUtente()==idUtente).findFirst().orElse(null);
-    }
+
 }
