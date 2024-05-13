@@ -3,6 +3,7 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
 import com.unicam.cs.PiattaformaTuristi.Model.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.*;
@@ -13,14 +14,16 @@ public class InterfacciaContributore {
     private ItinerarioController itinerarioController;
     private PoiController poiController;
     private ContestController contestController;
+    private UtentiController utentiController;
     private Comune comune;
     private UtenteAutenticato utente;
 
-    public InterfacciaContributore(Comune comune, UtenteAutenticato utente){
+    public InterfacciaContributore(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore){
         this.comune = comune;
         this.poiController = new PoiController(this.comune);
         this.itinerarioController = new ItinerarioController(this.comune);
         this.contestController = new ContestController(this.comune);
+        this.utentiController = new UtentiController(gestore);
         this.utente = utente;
     }
 
@@ -67,16 +70,16 @@ public class InterfacciaContributore {
             this.poiController.caricaContenutoDaValidare(c,idPoi);
     }
 
-    public List<PoiGenerico> getPoiDaValidare(){
-        return this.poiController.getPoiDaValidare();
+    public void richiestaCambioRuolo(RuoloUtente nuovoRuolo){
+        //Ottieni possibili ruoli -> utentiController.getPossibiliRuoli(this.utente.getRuolo());
+        this.utentiController.richiediRuolo(this.utente.getIdUtente(),nuovoRuolo);
     }
 
+
+
+    //TODO rimuovere post vis
     public List<PoiGenerico> getPoiValidati(){
         return this.poiController.getPoiValidati();
-    }
-
-    public List<ItinerarioGenerico> getItinerariDaValidare(){
-        return this.itinerarioController.getItinerarioDaValidare();
     }
 
     public List<ItinerarioGenerico> getItinerariValidati(){

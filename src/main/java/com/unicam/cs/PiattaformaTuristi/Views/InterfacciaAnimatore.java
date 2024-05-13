@@ -1,26 +1,31 @@
 package com.unicam.cs.PiattaformaTuristi.Views;
 
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.ContenutoContest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
+import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
+import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
 
 import java.util.List;
 
 public class InterfacciaAnimatore {
     private ContestController contestController;
+    private UtentiController utentiController;
     private Comune comune;
-    private UtenteAutenticato animatore;
+    private UtenteAutenticato utente;
 
-    public InterfacciaAnimatore(Comune comune, UtenteAutenticato utente){
+    public InterfacciaAnimatore(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore){
         this.comune = comune;
         this.contestController = new ContestController(this.comune);
-        this.animatore = utente;
+        this.utentiController = new UtentiController(gestore);
+        this.utente = utente;
     }
 
     public void creaContest(Contest contest){
-        this.contestController.creaContest(contest, this.animatore);
+        this.contestController.creaContest(contest, this.utente);
     }
 
     public void selezionaVincitoreContest(Contest c, ContenutoContest vincitore){
@@ -37,5 +42,10 @@ public class InterfacciaAnimatore {
         // -getUtentiInvitabili per ottenere gli utenti da invitare -> utentiDaInvitare
         //rimuovendo la necessità dei parametri
         contestController.invitaUtenti(contest, utentiDaInvitare);
+    }
+
+    public void richiestaCambioRuolo(RuoloUtente nuovoRuolo){
+        //Ottieni possibili ruoli -> utentiController.getPossibiliRuoli(this.utente.getRuolo());
+        this.utentiController.richiediRuolo(this.utente.getIdUtente(),nuovoRuolo);
     }
 }

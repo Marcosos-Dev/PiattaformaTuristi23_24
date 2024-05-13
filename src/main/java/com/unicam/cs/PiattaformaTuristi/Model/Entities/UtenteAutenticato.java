@@ -27,4 +27,12 @@ public class UtenteAutenticato implements Utente{
         UtenteAutenticato utente = (UtenteAutenticato) o;
         return utente.getIdUtente() == this.getIdUtente();
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + idUtente;
+        return result;
+    }
 }

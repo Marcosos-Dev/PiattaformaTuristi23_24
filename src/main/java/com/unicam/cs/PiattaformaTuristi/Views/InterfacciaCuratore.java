@@ -18,12 +18,11 @@ public class InterfacciaCuratore {
         this.itinerarioController = new ItinerarioController(comune);
     }
 
-    public void validaElemento(String elemento, PoiGenerico poi, ItinerarioGenerico itinerario, int idContenuto){
+    public void validaElemento(String elemento, PoiGenerico poi, ItinerarioGenerico itinerario, int idContenuto, boolean esito){
         switch(elemento){
             case "Poi":{
                 //richiede lista poi
                 //richiedi esito
-                boolean esito = true;
                 poiController.validaPoi(poi,esito);
                 break;
             }
@@ -31,7 +30,6 @@ public class InterfacciaCuratore {
             case "Itinerario":{
                 //richiede lista itinerari
                 //richiedi esito
-                boolean esito = true;
                 itinerarioController.validaItinerario(itinerario,esito);
                 break;
             }
@@ -41,7 +39,6 @@ public class InterfacciaCuratore {
                 // -getContenutiDaValidarePoi
                 //richiedi esito
                 Contenuto contenuto = poiController.getContenuto(poi,idContenuto);
-                boolean esito = true;
                 poiController.validaContenuto(poi,contenuto,esito);
                 break;
             }
