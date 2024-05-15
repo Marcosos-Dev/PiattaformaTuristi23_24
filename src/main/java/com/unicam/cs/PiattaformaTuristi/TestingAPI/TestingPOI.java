@@ -35,6 +35,17 @@ public class TestingPOI {
         testCaricaContenutoValidato();
         System.out.println("\nTest di validazione del contenuto del poi");
         testValidaContenuto();
+        System.out.println("\nTest di visualizzazione dei poi");
+        testVisualizzaPoi();
+    }
+
+    public void testVisualizzaPoi(){
+        UtenteAutenticato contributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
+        InterfacciaContributore i = new InterfacciaContributore(c,contributor,gestore);
+        System.out.println(i.visualizzaPoi(2));
+        System.out.println(i.visualizzaPoi(4));
+        System.out.println( i.visualizzaPoi(5));
+        System.out.println(i.visualizzaPoi(6));
     }
 
 

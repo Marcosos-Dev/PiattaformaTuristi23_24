@@ -21,7 +21,8 @@ public class Poi extends PoiGenerico{
         return "ID POI: " + this.getIdPoi() +
                 "; Tipo POI: " + this.getTipo() +
                 "; Nome POI: " + this.getTitolo() +
-                "; Descrizione POI: " + this.getDescrizione();
+                "; Descrizione POI: " + this.getDescrizione()+
+                "; Contenuti POI: " + this.getContenutiValidati();
     }
 
 

@@ -33,6 +33,7 @@ public class PoiEvento extends PoiGenerico{
                 "; Nome POI: " + this.getTitolo() +
                 "; Descrizione POI: " + this.getDescrizione() +
                 "; Data Inizio POI: " + this.getPeriodo().getDataInizio() +
-                "; Data Fine POI: " + this.getPeriodo().getDataFine();
+                "; Data Fine POI: " + this.getPeriodo().getDataFine()+
+                "; Contenuti POI: " + this.getContenutiValidati();
     }
 }

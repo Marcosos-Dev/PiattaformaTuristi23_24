@@ -16,6 +16,6 @@ public class Percorso extends ItinerarioGenerico{
                 " Tipo itinerario: " + this.getTipo() +
                 "; Nome Itinerario: " + this.getTitolo() +
                 "; Descrizione Itinerario: " + this.getDescrizione() +
-                "; POI: ";
+                "; POI: "+this.getPoi();
     }
 }

@@ -83,7 +83,7 @@ public class PoiController {
 
     public void validaPoi(PoiGenerico poi, boolean esito){
         if(esito) this.comune.inserisciPoiValidato(poi);
-        this.comune.removePoiDaValidare(poi);
+        this.comune.rimuoviPoiDaValidare(poi);
     }
 
     public List<PoiGenerico> getPoiConContenutiDaValidare(){ return this.comune.getPoiValidati().stream().filter(p -> !p.getContenutiDaValidare().isEmpty()).toList(); }

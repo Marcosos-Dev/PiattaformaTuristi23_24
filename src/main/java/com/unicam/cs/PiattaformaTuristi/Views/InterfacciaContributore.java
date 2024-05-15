@@ -75,15 +75,21 @@ public class InterfacciaContributore {
         this.utentiController.richiediRuolo(this.utente.getIdUtente(),nuovoRuolo);
     }
 
-
-
-    //TODO rimuovere post vis
-    public List<PoiGenerico> getPoiValidati(){
-        return this.poiController.getPoiValidati();
+    public PoiGenerico visualizzaPoi(int idPoi){
+        //il poi sarebbe da selezionare tra tutti i validati -> poiController.getPoiValidati()
+        //System.out.println(poiController.getPoi(idPoi));
+        return poiController.getPoi(idPoi);
     }
 
-    public List<ItinerarioGenerico> getItinerariValidati(){
-        return this.itinerarioController.getItinerarioValidato();
+    public ItinerarioGenerico visualizzaItinerario(int idItinerario){
+        //l'itinerario sarebbe da selezionare tra tutti i validati -> itinerarioController.getItinerariValidati()
+        //System.out.println(itinerarioController.getItinerario(idItinerario));
+        return itinerarioController.getItinerario(idItinerario);
     }
 
+    public Contest visualizzaContest(int idContest){
+        //il contest sarebbe da selezionare tra tutti quelli chiusi -> contestController.getContestChiusi()
+        //System.out.println(contestController.getContest(idContest));
+        return contestController.getContest(idContest);
+    }
 }

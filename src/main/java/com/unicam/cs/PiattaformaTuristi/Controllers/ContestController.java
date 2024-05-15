@@ -6,7 +6,6 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -28,8 +27,8 @@ public class ContestController {
     }
 
 
-    public Contest getContest(Contest contest){
-        return comune.getContestAperti().stream().filter(c -> c.equals(contest)).findAny().orElse(null);
+    public Contest getContest(int idContest){
+        return comune.getContestChiusi().stream().filter(c -> c.getIdContest()==idContest).findFirst().orElse(null);
     }
 
     public List<Contest> getContestUtente(UtenteAutenticato utente){
@@ -37,7 +36,7 @@ public class ContestController {
     }
 
     public List<ContenutoContest> getContenutiContest(Contest contest){
-        Contest contenuti = comune.getContestAperti().stream().filter(c -> c.equals(contest)).findAny().orElse(null);
+        Contest contenuti = comune.getContestAperti().stream().filter(c -> c.equals(contest)).findFirst().orElse(null);
         if(contenuti==null)
             throw new RuntimeException("Contest senza partecipanti");
         return contenuti.getContenutiCaricati();
@@ -50,6 +49,10 @@ public class ContestController {
 
     public List<Contest> getContestPrivati(UtenteAutenticato utente){
         return comune.getContestAperti().stream().filter(c -> c.getPrivato() && c.getCreatoreContest().equals(utente)).toList();
+    }
+
+    public List<Contest> getContestChiusi(){
+        return comune.getContestChiusi();
     }
 
     public void invitaUtenti(Contest contest, List<UtenteAutenticato> utentiDaInvitare){
@@ -77,7 +80,7 @@ public class ContestController {
 
     //Metodo di utilità per far selezionare all'utente il contest
     //Per semplificare l'utilizzo non è stato usato nella vista
-    private List<UtenteAutenticato> getUtentiInvitabili(Contest contest){
+    public List<UtenteAutenticato> getUtentiInvitabili(Contest contest){
         List<UtenteAutenticato> utentiInvitati = contest.getInvitati();
         List<UtenteAutenticato> contributori = utentiController.getTuttiContributori();
         contributori.removeAll(utentiInvitati);

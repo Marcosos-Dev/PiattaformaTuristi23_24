@@ -32,6 +32,6 @@ public class PercorsoEvento extends ItinerarioGenerico{
                 "; Descrizione Itinerario: " + this.getDescrizione() +
                 "; Data Inizio Itinerario: " + this.getPeriodo().getDataInizio() +
                 "; Data Fine Itinerario: " + this.getPeriodo().getDataFine() +
-                "; POI: ";
+                "; POI: "+this.getPoi();
     }
 }

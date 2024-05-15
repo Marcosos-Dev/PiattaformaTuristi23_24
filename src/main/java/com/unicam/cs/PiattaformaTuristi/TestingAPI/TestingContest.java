@@ -40,6 +40,8 @@ public class TestingContest {
         selezionaVincitoreContestPubblico();
         System.out.println("\nSeleziona vincitore contest privato");
         selezionaVincitoreContestPrivato();
+        System.out.println("\nVisualizza contest");
+        testVisualizzaContest();
     }
 
     private void setup(){
@@ -47,6 +49,13 @@ public class TestingContest {
         gestore = new GestoreUtenti();
         contributor1 = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE);
         contributor2 = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
+    }
+
+    public void testVisualizzaContest(){
+        UtenteAutenticato contributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
+        InterfacciaContributore i = new InterfacciaContributore(c,contributor,gestore);
+        System.out.println(i.visualizzaContest(1));
+        System.out.println(i.visualizzaContest(2));
     }
 
     public void creaContest(String tipo){

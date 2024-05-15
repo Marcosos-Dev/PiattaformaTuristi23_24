@@ -7,7 +7,6 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Comune {
     private String nome;
@@ -42,7 +41,7 @@ public class Comune {
 
     public void inserisciPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.add(poi); }
 
-    public void removePoiDaValidare(PoiGenerico poi){ this.poiDaValidare.remove(poi); }
+    public void rimuoviPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.remove(poi); }
 
     public void inserisciPoiValidato(PoiGenerico poi){
         this.poiValidati.add(poi);
@@ -50,7 +49,7 @@ public class Comune {
 
     public void inserisciItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.add(itinerario); }
 
-    public void removeItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.remove(itinerario); }
+    public void rimuoviItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.remove(itinerario); }
 
     public void inserisciItinerarioValidato(ItinerarioGenerico itinerario){
         this.itinerariValidati.add(itinerario);

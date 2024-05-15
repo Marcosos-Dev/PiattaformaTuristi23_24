@@ -16,11 +16,11 @@ public class TestingGestionRuoli {
         c = new Comune();
         gestore = new GestoreUtenti();
 
-        System.out.println("todo");
+        System.out.println("Richiesta cambio ruolo");
         testCambioRuolo();
-        System.out.println("todo");
+        System.out.println("Accettazione/rifiuto richiesta cambio ruolo");
         testAccettaCambioRuolo();
-        System.out.println("todo");
+        System.out.println("Gestione ruoli utenti");
         testGestisciRuoli();
     }
 

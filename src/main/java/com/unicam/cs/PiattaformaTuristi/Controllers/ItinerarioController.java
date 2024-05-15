@@ -50,12 +50,12 @@ public class ItinerarioController {
 
     public void validaItinerario(ItinerarioGenerico itinerario, boolean esito){
         if(esito) this.comune.inserisciItinerarioValidato(itinerario);
-        this.comune.removeItinerarioDaValidare(itinerario);
+        this.comune.rimuoviItinerarioDaValidare(itinerario);
     }
 
     public ItinerarioGenerico getItinerario(int idItinerario){ return this.comune.getItinerariValidati().stream().filter(p -> p.getIdItinerario() == idItinerario).findFirst().orElse(null); }
 
-    public List<ItinerarioGenerico> getItinerarioValidato(){
+    public List<ItinerarioGenerico> getItinerariValidati(){
         return this.comune.getItinerariValidati();
     }
 

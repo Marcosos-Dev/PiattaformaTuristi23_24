@@ -7,6 +7,7 @@ import com.unicam.cs.PiattaformaTuristi.Views.InterfacciaCuratore;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TestingItinerari {
@@ -21,8 +22,10 @@ public class TestingItinerari {
         testInserimentoItinerariNonValidati();
         System.out.println("\nTest con itinerari validati");
         testInserimentoItinerariValidati();
-        System.out.println("\nTest di validazione dei poi");
+        System.out.println("\nTest di validazione degli itinerari");
         testValidaItinerari();
+        System.out.println("\nTest di visualizzazione degli itinerari");
+        testVisualizzaItinerario();
     }
 
     private void setup(){
@@ -43,11 +46,23 @@ public class TestingItinerari {
         ));
     }
 
+    public void testVisualizzaItinerario(){
+        UtenteAutenticato contributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
+        InterfacciaContributore i = new InterfacciaContributore(c,contributor,gestore);
+        System.out.println(i.visualizzaItinerario(1));
+        System.out.println(i.visualizzaItinerario(5));
+        System.out.println( i.visualizzaItinerario(6));
+        System.out.println( i.visualizzaItinerario(7));
+    }
+
     public void testInserimentoItinerariNonValidati() {
         UtenteAutenticato contributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE);
         InterfacciaContributore i = new InterfacciaContributore(c,contributor,gestore);
-        List<PoiGenerico> pois = i.getPoiValidati();
-
+        //List<PoiGenerico> pois = i.getPoiValidati();
+        List<PoiGenerico> pois = new ArrayList<>();
+        pois.add(i.visualizzaPoi(1));
+        pois.add(i.visualizzaPoi(2));
+        pois.add(i.visualizzaPoi(3));
         Itinerario itinerario1 = new Itinerario("Primo","primo it");
         ItinerarioEvento itinerario2 = new ItinerarioEvento("Secondo","secondo it");
         Percorso itinerario3 = new Percorso("Terzo","terzo it");
@@ -77,8 +92,11 @@ public class TestingItinerari {
     public void testInserimentoItinerariValidati() {
         UtenteAutenticato contributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
         InterfacciaContributore i = new InterfacciaContributore(c,contributor,gestore);
-        List<PoiGenerico> pois = i.getPoiValidati();
-
+        //List<PoiGenerico> pois = i.getPoiValidati();
+        List<PoiGenerico> pois = new ArrayList<>();
+        pois.add(i.visualizzaPoi(1));
+        pois.add(i.visualizzaPoi(2));
+        pois.add(i.visualizzaPoi(3));
         Itinerario itinerario1 = new Itinerario("Quinto","quinto it");
         ItinerarioEvento itinerario2 = new ItinerarioEvento("Sesto","sesto it");
         Percorso itinerario3 = new Percorso("Settimo","settimo it");
