@@ -12,33 +12,19 @@ public class Contenuto {
         this.descrizione = descrizione;
     }
 
-    public Contenuto(){
+    public Contenuto(){ }
 
-    }
+    public void setIdContenuto(int idContenuto) { this.idContenuto = idContenuto; }
 
-    public void setIdContenuto(int idContenuto) {
-        this.idContenuto = idContenuto;
-    }
+    public void setFile(File file) { this.file = file; }
 
-    public void setFile(File file) {
-        this.file = file;
-    }
+    public void setDescrizione(String descrizione) { this.descrizione = descrizione; }
 
-    public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
-    }
+    public int getIdContenuto() { return idContenuto; }
 
-    public int getIdContenuto() {
-        return idContenuto;
-    }
+    public File getFile() { return file; }
 
-    public File getFile() {
-        return file;
-    }
-
-    public String getDescrizione() {
-        return descrizione;
-    }
+    public String getDescrizione() { return descrizione; }
 
     @Override
     public boolean equals(Object o) {

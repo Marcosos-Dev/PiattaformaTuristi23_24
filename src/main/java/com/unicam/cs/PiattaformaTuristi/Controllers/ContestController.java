@@ -56,12 +56,12 @@ public class ContestController {
     }
 
     public void invitaUtenti(Contest contest, List<UtenteAutenticato> utentiDaInvitare){
-        contest.addTuttiInvitati(utentiDaInvitare);
+        contest.inserisciTuttiInvitati(utentiDaInvitare);
     }
 
     public void partecipaContest(Contest contest, Contenuto contenuto, UtenteAutenticato utente){
         int idContenutoContest = contest.getContenutiCaricati().isEmpty() ? 1 : contest.getContenutiCaricati().getLast().getIdContenutoContest()+1;
-        contest.addContenuto(new ContenutoContest(idContenutoContest,contenuto,utente));
+        contest.inserisciContenuto(new ContenutoContest(idContenutoContest,contenuto,utente));
     }
 
     //Metodo per far selezionare all'utente il contest

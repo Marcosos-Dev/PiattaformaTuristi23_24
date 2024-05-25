@@ -38,4 +38,13 @@ public class GestoreUtenti {
         return this.getRichiesteCambioRuolo().isEmpty() ?
                 1 : this.getRichiesteCambioRuolo().getLast().getIdRichiesta()+1;
     }
+
+    public UtenteAutenticato getUtenteTramiteUsername(String username){
+        return getUtenti().stream().filter(u -> u.getUsername().equals(username)).findFirst().orElse(null);
+    }
+
+    public int getUltimoIdUtente(){
+        return this.getUtenti().isEmpty() ?
+                1 : this.getUtenti().getLast().getIdUtente()+1;
+    }
 }

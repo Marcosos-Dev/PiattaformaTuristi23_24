@@ -6,6 +6,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiEvento;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.PoiFactory;
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
+import com.unicam.cs.PiattaformaTuristi.Model.Segnalazione;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class PoiController {
         poiDaInserire.setIdPoi(comune.getUltimoIdPoi());
         if(con != null){
             validaEstensioneFile(con);
-            poiDaInserire.addContenutiValidati(con);
+            poiDaInserire.inserisciContenutoValidato(con);
         }
         if(poiDaInserire instanceof PoiEvento poiE)
             poiE.setPeriodo(periodo);
@@ -51,7 +52,7 @@ public class PoiController {
         poiDaInserire.setIdPoi(comune.getUltimoIdPoi());
         if(con != null){
             validaEstensioneFile(con);
-            poiDaInserire.addContenutiValidati(con);
+            poiDaInserire.inserisciContenutoValidato(con);
         }
         if(poiDaInserire instanceof PoiEvento poiE)
             poiE.setPeriodo(periodo);
@@ -60,18 +61,18 @@ public class PoiController {
 
     public void caricaContenutoDaValidare(Contenuto contenuto, int idPoi){
         validaEstensioneFile(contenuto);
-        if(this.getPoi(idPoi)==null)
+        if(this.selezionaPoi(idPoi)==null)
             throw new IllegalArgumentException("Nessun poi trovato");
         contenuto.setIdContenuto(comune.getLastIdContenuto());
-        this.getPoi(idPoi).addContenutiDaValidare(contenuto);
+        this.selezionaPoi(idPoi).inserisciContenutoDaValidare(contenuto);
     }
 
     public void caricaContenutoValidato(Contenuto contenuto, int idPoi){
         validaEstensioneFile(contenuto);
-        if(this.getPoi(idPoi)==null)
+        if(this.selezionaPoi(idPoi)==null)
             throw new IllegalArgumentException("Nessun poi trovato");
         contenuto.setIdContenuto(comune.getLastIdContenuto());
-        this.getPoi(idPoi).addContenutiValidati(contenuto);
+        this.selezionaPoi(idPoi).inserisciContenutoValidato(contenuto);
     }
 
     private void validaEstensioneFile(Contenuto c){
@@ -93,11 +94,17 @@ public class PoiController {
     public Contenuto getContenuto(PoiGenerico poi, int idContenuto){ return getContenutiDaValidarePoi(poi).stream().filter(c -> c.getIdContenuto() == idContenuto).findFirst().orElse(null); }
 
     public void validaContenuto(PoiGenerico poi, Contenuto c, boolean esito){
-        if(esito) poi.addContenutiValidati(c);
-        poi.removeContenutoDaValidare(c);
+        if(esito) poi.inserisciContenutoValidato(c);
+        poi.rimuoviContenutoDaValidare(c);
     }
 
-    public PoiGenerico getPoi(int idPoi){ return this.comune.getPoiValidati().stream().filter(p -> p.getIdPoi() == idPoi).findFirst().orElse(null); }
+    public void creaSegnalazione(String descrizione, PoiGenerico poi){
+        Segnalazione segnalazione = new Segnalazione(descrizione);
+        segnalazione.setIdSegnalazione(0); //TODO definire con il comune
+        this.comune.inserisciSegnalazionePoi(segnalazione,poi);
+    }
+
+    public PoiGenerico selezionaPoi(int idPoi){ return this.comune.getPoi(idPoi); }
 
     public List<PoiGenerico> getPoiValidati(){ return this.comune.getPoiValidati(); }
 

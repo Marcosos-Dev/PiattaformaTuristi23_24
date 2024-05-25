@@ -28,7 +28,7 @@ public class Contest {
         this.privato = privato;
     }
 
-    public void addTuttiInvitati(List<UtenteAutenticato> invitati) { this.invitati.addAll(invitati); }
+    public void inserisciTuttiInvitati(List<UtenteAutenticato> invitati) { this.invitati.addAll(invitati); }
 
     public void setCreatoreContest(UtenteAutenticato creatoreContest) { this.creatoreContest = creatoreContest; }
 
@@ -42,9 +42,9 @@ public class Contest {
 
     public void setContenutoVincitore(ContenutoContest contenutoVincitore) { this.contenutoVincitore = contenutoVincitore; }
 
-    public void addInvitato(UtenteAutenticato utente) { this.invitati.add(utente); }
+    public void inserisciInvitato(UtenteAutenticato utente) { this.invitati.add(utente); }
 
-    public void addContenuto(ContenutoContest contenuto) { this.contenutiCaricati.add(contenuto); }
+    public void inserisciContenuto(ContenutoContest contenuto) { this.contenutiCaricati.add(contenuto); }
 
     public UtenteAutenticato getCreatoreContest() { return creatoreContest; }
 

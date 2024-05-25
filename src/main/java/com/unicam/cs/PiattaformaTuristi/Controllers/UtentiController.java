@@ -6,6 +6,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Richiesta;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class UtentiController {
     private GestoreUtenti gestoreUtenti;
@@ -16,6 +17,19 @@ public class UtentiController {
 
     public UtentiController(GestoreUtenti gestoreUtenti){
         this.gestoreUtenti = gestoreUtenti;
+    }
+
+    public void registraUtente(String username, String password){
+        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!()_-])(?=\\S+$).{8,}$");
+        if(username == null || username.isEmpty())
+            throw new IllegalArgumentException("Username non valido (vuoto)");
+        if(this.gestoreUtenti.getUtenteTramiteUsername(username)!=null)
+            throw new IllegalArgumentException("Username non valido, esiste già un utente con lo stesso username");
+        if(password == null || password.isEmpty() || !pattern.matcher(password).matches())
+            throw new IllegalArgumentException("Password non valida");
+        UtenteAutenticato utente = new UtenteAutenticato(username,password);
+        utente.setIdUtente(this.gestoreUtenti.getUltimoIdUtente());
+        this.gestoreUtenti.aggiungiUtente(utente);
     }
 
     public List<RuoloUtente> getPossibiliRuoli(RuoloUtente ruolo){

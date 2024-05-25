@@ -6,22 +6,20 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Comune {
     private String nome;
-
     private List<PoiGenerico> poiValidati;
-
     private List<PoiGenerico> poiDaValidare;
-
     private List<ItinerarioGenerico> itinerariValidati;
-
     private List<ItinerarioGenerico> itinerariDaValidare;
-
     private List<Contest> contestAperti;
-
     private List<Contest> contestChiusi;
+    private HashMap<Segnalazione,PoiGenerico> segnalazioniPoi;
+    private HashMap<Segnalazione,ItinerarioGenerico> segnalazioniItinerari;
+
 
     public Comune(){
         this.poiValidati = new ArrayList<>();
@@ -30,12 +28,18 @@ public class Comune {
         this.itinerariDaValidare = new ArrayList<>();
         this.contestAperti = new ArrayList<>();
         this.contestChiusi = new ArrayList<>();
+        this.segnalazioniPoi = new HashMap<>();
+        this.segnalazioniItinerari = new HashMap<>();
     }
 
     public void chiudiContest(Contest c){
         this.contestChiusi.add(c);
         this.contestAperti.remove(c);
     }
+
+    public void inserisciSegnalazionePoi(Segnalazione segnalazione, PoiGenerico poi) { this.segnalazioniPoi.put(segnalazione,poi); }
+
+    public void inserisciSegnalazioneItinerari(Segnalazione segnalazione, ItinerarioGenerico itinerario) { this.segnalazioniItinerari.put(segnalazione,itinerario); }
 
     public void inserisciContestAperto(Contest contest){ this.contestAperti.add(contest); }
 
@@ -54,6 +58,8 @@ public class Comune {
     public void inserisciItinerarioValidato(ItinerarioGenerico itinerario){
         this.itinerariValidati.add(itinerario);
     }
+
+    public PoiGenerico getPoi(int idPoi){ return this.getPoiValidati().stream().filter(p -> p.getIdPoi() == idPoi).findFirst().orElse(null); }
 
     public List<PoiGenerico> getPoiValidati() {
         return poiValidati;
@@ -111,6 +117,10 @@ public class Comune {
                 1 : this.getContestAperti().getLast().getIdContest()+1;
     }
 
+    public int getUltimoIdSegnalazione(){
+        return 0;
+    }
+
     public boolean internoAlComune(Coordinate coord) {
         return true;
     }
@@ -123,6 +133,7 @@ public class Comune {
         return false;
     }
 
+    //Metodi usati nei test
     public void stampaPOIValidati(){
         for(PoiGenerico p : getPoiValidati()){
             System.out.println(p);

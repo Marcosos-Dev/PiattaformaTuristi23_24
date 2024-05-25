@@ -40,21 +40,17 @@ public abstract class PoiGenerico  {
         this.coord = coord;
     }
 
-    public void addContenutiValidati(Contenuto contenuto) {
+    public void inserisciContenutoValidato(Contenuto contenuto) {
         this.contenutiValidati.add(contenuto);
     }
 
-    public void addContenutiDaValidare(Contenuto contenuto) {
-        this.contenutiDaValidare.add(contenuto);
-    }
+    public void inserisciContenutoDaValidare(Contenuto contenuto) { this.contenutiDaValidare.add(contenuto); }
 
     public void removeContenutoValidato(Contenuto contenuto) {
         this.contenutiDaValidare.remove(contenuto);
     }
 
-    public void removeContenutoDaValidare(Contenuto contenuto) {
-        this.contenutiDaValidare.remove(contenuto);
-    }
+    public void rimuoviContenutoDaValidare(Contenuto contenuto) { this.contenutiDaValidare.remove(contenuto); }
 
     public int getIdPoi() { return idPoi; }
 

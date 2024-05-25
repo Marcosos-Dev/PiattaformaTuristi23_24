@@ -3,13 +3,10 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
-import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
-import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
 
 public class InterfacciaTurista {
 
@@ -28,7 +25,7 @@ public class InterfacciaTurista {
     public PoiGenerico visualizzaPoi(int idPoi){
         //il poi sarebbe da selezionare tra tutti i validati -> poiController.getPoiValidati()
         //System.out.println(poiController.getPoi(idPoi));
-        return poiController.getPoi(idPoi);
+        return poiController.selezionaPoi(idPoi);
     }
 
     public ItinerarioGenerico visualizzaItinerario(int idItinerario){
@@ -42,4 +39,8 @@ public class InterfacciaTurista {
         //System.out.println(contestController.getContest(idContest));
         return contestController.getContest(idContest);
     }
+
+    public void segnalaPoi(String descrizione, PoiGenerico poi){ this.poiController.creaSegnalazione(descrizione,poi); }
+
+    public void segnalaItinerario(String descrizione, ItinerarioGenerico itinerario){ this.itinerarioController.creaSegnalazione(descrizione,itinerario); }
 }

@@ -37,7 +37,7 @@ public class InterfacciaTuristaAutenticato {
     public PoiGenerico visualizzaPoi(int idPoi){
         //il poi sarebbe da selezionare tra tutti i validati -> poiController.getPoiValidati()
         //System.out.println(poiController.getPoi(idPoi));
-        return poiController.getPoi(idPoi);
+        return poiController.selezionaPoi(idPoi);
     }
 
     public ItinerarioGenerico visualizzaItinerario(int idItinerario){

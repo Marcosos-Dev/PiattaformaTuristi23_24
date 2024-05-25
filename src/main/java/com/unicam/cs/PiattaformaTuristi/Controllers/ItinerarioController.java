@@ -4,6 +4,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.ItinerarioFactory;
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
+import com.unicam.cs.PiattaformaTuristi.Model.Segnalazione;
 
 import java.util.List;
 
@@ -51,6 +52,12 @@ public class ItinerarioController {
     public void validaItinerario(ItinerarioGenerico itinerario, boolean esito){
         if(esito) this.comune.inserisciItinerarioValidato(itinerario);
         this.comune.rimuoviItinerarioDaValidare(itinerario);
+    }
+
+    public void creaSegnalazione(String descrizione, ItinerarioGenerico itinerario){
+        Segnalazione segnalazione = new Segnalazione(descrizione);
+        segnalazione.setIdSegnalazione(0); //TODO definire con il comune
+        this.comune.inserisciSegnalazioneItinerari(segnalazione,itinerario);
     }
 
     public ItinerarioGenerico getItinerario(int idItinerario){ return this.comune.getItinerariValidati().stream().filter(p -> p.getIdItinerario() == idItinerario).findFirst().orElse(null); }
