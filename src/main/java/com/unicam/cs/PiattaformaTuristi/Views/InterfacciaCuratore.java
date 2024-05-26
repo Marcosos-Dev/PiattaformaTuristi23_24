@@ -6,6 +6,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
+import com.unicam.cs.PiattaformaTuristi.Model.Segnalazione;
 
 public class InterfacciaCuratore {
     private Comune comune;
@@ -40,6 +41,22 @@ public class InterfacciaCuratore {
                 //richiedi esito
                 Contenuto contenuto = poiController.getContenuto(poi,idContenuto);
                 poiController.validaContenuto(poi,contenuto,esito);
+                break;
+            }
+            default :
+                throw new IllegalArgumentException("Tipo non valido");
+        }
+    }
+
+    public void gestisciSegnalazione(String elemento, Segnalazione segnalazione, boolean esito){
+        switch(elemento){
+            case "Poi":{
+                poiController.gestisciSegnalazione(esito,segnalazione);
+                break;
+            }
+
+            case "Itinerario":{
+                itinerarioController.gestisciSegnalazione(esito,segnalazione);
                 break;
             }
             default :

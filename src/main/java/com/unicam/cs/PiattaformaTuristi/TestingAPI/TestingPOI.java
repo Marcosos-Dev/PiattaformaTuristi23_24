@@ -20,7 +20,8 @@ public class TestingPOI {
     private GestoreUtenti gestore;
 
     public TestingPOI() throws URISyntaxException {
-        c = new Comune();
+        c = new Comune("Ancona");
+
         gestore = new GestoreUtenti();
 
         System.out.println("Test con poi da validare");
@@ -53,9 +54,9 @@ public class TestingPOI {
         UtenteAutenticato contributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE);
         InterfacciaContributore i = new InterfacciaContributore(c,contributor,gestore);
 
-        Poi primo = new Poi("primo","",new Coordinate(10,10));
-        Poi secondo = new Poi("secondo","",new Coordinate(10,10));
-        PoiEvento terzo = new PoiEvento("terzo","",new Coordinate(10,10));
+        Poi primo = new Poi("primo","",new Coordinate(13.21,43.48));
+        Poi secondo = new Poi("secondo","",new Coordinate(13.21,43.48));
+        PoiEvento terzo = new PoiEvento("terzo","",new Coordinate(13.21,43.48));
 
         File file = Paths.get(Objects.requireNonNull(getClass().getResource("/correct.pdf")).toURI()).toFile();
         i.aggiungiPoi(primo,new Contenuto(file,"test"),null);
@@ -77,9 +78,9 @@ public class TestingPOI {
         UtenteAutenticato contributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
         InterfacciaContributore i = new InterfacciaContributore(c,contributor,gestore);
 
-        Poi quarto = new Poi("quarto","",new Coordinate(10,10));
-        Poi quinto = new Poi("quinto","",new Coordinate(10,10));
-        PoiEvento sesto = new PoiEvento("sesto","",new Coordinate(10,10));
+        Poi quarto = new Poi("quarto","",new Coordinate(13.21,43.48));
+        Poi quinto = new Poi("quinto","",new Coordinate(13.21,43.48));
+        PoiEvento sesto = new PoiEvento("sesto","",new Coordinate(13.21,43.48));
 
         File file = Paths.get(Objects.requireNonNull(getClass().getResource("/correct.pdf")).toURI()).toFile();
         i.aggiungiPoi(quarto,new Contenuto(file,"test"),null);

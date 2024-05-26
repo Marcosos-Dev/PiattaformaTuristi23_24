@@ -29,13 +29,13 @@ public class TestingItinerari {
     }
 
     private void setup(){
-        c = new Comune();
+        c = new Comune("Ancona");
         gestore = new GestoreUtenti();
         UtenteAutenticato tempContributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
         InterfacciaContributore i = new InterfacciaContributore(c,tempContributor,gestore);
-        Poi primo = new Poi("primo","",new Coordinate(10,10));
-        Poi secondo = new Poi("secondo","",new Coordinate(10,10));
-        PoiEvento terzo = new PoiEvento("terzo","",new Coordinate(10,10));
+        Poi primo = new Poi("primo","",new Coordinate(13.21,43.48));
+        Poi secondo = new Poi("secondo","",new Coordinate(13.21,43.48));
+        PoiEvento terzo = new PoiEvento("terzo","",new Coordinate(13.21,43.48));
         i.aggiungiPoi(primo,null,null);
         i.aggiungiPoi(secondo,null,null);
         i.aggiungiPoi(terzo,null,new Periodo(

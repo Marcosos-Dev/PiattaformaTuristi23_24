@@ -31,13 +31,13 @@ public class InterfacciaTurista {
     public ItinerarioGenerico visualizzaItinerario(int idItinerario){
         //l'itinerario sarebbe da selezionare tra tutti i validati -> itinerarioController.getItinerariValidati()
         //System.out.println(itinerarioController.getItinerario(idItinerario));
-        return itinerarioController.getItinerario(idItinerario);
+        return itinerarioController.selezionaItinerario(idItinerario);
     }
 
     public Contest visualizzaContest(int idContest){
         //il contest sarebbe da selezionare tra tutti quelli chiusi -> contestController.getContestChiusi()
         //System.out.println(contestController.getContest(idContest));
-        return contestController.getContest(idContest);
+        return contestController.selezionaContest(idContest);
     }
 
     public void segnalaPoi(String descrizione, PoiGenerico poi){ this.poiController.creaSegnalazione(descrizione,poi); }

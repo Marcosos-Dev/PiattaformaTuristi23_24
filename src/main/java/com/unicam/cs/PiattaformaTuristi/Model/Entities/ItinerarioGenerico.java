@@ -63,4 +63,9 @@ public abstract class ItinerarioGenerico {
         ItinerarioGenerico itinerario = (ItinerarioGenerico) o;
         return itinerario.getIdItinerario() == this.getIdItinerario();
     }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(idItinerario);
+    }
 }

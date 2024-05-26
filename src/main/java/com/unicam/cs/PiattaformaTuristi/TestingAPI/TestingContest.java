@@ -45,7 +45,7 @@ public class TestingContest {
     }
 
     private void setup(){
-        c = new Comune();
+        c = new Comune("Ancona");
         gestore = new GestoreUtenti();
         contributor1 = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE);
         contributor2 = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);

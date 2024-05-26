@@ -1,13 +1,12 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class Comune {
     private String nome;
@@ -21,7 +20,8 @@ public class Comune {
     private HashMap<Segnalazione,ItinerarioGenerico> segnalazioniItinerari;
 
 
-    public Comune(){
+    public Comune(String nome){
+        this.nome = nome;
         this.poiValidati = new ArrayList<>();
         this.poiDaValidare = new ArrayList<>();
         this.itinerariValidati = new ArrayList<>();
@@ -45,21 +45,53 @@ public class Comune {
 
     public void inserisciPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.add(poi); }
 
-    public void rimuoviPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.remove(poi); }
-
     public void inserisciPoiValidato(PoiGenerico poi){
         this.poiValidati.add(poi);
     }
 
     public void inserisciItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.add(itinerario); }
 
-    public void rimuoviItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.remove(itinerario); }
-
     public void inserisciItinerarioValidato(ItinerarioGenerico itinerario){
         this.itinerariValidati.add(itinerario);
     }
 
-    public PoiGenerico getPoi(int idPoi){ return this.getPoiValidati().stream().filter(p -> p.getIdPoi() == idPoi).findFirst().orElse(null); }
+    public void rimuoviPoiDaValidare(PoiGenerico poi){ this.poiDaValidare.remove(poi); }
+
+    public void rimuoviItinerarioDaValidare(ItinerarioGenerico itinerario){ this.itinerariDaValidare.remove(itinerario); }
+
+    public void rimuoviItinerario(int idItinerario){ this.itinerariValidati.remove(this.getItinerario(idItinerario)); }
+
+    public void rimuoviSegnalazione(Segnalazione segnalazione) { this.segnalazioniPoi.remove(segnalazione); }
+
+    public void rimuoviPoi(int idPoi){
+        PoiGenerico poi = this.getPoi(idPoi);
+        this.poiValidati.remove(poi);
+        Iterator<ItinerarioGenerico> iterator = itinerariValidati.iterator();
+        while (iterator.hasNext()) {
+            ItinerarioGenerico itinerario = iterator.next();
+            List<PoiGenerico> poiFiltrati = itinerario.getPoi().stream()
+                    .filter(p -> p.getIdPoi() != idPoi)
+                    .toList();
+            itinerario.setPoi(poiFiltrati);
+            if (itinerario.getPoi().size() < 2) { iterator.remove(); }
+        }
+    }
+
+    public void rimuoviSegnalazioniPoi(int idPoi) { this.segnalazioniPoi.entrySet().removeIf(entry -> entry.getValue().getIdPoi() == idPoi); }
+
+    public void rimuoviSegnalazioniItinerario(int idItinerario) { this.segnalazioniItinerari.entrySet().removeIf(entry -> entry.getValue().getIdItinerario() == idItinerario); }
+
+    public PoiGenerico getPoi(int idPoi) { return this.getPoiValidati().stream().filter(p -> p.getIdPoi() == idPoi).findFirst().orElse(null); }
+
+    public ItinerarioGenerico getItinerario(int idItinerario) { return this.getItinerariValidati().stream().filter(i -> i.getIdItinerario() == idItinerario).findFirst().orElse(null); }
+
+    public Contest getContest(int idContest) { return this.getContestChiusi().stream().filter(c -> c.getIdContest()==idContest).findFirst().orElse(null); }
+
+    public Segnalazione getSegnalazionePoi(int idSegnalazione) { return this.getSegnalazioniPoi().stream().filter(s -> s.getIdSegnalazione() == idSegnalazione).findFirst().orElse(null); }
+
+    public int getPoiSegnalato(Segnalazione segnalazione) { return this.segnalazioniPoi.get(segnalazione).getIdPoi(); }
+
+    public int getItinerarioSegnalato(Segnalazione segnalazione) { return this.segnalazioniItinerari.get(segnalazione).getIdItinerario(); }
 
     public List<PoiGenerico> getPoiValidati() {
         return poiValidati;
@@ -84,6 +116,10 @@ public class Comune {
     public List<Contenuto> getContenutiValidati() { return this.getPoiValidati().stream().filter(c -> !c.getContenutiValidati().isEmpty()).flatMap(p -> p.getContenutiValidati().stream()).toList(); }
 
     public List<Contenuto> getContenutiDaValidare() { return this.getPoiValidati().stream().filter(c -> !c.getContenutiDaValidare().isEmpty()).flatMap(p -> p.getContenutiDaValidare().stream()).toList(); }
+
+    public List<Segnalazione> getSegnalazioniPoi() { return this.segnalazioniPoi.keySet().stream().toList(); }
+
+    public List<Segnalazione> getSegnalazioniItinerari() { return this.segnalazioniItinerari.keySet().stream().toList(); }
 
     public int getLastIdContenuto(){
         return Math.max(
@@ -118,11 +154,31 @@ public class Comune {
     }
 
     public int getUltimoIdSegnalazione(){
-        return 0;
+        return Math.max(
+                this.getSegnalazioniPoi().isEmpty() ?
+                        1 : this.getSegnalazioniPoi().getLast().getIdSegnalazione()+1,
+                this.getSegnalazioniItinerari().isEmpty() ?
+                        1 : this.getSegnalazioniItinerari().getLast().getIdSegnalazione()+1
+        );
     }
 
     public boolean internoAlComune(Coordinate coord) {
-        return true;
+        String apiUrl = String.format(Locale.US, "https://nominatim.openstreetmap.org/reverse?format=json&lat=%.6f&lon=%.6f&zoom=10&addressdetails=1",
+                coord.getLatitudine(), coord.getLongitudine());
+
+        try {
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                String jsonResponse = new String(connection.getInputStream().readAllBytes());
+                return jsonResponse.contains("\""+this.nome+"\"");
+            }
+        } catch (IOException ignored) { }
+
+        return false;
     }
 
     public boolean poiDuplicato(PoiGenerico poi) {
@@ -137,36 +193,24 @@ public class Comune {
     public void stampaPOIValidati(){
         for(PoiGenerico p : getPoiValidati()){
             System.out.println(p);
-            for(Contenuto cont : p.getContenutiDaValidare())
-                System.out.println(cont);
-            for(Contenuto cont : p.getContenutiValidati())
-                System.out.println(cont);
         }
     }
 
     public void stampaPOIDaValidare(){
         for(PoiGenerico p : getPoiDaValidare()){
             System.out.println(p);
-            for(Contenuto cont : p.getContenutiDaValidare())
-                System.out.println(cont);
-            for(Contenuto cont : p.getContenutiValidati())
-                System.out.println(cont);
         }
     }
 
     public void stampaItinerariValidati(){
         for(ItinerarioGenerico i : getItinerariValidati()){
             System.out.println(i);
-            for(PoiGenerico p : i.getPoi())
-                System.out.println(p);
         }
     }
 
     public void stampaItinerariDaValidare(){
         for(ItinerarioGenerico i : getItinerariDaValidare()){
             System.out.println(i);
-            for(PoiGenerico p : i.getPoi())
-                System.out.println(p);
         }
     }
 

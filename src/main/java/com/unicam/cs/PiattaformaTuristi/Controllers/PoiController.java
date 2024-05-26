@@ -100,11 +100,22 @@ public class PoiController {
 
     public void creaSegnalazione(String descrizione, PoiGenerico poi){
         Segnalazione segnalazione = new Segnalazione(descrizione);
-        segnalazione.setIdSegnalazione(0); //TODO definire con il comune
+        segnalazione.setIdSegnalazione(this.comune.getUltimoIdSegnalazione());
         this.comune.inserisciSegnalazionePoi(segnalazione,poi);
     }
 
     public PoiGenerico selezionaPoi(int idPoi){ return this.comune.getPoi(idPoi); }
+
+    public Segnalazione selezionaSegnalazionePoi(int idSegnalazione){ return this.comune.getSegnalazionePoi(idSegnalazione); }
+
+    public void gestisciSegnalazione(boolean esito, Segnalazione segnalazione){
+        int idPoi = this.comune.getPoiSegnalato(segnalazione);
+        if(esito) {
+            this.comune.rimuoviPoi(idPoi);
+            this.comune.rimuoviSegnalazioniPoi(idPoi);
+        } else { this.comune.rimuoviSegnalazione(segnalazione); }
+
+    }
 
     public List<PoiGenerico> getPoiValidati(){ return this.comune.getPoiValidati(); }
 

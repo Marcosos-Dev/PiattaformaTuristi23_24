@@ -82,4 +82,9 @@ public abstract class PoiGenerico  {
         return poi.getIdPoi() == this.getIdPoi();
     }
 
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(idPoi);
+    }
+
 }

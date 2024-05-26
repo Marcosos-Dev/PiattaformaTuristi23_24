@@ -13,7 +13,7 @@ public class TestingGestionRuoli {
     private GestoreUtenti gestore;
 
     public TestingGestionRuoli() {
-        c = new Comune();
+        c = new Comune("Ancona");
         gestore = new GestoreUtenti();
 
         System.out.println("Richiesta cambio ruolo");

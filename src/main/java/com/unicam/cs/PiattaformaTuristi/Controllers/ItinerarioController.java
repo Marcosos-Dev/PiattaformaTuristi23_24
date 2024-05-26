@@ -56,11 +56,19 @@ public class ItinerarioController {
 
     public void creaSegnalazione(String descrizione, ItinerarioGenerico itinerario){
         Segnalazione segnalazione = new Segnalazione(descrizione);
-        segnalazione.setIdSegnalazione(0); //TODO definire con il comune
+        segnalazione.setIdSegnalazione(this.comune.getUltimoIdSegnalazione());
         this.comune.inserisciSegnalazioneItinerari(segnalazione,itinerario);
     }
 
-    public ItinerarioGenerico getItinerario(int idItinerario){ return this.comune.getItinerariValidati().stream().filter(p -> p.getIdItinerario() == idItinerario).findFirst().orElse(null); }
+    public void gestisciSegnalazione(boolean esito, Segnalazione segnalazione){
+        int idItinerario = this.comune.getItinerarioSegnalato(segnalazione);
+        if(esito) {
+            this.comune.rimuoviItinerario(idItinerario);
+            this.comune.rimuoviSegnalazioniItinerario(idItinerario); //Rimuove tutte le segnalazioni che hanno in oggetto l'itinerario
+        } else  { this.comune.rimuoviSegnalazione(segnalazione); }
+    }
+
+    public ItinerarioGenerico selezionaItinerario(int idItinerario){ return this.comune.getItinerario(idItinerario); }
 
     public List<ItinerarioGenerico> getItinerariValidati(){
         return this.comune.getItinerariValidati();
