@@ -15,8 +15,8 @@ public class TestingItinerari {
     private GestoreUtenti gestore;
 
 
-    public TestingItinerari() {
-        setup();
+    public TestingItinerari(Comune c) {
+        setup(c);
 
         System.out.println("Test con itinerari da validare");
         testInserimentoItinerariNonValidati();
@@ -28,8 +28,8 @@ public class TestingItinerari {
         testVisualizzaItinerario();
     }
 
-    private void setup(){
-        c = new Comune("Ancona");
+    private void setup(Comune c){
+        this.c = c;
         gestore = new GestoreUtenti();
         UtenteAutenticato tempContributor = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
         InterfacciaContributore i = new InterfacciaContributore(c,tempContributor,gestore);
@@ -126,7 +126,7 @@ public class TestingItinerari {
 
     public void testValidaItinerari() {
         UtenteAutenticato curatore = new UtenteAutenticato(RuoloUtente.CURATORE);
-        InterfacciaCuratore iC = new InterfacciaCuratore(c);
+        InterfacciaCuratore iC = new InterfacciaCuratore(c,gestore);
 
         iC.validaElemento("Itinerario",null,c.getItinerariDaValidare().get(0),0,true);
         System.out.println("-----------Lista itinerari da validare-----------");

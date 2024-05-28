@@ -28,6 +28,11 @@ public class InterfacciaAnimatore {
         this.contestController.creaContest(contest, this.utente);
     }
 
+    public void autenticazione(String username, String password){
+        if(!this.utentiController.autenticaUtente(username,password))
+            throw new IllegalArgumentException("Credenziali errate");
+    }
+
     public void selezionaVincitoreContest(Contest c, ContenutoContest vincitore){
         //Nell'implementazione originale andrebbero usati i metodi
         // -getContestUtente per ottenere i contest selezionabili dall'utente -> c

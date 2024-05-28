@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
-import java.util.Map.Entry;
 
 public class Comune {
     private String nome;
@@ -93,21 +92,13 @@ public class Comune {
 
     public int getItinerarioSegnalato(Segnalazione segnalazione) { return this.segnalazioniItinerari.get(segnalazione).getIdItinerario(); }
 
-    public List<PoiGenerico> getPoiValidati() {
-        return poiValidati;
-    }
+    public List<PoiGenerico> getPoiValidati() { return poiValidati; }
 
-    public List<PoiGenerico> getPoiDaValidare() {
-        return poiDaValidare;
-    }
+    public List<PoiGenerico> getPoiDaValidare() { return poiDaValidare; }
 
-    public List<ItinerarioGenerico> getItinerariValidati() {
-        return itinerariValidati;
-    }
+    public List<ItinerarioGenerico> getItinerariValidati() { return itinerariValidati; }
 
-    public List<ItinerarioGenerico> getItinerariDaValidare(){
-        return itinerariDaValidare;
-    }
+    public List<ItinerarioGenerico> getItinerariDaValidare(){ return itinerariDaValidare; }
 
     public List<Contest> getContestAperti() { return contestAperti; }
 

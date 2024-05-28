@@ -27,6 +27,11 @@ public class InterfacciaContributore {
         this.utente = utente;
     }
 
+    public void autenticazione(String username, String password){
+        if(!this.utentiController.autenticaUtente(username,password))
+            throw new IllegalArgumentException("Credenziali errate");
+    }
+
     public void aggiungiPoi(PoiGenerico poi, Contenuto con, Periodo periodo) {
         PoiFactory factory;
         switch (poi.getTipo()){

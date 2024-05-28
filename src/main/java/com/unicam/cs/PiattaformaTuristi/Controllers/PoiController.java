@@ -7,6 +7,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.PoiFactory;
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
 import com.unicam.cs.PiattaformaTuristi.Model.Segnalazione;
+import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
 
 import java.util.List;
 
@@ -114,10 +115,13 @@ public class PoiController {
             this.comune.rimuoviPoi(idPoi);
             this.comune.rimuoviSegnalazioniPoi(idPoi);
         } else { this.comune.rimuoviSegnalazione(segnalazione); }
-
     }
 
+    public void rimuoviPoi(int idPoi){ this.comune.rimuoviPoi(idPoi); }
+
     public List<PoiGenerico> getPoiValidati(){ return this.comune.getPoiValidati(); }
+
+    public List<PoiEvento> getPoiEventoValidati(){ return this.comune.getPoiValidati().stream().filter(p -> p.getTipo() == TipoPoi.EVENTO).map(p -> (PoiEvento) p).toList(); }
 
     public List<PoiGenerico> getPoiDaValidare(){ return this.comune.getPoiDaValidare(); }
 }

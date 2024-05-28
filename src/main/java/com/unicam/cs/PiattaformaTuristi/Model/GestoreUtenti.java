@@ -14,6 +14,8 @@ public class GestoreUtenti {
         this.richiesteCambioRuolo = new ArrayList<>();
     }
 
+    public boolean autenticaUtente(String username, String password){ return this.utenti.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(password)); }
+
     public void aggiungiUtente(UtenteAutenticato utente){ this.utenti.add(utente); }
 
     public void aggiungiRichiestaRuolo(Richiesta richiesta){ this.richiesteCambioRuolo.add(richiesta); }

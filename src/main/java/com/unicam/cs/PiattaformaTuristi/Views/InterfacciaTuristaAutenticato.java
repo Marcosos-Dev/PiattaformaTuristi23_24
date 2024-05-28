@@ -29,6 +29,11 @@ public class InterfacciaTuristaAutenticato {
         this.utente = utente;
     }
 
+    public void autenticazione(String username, String password){
+        if(!this.utentiController.autenticaUtente(username,password))
+            throw new IllegalArgumentException("Credenziali errate");
+    }
+
     public void richiestaCambioRuolo(RuoloUtente nuovoRuolo){
         //Ottieni possibili ruoli -> utentiController.getPossibiliRuoli(this.utente.getRuolo());
         this.utentiController.richiediRuolo(this.utente.getIdUtente(),nuovoRuolo);

@@ -15,6 +15,11 @@ public class InterfacciaGestore {
         this.utentiController = new UtentiController(gestore);
     }
 
+    public void autenticazione(String username, String password){
+        if(!this.utentiController.autenticaUtente(username,password))
+            throw new IllegalArgumentException("Credenziali errate");
+    }
+
     //Modifica il ruolo a piacimento
     public void gestisciRuolo(int idUtente, RuoloUtente nuovoRuolo){
         this.utentiController.gestisciRuolo(idUtente,nuovoRuolo);

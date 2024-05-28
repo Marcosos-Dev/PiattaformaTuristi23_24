@@ -21,8 +21,8 @@ public class TestingContest {
     private UtenteAutenticato contributor1;
     private UtenteAutenticato contributor2;
 
-    public TestingContest() throws URISyntaxException {
-        setup();
+    public TestingContest(Comune c) throws URISyntaxException {
+        setup(c);
 
         System.out.println("Creazione contest pubblico");
         creaContest("Pubblico");
@@ -44,8 +44,8 @@ public class TestingContest {
         testVisualizzaContest();
     }
 
-    private void setup(){
-        c = new Comune("Ancona");
+    private void setup(Comune c){
+        this.c = c;
         gestore = new GestoreUtenti();
         contributor1 = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE);
         contributor2 = new UtenteAutenticato(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);

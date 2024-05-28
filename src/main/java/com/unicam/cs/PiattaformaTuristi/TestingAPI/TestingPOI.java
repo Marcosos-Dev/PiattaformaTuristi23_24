@@ -19,8 +19,8 @@ public class TestingPOI {
     private Comune c;
     private GestoreUtenti gestore;
 
-    public TestingPOI() throws URISyntaxException {
-        c = new Comune("Ancona");
+    public TestingPOI(Comune c) throws URISyntaxException {
+        this.c = c;
 
         gestore = new GestoreUtenti();
 
@@ -130,7 +130,7 @@ public class TestingPOI {
 
     public void testValidaPoi(){
         UtenteAutenticato curatore = new UtenteAutenticato(RuoloUtente.CURATORE);
-        InterfacciaCuratore iC = new InterfacciaCuratore(c);
+        InterfacciaCuratore iC = new InterfacciaCuratore(c,gestore);
 
         iC.validaElemento("Poi",c.getPoiDaValidare().get(0),null,0,true);
         System.out.println("-----------Lista poi da validare-----------");
@@ -141,7 +141,7 @@ public class TestingPOI {
 
     public void testValidaContenuto(){
         UtenteAutenticato curatore = new UtenteAutenticato(RuoloUtente.CURATORE);
-        InterfacciaCuratore iC = new InterfacciaCuratore(c);
+        InterfacciaCuratore iC = new InterfacciaCuratore(c,gestore);
 
         iC.validaElemento("Contenuto",c.getPoiValidati().get(3),null,1,true);
         System.out.println("-----------Lista contenuti caricati validati-----------");

@@ -1,10 +1,8 @@
 package com.unicam.cs.PiattaformaTuristi.Controllers;
 
-import com.unicam.cs.PiattaformaTuristi.Model.Comune;
+import com.unicam.cs.PiattaformaTuristi.Model.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.ItinerarioFactory;
-import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
-import com.unicam.cs.PiattaformaTuristi.Model.Segnalazione;
 
 import java.util.List;
 
@@ -68,13 +66,15 @@ public class ItinerarioController {
         } else  { this.comune.rimuoviSegnalazione(segnalazione); }
     }
 
+    public void rimuoviItinerario(int idItinerario){ this.comune.rimuoviItinerario(idItinerario); }
+
     public ItinerarioGenerico selezionaItinerario(int idItinerario){ return this.comune.getItinerario(idItinerario); }
 
-    public List<ItinerarioGenerico> getItinerariValidati(){
-        return this.comune.getItinerariValidati();
-    }
+    public List<ItinerarioGenerico> getItinerariValidati(){ return this.comune.getItinerariValidati(); }
 
-    public List<ItinerarioGenerico> getItinerarioDaValidare(){
-        return this.comune.getItinerariDaValidare();
-    }
+    public List<ItinerarioEvento> getItinerariEventoValidati(){ return this.comune.getItinerariValidati().stream().filter(i -> i.getTipo() == TipoItinerario.ITINERARIO_EVENTO).map(i -> (ItinerarioEvento) i).toList(); }
+
+    public List<ItinerarioGenerico> getItinerarioDaValidare(){ return this.comune.getItinerariDaValidare(); }
+
+    public List<PercorsoEvento> getPercorsiEventoValidati(){ return this.comune.getItinerariValidati().stream().filter(i -> i.getTipo() == TipoItinerario.PERCORSO_EVENTO).map(i -> (PercorsoEvento) i).toList(); }
 }
