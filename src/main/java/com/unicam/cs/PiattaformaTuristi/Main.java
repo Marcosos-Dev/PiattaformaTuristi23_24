@@ -3,7 +3,7 @@ package com.unicam.cs.PiattaformaTuristi;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.EventChecker.EventChecker;
 import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingContest;
-import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingGestionRuoli;
+import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingGestioneRuoli;
 import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingItinerari;
 import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingPOI;
 
@@ -15,7 +15,7 @@ public class Main {
         TestingPOI t1 = new TestingPOI(c);
         TestingItinerari t2 = new TestingItinerari(c);
         TestingContest t3 = new TestingContest(c);
-        TestingGestionRuoli t4 = new TestingGestionRuoli(c);
+        TestingGestioneRuoli t4 = new TestingGestioneRuoli(c);
         EventChecker tempo = new EventChecker(c);
     }
 }

@@ -2,23 +2,24 @@ package com.unicam.cs.PiattaformaTuristi.TestingAPI;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
+import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
-import com.unicam.cs.PiattaformaTuristi.Views.InterfacciaContributore;
 import com.unicam.cs.PiattaformaTuristi.Views.InterfacciaGestore;
 import com.unicam.cs.PiattaformaTuristi.Views.InterfacciaTurista;
 import com.unicam.cs.PiattaformaTuristi.Views.InterfacciaTuristaAutenticato;
 
-public class TestingGestionRuoli {
+public class TestingGestioneRuoli {
     private Comune c;
     private GestoreUtenti gestore;
+    private GestoreElementiSalvati preferiti;
     private UtenteAutenticato turistaAuth = new UtenteAutenticato(RuoloUtente.TURISTA_AUTENTICATO);
     private UtenteAutenticato turistaAuth2 = new UtenteAutenticato(RuoloUtente.TURISTA_AUTENTICATO);
 
-    public TestingGestionRuoli(Comune c) {
+    public TestingGestioneRuoli(Comune c) {
         this.c = c;
         gestore = new GestoreUtenti();
-
+        preferiti = new GestoreElementiSalvati();
         System.out.println("Registrazione");
         testRegistrazione();
         System.out.println("Autenticazione");
@@ -41,7 +42,7 @@ public class TestingGestionRuoli {
     }
 
     public void testAutenticazione(){
-        InterfacciaTuristaAutenticato i = new InterfacciaTuristaAutenticato(c,turistaAuth,gestore);
+        InterfacciaTuristaAutenticato i = new InterfacciaTuristaAutenticato(c,turistaAuth,gestore,preferiti);
         try {
             i.autenticazione("TestWebUtente1","EsameInformatica123!");
             System.out.println("OK");
@@ -49,7 +50,7 @@ public class TestingGestionRuoli {
         } catch(Exception e) {
             System.out.println("Autenticazione fallita per credenziali errate");
         }
-        InterfacciaTuristaAutenticato i2 = new InterfacciaTuristaAutenticato(c,turistaAuth2,gestore);
+        InterfacciaTuristaAutenticato i2 = new InterfacciaTuristaAutenticato(c,turistaAuth2,gestore,preferiti);
         try {
             i2.autenticazione("TestWebUtente2","EsameInformatica321!");
             System.out.println("OK");
@@ -60,10 +61,10 @@ public class TestingGestionRuoli {
     }
 
     public void testCambioRuolo(){
-        InterfacciaTuristaAutenticato i = new InterfacciaTuristaAutenticato(c,this.gestore.getUtenteTramiteUsername("TestWebUtente1"),gestore);
+        InterfacciaTuristaAutenticato i = new InterfacciaTuristaAutenticato(c,this.gestore.getUtenteTramiteUsername("TestWebUtente1"),gestore,preferiti);
         i.richiestaCambioRuolo(RuoloUtente.CONTRIBUTORE);
 
-        InterfacciaTuristaAutenticato i2 = new InterfacciaTuristaAutenticato(c,this.gestore.getUtenteTramiteUsername("TestWebUtente2"),gestore);
+        InterfacciaTuristaAutenticato i2 = new InterfacciaTuristaAutenticato(c,this.gestore.getUtenteTramiteUsername("TestWebUtente2"),gestore,preferiti);
         i2.richiestaCambioRuolo(RuoloUtente.CONTRIBUTORE_AUTORIZZATO);
 
         if(this.gestore.getRichiesteCambioRuolo().size()==2)
