@@ -1,11 +1,22 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
+import com.unicam.cs.PiattaformaTuristi.Repositories.RichiesteRepository;
+import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class GestoreUtenti {
+    @Autowired
+    public UtenteRepository utentiRepository;
+
+    @Autowired
+    public RichiesteRepository richiesteRepository;
+
     private List<UtenteAutenticato> utenti;
     private List<Richiesta> richiesteCambioRuolo;
 
@@ -16,13 +27,25 @@ public class GestoreUtenti {
 
     public boolean autenticaUtente(String username, String password){ return this.utenti.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(password)); }
 
-    public void aggiungiUtente(UtenteAutenticato utente){ this.utenti.add(utente); }
+    public void aggiungiUtente(UtenteAutenticato utente){
+        this.utenti.add(utente);
+        this.utentiRepository.save(utente);
+    }
 
-    public void aggiungiRichiestaRuolo(Richiesta richiesta){ this.richiesteCambioRuolo.add(richiesta); }
+    public void aggiungiRichiestaRuolo(Richiesta richiesta){
+        this.richiesteCambioRuolo.add(richiesta);
+        this.richiesteRepository.save(richiesta);
+    }
 
-    public void rimuoviRichiestaRuolo(Richiesta richiesta) { this.richiesteCambioRuolo.remove(richiesta); }
+    public void rimuoviRichiestaRuolo(Richiesta richiesta) {
+        this.richiesteCambioRuolo.remove(richiesta);
+        this.richiesteRepository.delete(richiesta);
+    }
 
-    public void modificaRuolo(int idUtente, RuoloUtente ruolo){ getUtente(idUtente).setRuolo(ruolo); }
+    public void modificaRuolo(int idUtente, RuoloUtente ruolo){
+        this.getUtente(idUtente).setRuolo(ruolo);
+        this.utentiRepository.save(getUtente(idUtente));
+    }
 
     public List<Richiesta> getRichiesteCambioRuolo() { return richiesteCambioRuolo; }
 

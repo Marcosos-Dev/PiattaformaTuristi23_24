@@ -4,15 +4,18 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
 import com.unicam.cs.PiattaformaTuristi.Model.Richiesta;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
+@Service
 public class UtentiController {
+    @Autowired
     private GestoreUtenti gestoreUtenti;
 
     public UtentiController(){
-        this.gestoreUtenti = new GestoreUtenti();
+
     }
 
     public UtentiController(GestoreUtenti gestoreUtenti){
@@ -20,16 +23,7 @@ public class UtentiController {
     }
 
     public void registraUtente(String username, String password){
-        Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!()_-])(?=\\S+$).{8,}$");
-        if(username == null || username.isEmpty())
-            throw new IllegalArgumentException("Username non valido (vuoto)");
-        if(this.gestoreUtenti.getUtenteTramiteUsername(username)!=null)
-            throw new IllegalArgumentException("Username non valido, esiste già un utente con lo stesso username");
-        if(password == null || password.isEmpty() || !pattern.matcher(password).matches())
-            throw new IllegalArgumentException("Password non valida");
-        UtenteAutenticato utente = new UtenteAutenticato(username,password);
-        utente.setIdUtente(this.gestoreUtenti.getUltimoIdUtente());
-        this.gestoreUtenti.aggiungiUtente(utente);
+        this.gestoreUtenti.aggiungiUtente(new UtenteAutenticato(username,password));
     }
 
     public boolean autenticaUtente(String username, String password){
@@ -49,14 +43,22 @@ public class UtentiController {
         this.gestoreUtenti.modificaRuolo(idUtente, nuovoRuolo);
     }
 
-    public void richiediRuolo(int idUtente, RuoloUtente ruolo){
-        Richiesta richiesta = new Richiesta(idUtente, ruolo);
-        richiesta.setIdRichiesta(gestoreUtenti.getUltimoIdRichiesta());
+    public void aggiungiRichiestaRuolo(Richiesta richiesta){
         this.gestoreUtenti.aggiungiRichiestaRuolo(richiesta);
     }
 
+    //TODO Rimuovere
+    public void richiediRuolo(int idUtente, RuoloUtente nuovoRuolo){
+
+    }
+
+    public UtenteAutenticato getUtenteTramiteUsername(String username){
+        return this.gestoreUtenti.getUtenteTramiteUsername(username);
+    }
 
     public List<UtenteAutenticato> getTuttiContributori(){ return this.gestoreUtenti.getTuttiContributori(); }
+
+    public List<UtenteAutenticato> getUtenti(){ return this.gestoreUtenti.getUtenti(); }
 
 
 }

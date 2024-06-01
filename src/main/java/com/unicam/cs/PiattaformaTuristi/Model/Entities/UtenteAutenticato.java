@@ -1,12 +1,23 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class UtenteAutenticato implements Utente{
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "utente_generator")
     private int idUtente;
     private String username;
     private String password;
     private RuoloUtente ruolo;
+
+    public UtenteAutenticato(){
+        this.ruolo = RuoloUtente.TURISTA_AUTENTICATO;
+    }
 
     public UtenteAutenticato(RuoloUtente ruolo){
         this.ruolo = ruolo;

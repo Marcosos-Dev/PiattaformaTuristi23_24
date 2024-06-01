@@ -1,21 +1,14 @@
 package com.unicam.cs.PiattaformaTuristi;
 
-import com.unicam.cs.PiattaformaTuristi.Model.Comune;
-import com.unicam.cs.PiattaformaTuristi.Model.EventChecker.EventChecker;
-import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingContest;
-import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingGestioneRuoli;
-import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingItinerari;
-import com.unicam.cs.PiattaformaTuristi.TestingAPI.TestingPOI;
+import com.unicam.cs.PiattaformaTuristi.Springboot.UserController;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.net.URISyntaxException;
 
+@SpringBootApplication
 public class Main {
-    public static void main(String[] args) throws URISyntaxException {
-        Comune c = new Comune("Ancona");
-        TestingPOI t1 = new TestingPOI(c);
-        TestingItinerari t2 = new TestingItinerari(c);
-        TestingContest t3 = new TestingContest(c);
-        TestingGestioneRuoli t4 = new TestingGestioneRuoli(c);
-        EventChecker tempo = new EventChecker(c);
+    public static void main(String[] args)  {
+        SpringApplication.run(Main.class, args);
     }
 }
