@@ -6,13 +6,16 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiEvento;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.PoiFactory;
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
-import com.unicam.cs.PiattaformaTuristi.Model.Segnalazione;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Segnalazione;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class PoiController {
     private Comune comune;
+    public PoiController(){}
 
     public PoiController(Comune comune){
         this.comune = comune;

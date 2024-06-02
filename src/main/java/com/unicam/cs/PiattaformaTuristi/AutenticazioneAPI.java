@@ -35,10 +35,11 @@ public class AutenticazioneAPI {
 
                                     .requestMatchers("/turista_autenticato/**").hasRole("TURISTA_AUTENTICATO")
                                     .requestMatchers("/contributore/**").hasRole("CONTRIBUTORE")
-                                    .requestMatchers("/contributore_autenticato/**").hasRole("CONTRIBUTORE_AUTORIZZATO")
+                                    .requestMatchers("/contributore_autorizzato/**").hasRole("CONTRIBUTORE_AUTORIZZATO")
                                     .requestMatchers("/animatore/**").hasRole("ANIMATORE")
                                     .requestMatchers("/curatore/**").hasRole("CURATORE")
                                     .requestMatchers("/gestore/**").hasRole("GESTORE_PIATTAFORMA")
+
                             .anyRequest().authenticated()
                     )
                     .formLogin((form) -> form
@@ -55,7 +56,7 @@ public class AutenticazioneAPI {
         @Bean
         public UserDetailsService userDetailsService() {
             return username -> {
-                UtenteAutenticato utenteAutenticato = utenteAutenticatoRepository.ottieniUtenteTramiteUsername(username);
+                UtenteAutenticato utenteAutenticato = utenteAutenticatoRepository.GetUtenteDaUsername(username);
                 if (utenteAutenticato != null) {
                     System.out.println(utenteAutenticato.getUsername());
                     return User

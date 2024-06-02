@@ -2,7 +2,9 @@ package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
+import jakarta.persistence.Entity;
 
+@Entity
 public class Poi extends PoiGenerico{
 
     public Poi(Coordinate c) {
@@ -15,6 +17,10 @@ public class Poi extends PoiGenerico{
         this.setTitolo(titolo);
         this.setDescrizione(descrizione);
         this.setTipo(TipoPoi.POI);
+    }
+
+    public Poi() {
+
     }
 
     public String toString(){

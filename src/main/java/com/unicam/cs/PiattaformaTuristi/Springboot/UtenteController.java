@@ -3,7 +3,7 @@ package com.unicam.cs.PiattaformaTuristi.Springboot;
 import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.RichiestaDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.UtenteAutenticatoDto;
-import com.unicam.cs.PiattaformaTuristi.Model.Richiesta;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Richiesta;
 import com.unicam.cs.PiattaformaTuristi.Repositories.RichiesteRepository;
 import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 //http://localhost:8080/h2-console/
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UserController {
+public class UtenteController {
     @Autowired
     public UtenteRepository utentiRepository;
 

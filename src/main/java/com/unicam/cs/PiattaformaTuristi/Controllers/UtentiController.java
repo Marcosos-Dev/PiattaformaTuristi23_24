@@ -2,7 +2,7 @@ package com.unicam.cs.PiattaformaTuristi.Controllers;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
-import com.unicam.cs.PiattaformaTuristi.Model.Richiesta;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Richiesta;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

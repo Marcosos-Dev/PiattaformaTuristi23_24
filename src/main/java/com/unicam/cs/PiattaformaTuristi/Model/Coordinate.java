@@ -1,5 +1,8 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Coordinate {
     private double longitudine;
     private double latitudine;
@@ -7,6 +10,10 @@ public class Coordinate {
     public Coordinate(double longitudine,double latitudine){
         this.longitudine = longitudine;
         this.latitudine = latitudine;
+    }
+
+    public Coordinate() {
+
     }
 
     public double getLatitudine() {

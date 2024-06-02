@@ -1,18 +1,25 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
-import com.unicam.cs.PiattaformaTuristi.Model.ContenutoContest;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Contest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contest_generator")
     private int idContest;
     private String titolo;
     private String descrizione;
     private boolean privato; //True se privato
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UtenteAutenticato> invitati;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContenutoContest> contenutiCaricati;
+    @OneToOne
     private ContenutoContest contenutoVincitore;
+    @OneToOne
     private UtenteAutenticato creatoreContest;
 
     public Contest(){

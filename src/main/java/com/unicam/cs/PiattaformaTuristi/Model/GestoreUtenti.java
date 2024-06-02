@@ -1,5 +1,6 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Richiesta;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Repositories.RichiesteRepository;
 import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;

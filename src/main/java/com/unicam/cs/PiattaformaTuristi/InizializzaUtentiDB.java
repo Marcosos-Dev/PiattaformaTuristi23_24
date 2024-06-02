@@ -1,8 +1,11 @@
 package com.unicam.cs.PiattaformaTuristi;
 
+import com.unicam.cs.PiattaformaTuristi.Model.Comune;
+import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
+import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
 import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 public class InizializzaUtentiDB {
 
     @Bean
-    CommandLineRunner initDatabase(UtenteRepository repository, GestoreUtenti utentiAutenticatiManager) {
+    CommandLineRunner initDatabase(UtenteRepository repository, GestoreUtenti utentiAutenticatiManager, ComuneRepository comuneRepository) {
         return args -> {
             UtenteAutenticato u1 = new UtenteAutenticato("turista_auth@gmail.it", "turista_auth");
             UtenteAutenticato u2 = new UtenteAutenticato("contributore@gmail.it", "contributore");
@@ -38,7 +41,7 @@ public class InizializzaUtentiDB {
             utentiAutenticatiManager.aggiungiUtente(u4);
             utentiAutenticatiManager.aggiungiUtente(u5);
             utentiAutenticatiManager.aggiungiUtente(u6);
-            //comuneRepository.save(new Comune("Camerino",new Coordinates(43.1351,13.0683), u5));
+            comuneRepository.save(new Comune("Camerino"));
         };
     }
 }

@@ -1,13 +1,18 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.TipoItinerario;
+import jakarta.persistence.*;
 
 import java.util.List;
-
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class ItinerarioGenerico {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "itinerario_generator")
     private int idItinerario;
     private String titolo;
     private String descrizione;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PoiGenerico>  poi;
 
     private TipoItinerario tipo;

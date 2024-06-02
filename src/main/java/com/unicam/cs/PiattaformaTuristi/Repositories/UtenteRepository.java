@@ -7,5 +7,5 @@ import org.springframework.data.repository.query.Param;
 
 public interface UtenteRepository extends CrudRepository<UtenteAutenticato,Integer> {
     @Query("SELECT u FROM UtenteAutenticato u WHERE u.username = :username")
-    UtenteAutenticato ottieniUtenteTramiteUsername(@Param("username") String username);
+    UtenteAutenticato GetUtenteDaUsername(@Param("username") String username);
 }

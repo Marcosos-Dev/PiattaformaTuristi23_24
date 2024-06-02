@@ -1,7 +1,9 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
-import java.time.LocalDateTime;
+import jakarta.persistence.Embeddable;
 
+import java.time.LocalDateTime;
+@Embeddable
 public class Periodo {
     private LocalDateTime dataInizio;
     private LocalDateTime dataFine;
@@ -12,6 +14,11 @@ public class Periodo {
             this.dataFine = dataFine;
         }
     }
+
+    public Periodo() {
+
+    }
+
 
     public LocalDateTime getDataInizio() {
         return dataInizio;

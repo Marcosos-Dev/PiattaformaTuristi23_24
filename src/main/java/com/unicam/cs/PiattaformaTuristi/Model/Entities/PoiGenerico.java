@@ -2,17 +2,24 @@ package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class PoiGenerico  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "poi_generator")
     private int idPoi;
     private String titolo;
     private String descrizione;
+    @Embedded
     private Coordinate coord;
     private TipoPoi tipo;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contenuto> contenutiDaValidare;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contenuto> contenutiValidati;
 
     public PoiGenerico(Coordinate c){
@@ -20,6 +27,10 @@ public abstract class PoiGenerico  {
         this.coord = c;
         this.contenutiValidati = new ArrayList<>();
         this.contenutiDaValidare = new ArrayList<>();
+    }
+
+    public PoiGenerico() {
+
     }
 
     public void setDescrizione(String descrizione) {

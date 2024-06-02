@@ -1,11 +1,23 @@
-package com.unicam.cs.PiattaformaTuristi.Model;
+package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Segnalazione {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "segnalazione_generator")
     private int idSegnalazione;
     private String descrizione;
 
     public Segnalazione(String descrizione){
         this.descrizione = descrizione;
+    }
+
+    public Segnalazione() {
+
     }
 
     public void setIdSegnalazione(int idSegnalazione) { this.idSegnalazione = idSegnalazione; }

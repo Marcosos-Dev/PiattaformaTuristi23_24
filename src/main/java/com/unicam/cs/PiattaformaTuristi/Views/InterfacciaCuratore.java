@@ -8,7 +8,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
-import com.unicam.cs.PiattaformaTuristi.Model.Segnalazione;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Segnalazione;
 
 public class InterfacciaCuratore {
     private Comune comune;

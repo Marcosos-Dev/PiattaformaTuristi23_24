@@ -3,7 +3,7 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
-import com.unicam.cs.PiattaformaTuristi.Model.Richiesta;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.Richiesta;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
 
 public class InterfacciaGestore {

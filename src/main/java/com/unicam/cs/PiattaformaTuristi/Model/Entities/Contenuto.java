@@ -1,8 +1,15 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
-import java.io.File;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+import java.io.File;
+@Entity
 public class Contenuto {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contenuto_generator")
     private int idContenuto;
     private String descrizione;
     private File file;

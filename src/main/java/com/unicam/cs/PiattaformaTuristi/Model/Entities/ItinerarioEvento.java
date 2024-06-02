@@ -2,8 +2,13 @@ package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoItinerario;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToOne;
 
+@Entity
 public class ItinerarioEvento extends ItinerarioGenerico{
+    @Embedded
     private Periodo periodo;
 
     public ItinerarioEvento(){

@@ -1,5 +1,6 @@
-package com.unicam.cs.PiattaformaTuristi.Model;
+package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
+import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
 import jakarta.persistence.*;
 
 @Entity

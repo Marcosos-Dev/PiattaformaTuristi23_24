@@ -3,7 +3,7 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
-import com.unicam.cs.PiattaformaTuristi.Model.ContenutoContest;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.ContenutoContest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;

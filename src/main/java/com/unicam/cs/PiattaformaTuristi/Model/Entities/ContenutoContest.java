@@ -1,11 +1,17 @@
-package com.unicam.cs.PiattaformaTuristi.Model;
+package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
+import jakarta.persistence.*;
 
+@Entity
 public class ContenutoContest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contenuto_generator")
     private int idContenutoContest;
+    @OneToOne
     private UtenteAutenticato utente;
+    @OneToOne
     private Contenuto contenuto;
 
     public ContenutoContest(){

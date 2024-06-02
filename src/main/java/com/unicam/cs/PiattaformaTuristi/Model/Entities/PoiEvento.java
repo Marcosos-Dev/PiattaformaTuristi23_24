@@ -3,8 +3,12 @@ package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 import com.unicam.cs.PiattaformaTuristi.Model.Coordinate;
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
 
+@Entity
 public class PoiEvento extends PoiGenerico{
+    @Embedded
     private Periodo periodo;
 
     public PoiEvento(Coordinate c) {
@@ -17,6 +21,10 @@ public class PoiEvento extends PoiGenerico{
         this.setTitolo(titolo);
         this.setDescrizione(descrizione);
         this.setTipo(TipoPoi.EVENTO);
+    }
+
+    public PoiEvento() {
+
     }
 
     public Periodo getPeriodo() {

@@ -1,22 +1,32 @@
 package com.unicam.cs.PiattaformaTuristi.Model;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
+import jakarta.persistence.*;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.*;
-
+@Entity
 public class Comune {
+    @Id
     private String nome;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PoiGenerico> poiValidati;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PoiGenerico> poiDaValidare;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItinerarioGenerico> itinerariValidati;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItinerarioGenerico> itinerariDaValidare;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contest> contestAperti;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contest> contestChiusi;
-    private HashMap<Segnalazione,PoiGenerico> segnalazioniPoi;
-    private HashMap<Segnalazione,ItinerarioGenerico> segnalazioniItinerari;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SegnalazionePoi> segnalazioniPoi;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SegnalazioneItinerario> segnalazioniItinerari;
 
 
     public Comune(String nome){
@@ -27,8 +37,12 @@ public class Comune {
         this.itinerariDaValidare = new ArrayList<>();
         this.contestAperti = new ArrayList<>();
         this.contestChiusi = new ArrayList<>();
-        this.segnalazioniPoi = new HashMap<>();
-        this.segnalazioniItinerari = new HashMap<>();
+        this.segnalazioniPoi = new ArrayList<>();
+        this.segnalazioniItinerari = new ArrayList<>();
+    }
+
+    public Comune() {
+
     }
 
     public void chiudiContest(Contest c){
@@ -36,9 +50,10 @@ public class Comune {
         this.contestAperti.remove(c);
     }
 
-    public void inserisciSegnalazionePoi(Segnalazione segnalazione, PoiGenerico poi) { this.segnalazioniPoi.put(segnalazione,poi); }
-
-    public void inserisciSegnalazioneItinerari(Segnalazione segnalazione, ItinerarioGenerico itinerario) { this.segnalazioniItinerari.put(segnalazione,itinerario); }
+    //non funziona!
+    public void inserisciSegnalazionePoi(Segnalazione segnalazione, PoiGenerico poi) { this.segnalazioniPoi.add(new SegnalazionePoi()); }
+    //non funziona!
+    public void inserisciSegnalazioneItinerari(Segnalazione segnalazione, ItinerarioGenerico itinerario) { this.segnalazioniItinerari.add(new SegnalazioneItinerario()); }
 
     public void inserisciContestAperto(Contest contest){ this.contestAperti.add(contest); }
 
@@ -76,9 +91,11 @@ public class Comune {
         }
     }
 
-    public void rimuoviSegnalazioniPoi(int idPoi) { this.segnalazioniPoi.entrySet().removeIf(entry -> entry.getValue().getIdPoi() == idPoi); }
+    public void rimuoviSegnalazioniPoi(int idPoi) { //this.segnalazioniPoi.entrySet().removeIf(entry -> entry.getValue().getIdPoi() == idPoi);
+        }
 
-    public void rimuoviSegnalazioniItinerario(int idItinerario) { this.segnalazioniItinerari.entrySet().removeIf(entry -> entry.getValue().getIdItinerario() == idItinerario); }
+    public void rimuoviSegnalazioniItinerario(int idItinerario) { //this.segnalazioniItinerari.entrySet().removeIf(entry -> entry.getValue().getIdItinerario() == idItinerario);
+         }
 
     public PoiGenerico getPoi(int idPoi) { return this.getPoiValidati().stream().filter(p -> p.getIdPoi() == idPoi).findFirst().orElse(null); }
 
@@ -88,9 +105,11 @@ public class Comune {
 
     public Segnalazione getSegnalazionePoi(int idSegnalazione) { return this.getSegnalazioniPoi().stream().filter(s -> s.getIdSegnalazione() == idSegnalazione).findFirst().orElse(null); }
 
-    public int getPoiSegnalato(Segnalazione segnalazione) { return this.segnalazioniPoi.get(segnalazione).getIdPoi(); }
+    public int getPoiSegnalato(Segnalazione segnalazione) { return 0; //this.segnalazioniPoi.get(segnalazione).getIdPoi();
+         }
 
-    public int getItinerarioSegnalato(Segnalazione segnalazione) { return this.segnalazioniItinerari.get(segnalazione).getIdItinerario(); }
+    public int getItinerarioSegnalato(Segnalazione segnalazione) { return 0; //return this.segnalazioniItinerari.get(segnalazione).getIdItinerario();
+         }
 
     public List<PoiGenerico> getPoiValidati() { return poiValidati; }
 
@@ -108,9 +127,11 @@ public class Comune {
 
     public List<Contenuto> getContenutiDaValidare() { return this.getPoiValidati().stream().filter(c -> !c.getContenutiDaValidare().isEmpty()).flatMap(p -> p.getContenutiDaValidare().stream()).toList(); }
 
-    public List<Segnalazione> getSegnalazioniPoi() { return this.segnalazioniPoi.keySet().stream().toList(); }
+    public List<Segnalazione> getSegnalazioniPoi() { return null; //return this.segnalazioniPoi.keySet().stream().toList();
+         }
 
-    public List<Segnalazione> getSegnalazioniItinerari() { return this.segnalazioniItinerari.keySet().stream().toList(); }
+    public List<Segnalazione> getSegnalazioniItinerari() { return null; // return this.segnalazioniItinerari.keySet().stream().toList();
+         }
 
     public int getLastIdContenuto(){
         return Math.max(

@@ -1,7 +1,9 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import com.unicam.cs.PiattaformaTuristi.Model.TipoItinerario;
+import jakarta.persistence.Entity;
 
+@Entity
 public class Percorso extends ItinerarioGenerico{
     public Percorso(){ this.setTipo(TipoItinerario.PERCORSO); }
 
