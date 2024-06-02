@@ -5,14 +5,12 @@ import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Configuration
 @EnableWebSecurity
@@ -24,8 +22,9 @@ public class AutenticazioneAPI {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http.authorizeHttpRequests((requests) -> requests
-                                    .requestMatchers("/h2-console/**").permitAll()
-                                    .requestMatchers("/login").permitAll()  // Consenti l'accesso alla pagina di login
+                                    //.requestMatchers("/h2-console/**").permitAll()
+                                    //.requestMatchers("/login").permitAll()
+                                    .requestMatchers("/","/h2-console/**","/registrazione").permitAll()
                                     .requestMatchers(
                                             "/v2/api-docs", // se usi Swagger 2
                                             "/v3/api-docs/**", // se usi OpenAPI 3
@@ -34,14 +33,13 @@ public class AutenticazioneAPI {
                                             "/webjars/**",
                                             "/swagger-ui.html").permitAll()
 
-                                    .requestMatchers("/turista_autenticato/**").permitAll()
-                                    .requestMatchers("/contributore/**").permitAll()
-                                    .requestMatchers("/contributore_autenticato/**").permitAll()
-                                    .requestMatchers("/animatore/**").permitAll()
-                                    .requestMatchers("/curatore/**").permitAll()
-                                    .requestMatchers("/gestore/**").permitAll()
-                            .requestMatchers("/registrazione").permitAll()
-                            .anyRequest().authenticated()  // Richiedi autenticazione per qualsiasi altra richiesta
+                                    .requestMatchers("/turista_autenticato/**").hasRole("TURISTA_AUTENTICATO")
+                                    .requestMatchers("/contributore/**").hasRole("CONTRIBUTORE")
+                                    .requestMatchers("/contributore_autenticato/**").hasRole("CONTRIBUTORE_AUTORIZZATO")
+                                    .requestMatchers("/animatore/**").hasRole("ANIMATORE")
+                                    .requestMatchers("/curatore/**").hasRole("CURATORE")
+                                    .requestMatchers("/gestore/**").hasRole("GESTORE_PIATTAFORMA")
+                            .anyRequest().authenticated()
                     )
                     .formLogin((form) -> form
                             .loginPage("/login")
@@ -55,11 +53,11 @@ public class AutenticazioneAPI {
         }
 
         @Bean
-
         public UserDetailsService userDetailsService() {
             return username -> {
                 UtenteAutenticato utenteAutenticato = utenteAutenticatoRepository.ottieniUtenteTramiteUsername(username);
                 if (utenteAutenticato != null) {
+                    System.out.println(utenteAutenticato.getUsername());
                     return User
                             .withUsername(utenteAutenticato.getUsername())
                             .password("{noop}"+utenteAutenticato.getPassword())

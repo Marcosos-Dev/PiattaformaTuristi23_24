@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum RuoloUtente {
-    TURISTA, TURISTA_AUTENTICATO, CONTRIBUTORE, CONTRIBUTORE_AUTORIZZATO, ANIMATORE, CURATORE, GESTORE_PIATTAFORMA;
+    TURISTA_AUTENTICATO, CONTRIBUTORE, CONTRIBUTORE_AUTORIZZATO, ANIMATORE, CURATORE, GESTORE_PIATTAFORMA;
 
     public static List<RuoloUtente> getPossibiliRuoliDefault(){
         List<RuoloUtente> ruoli = new ArrayList<>();

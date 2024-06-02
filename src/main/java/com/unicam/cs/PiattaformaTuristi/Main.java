@@ -1,6 +1,5 @@
 package com.unicam.cs.PiattaformaTuristi;
 
-import com.unicam.cs.PiattaformaTuristi.Springboot.UserController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
