@@ -102,4 +102,18 @@ public class PoiController {
     public List<PoiEvento> getPoiEventoValidati(){ return this.comune.getPoiValidati().stream().filter(p -> p.getTipo() == TipoPoi.EVENTO).map(p -> (PoiEvento) p).toList(); }
 
     public List<PoiGenerico> getPoiDaValidare(){ return this.comune.getPoiDaValidare(); }
+
+    public void caricaContenutoDaValidare(Contenuto contenuto, int idPoi){
+        validaEstensioneFile(contenuto.getFile().getName());
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        c.getPoi(idPoi).inserisciContenutoDaValidare(contenuto);
+        this.comuneRepository.save(c);
+    }
+
+    public void caricaContenutoValidato(Contenuto contenuto, int idPoi){
+        validaEstensioneFile(contenuto.getFile().getName());
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        c.getPoi(idPoi).inserisciContenutoValidato(contenuto);
+        this.comuneRepository.save(c);
+    }
 }

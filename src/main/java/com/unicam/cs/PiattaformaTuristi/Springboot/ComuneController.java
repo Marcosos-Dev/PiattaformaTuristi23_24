@@ -90,12 +90,34 @@ public class ComuneController {
     }
 
     @PostMapping("contributore_autorizzato/inserisciContenutoValidatoPoi")
-    public ResponseEntity<Object> inserisciContenutoValidatoPoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile file, @RequestPart("descr") String descr) {
+    public ResponseEntity<Object> inserisciContenutoValidatoPoi(@RequestParam("idPOI") Integer idPoi,
+                                                                @RequestPart("file") MultipartFile fileContenuto,
+                                                                @RequestPart("descr") String descrContenuto) {
+
+        if(!(this.comuneRepository.findById("Camerino").get().getPoiValidati().stream().filter(p -> p.getIdPoi()==idPoi).findFirst().isPresent())){
+            return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
+        }
+        if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
+            return new ResponseEntity<>("Estensione non valida", HttpStatus.BAD_REQUEST);
+
+        Contenuto contenuto = new Contenuto(new File(fileContenuto.getOriginalFilename()),descrContenuto);
+        this.poiController.caricaContenutoValidato(contenuto,idPoi);
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 
     @PostMapping("contributore_autorizzato/inserisciContenutoDaValidarePoi")
-    public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile file, @RequestPart("descr") String descr) {
+    public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("idPOI") Integer idPoi,
+                                                                  @RequestPart("file") MultipartFile fileContenuto,
+                                                                  @RequestPart("descr") String descrContenuto) {
+
+        if(!(this.comuneRepository.findById("Camerino").get().getPoiValidati().stream().filter(p -> p.getIdPoi()==idPoi).findFirst().isPresent())){
+            return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
+        }
+        if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
+            return new ResponseEntity<>("Estensione non valida", HttpStatus.BAD_REQUEST);
+
+        Contenuto contenuto = new Contenuto(new File(fileContenuto.getOriginalFilename()),descrContenuto);
+        this.poiController.caricaContenutoDaValidare(contenuto,idPoi);
         return new ResponseEntity<>("ok", HttpStatus.OK);
     }
 }
