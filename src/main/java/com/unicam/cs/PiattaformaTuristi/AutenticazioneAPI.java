@@ -58,7 +58,6 @@ public class AutenticazioneAPI {
             return username -> {
                 UtenteAutenticato utenteAutenticato = utenteAutenticatoRepository.GetUtenteDaUsername(username);
                 if (utenteAutenticato != null) {
-                    System.out.println(utenteAutenticato.getUsername());
                     return User
                             .withUsername(utenteAutenticato.getUsername())
                             .password("{noop}"+utenteAutenticato.getPassword())

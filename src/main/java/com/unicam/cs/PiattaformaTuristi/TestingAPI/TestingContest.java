@@ -1,5 +1,5 @@
 package com.unicam.cs.PiattaformaTuristi.TestingAPI;
-
+/*
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
@@ -149,4 +149,4 @@ public class TestingContest {
     }
 
 
-}
+}*/

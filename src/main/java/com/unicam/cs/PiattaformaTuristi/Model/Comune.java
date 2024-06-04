@@ -11,6 +11,7 @@ import java.util.*;
 public class Comune {
     @Id
     private String nome;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PoiGenerico> poiValidati;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -193,9 +194,10 @@ public class Comune {
         return false;
     }
 
-    public boolean poiDuplicato(PoiGenerico poi) {
+    public boolean poiDuplicato(Coordinate coordinate) {
         for(PoiGenerico p : poiValidati){
-            if(poi.equals(p))
+            if(p.getCoord().getLatitudine()==coordinate.getLatitudine() &&
+                    p.getCoord().getLongitudine()==coordinate.getLongitudine())
                 return true;
         }
         return false;

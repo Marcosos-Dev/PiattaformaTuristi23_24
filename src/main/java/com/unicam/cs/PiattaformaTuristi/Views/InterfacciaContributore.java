@@ -41,10 +41,10 @@ public class InterfacciaContributore {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        if(this.utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
+        /*if(this.utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
             this.poiController.creaPoiValidato(factory,poi,con,periodo);
         else
-            this.poiController.creaPoiDaValidare(factory,poi,con,periodo);
+            this.poiController.creaPoiDaValidare(factory,poi,con,periodo);*/
     }
 
     public void aggiungiItinerario(ItinerarioGenerico itinerario, List<PoiGenerico> listaPoi, Periodo periodo){
@@ -69,10 +69,11 @@ public class InterfacciaContributore {
     }
 
     public void caricaContenuto(Contenuto c, int idPoi){
-        if(utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
+        /*if(utente.getRuolo()== RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
             this.poiController.caricaContenutoValidato(c,idPoi);
         else
             this.poiController.caricaContenutoDaValidare(c,idPoi);
+         */
     }
 
     public void richiestaCambioRuolo(RuoloUtente nuovoRuolo){

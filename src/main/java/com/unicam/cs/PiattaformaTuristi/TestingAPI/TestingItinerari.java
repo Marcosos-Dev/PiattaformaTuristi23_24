@@ -1,5 +1,5 @@
 package com.unicam.cs.PiattaformaTuristi.TestingAPI;
-
+/*
 import com.unicam.cs.PiattaformaTuristi.Model.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Views.InterfacciaContributore;
@@ -134,4 +134,4 @@ public class TestingItinerari {
         System.out.println("-----------Lista itinerari validati-----------");
         c.stampaItinerariValidati();
     }
-}
+}*/

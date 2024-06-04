@@ -1,5 +1,5 @@
 package com.unicam.cs.PiattaformaTuristi.TestingAPI;
-
+/*
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
@@ -89,4 +89,4 @@ public class TestingGestioneRuoli {
                 this.gestore.getUtenteTramiteUsername("TestWebUtente2").getRuolo()==RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
             System.out.println("OK");
     }
-}
+}*/

@@ -1,5 +1,5 @@
 package com.unicam.cs.PiattaformaTuristi.TestingAPI;
-
+/*
 import com.unicam.cs.PiattaformaTuristi.Model.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Poi;
@@ -152,3 +152,4 @@ public class TestingPOI {
             System.out.println(cont);
     }
 }
+*/

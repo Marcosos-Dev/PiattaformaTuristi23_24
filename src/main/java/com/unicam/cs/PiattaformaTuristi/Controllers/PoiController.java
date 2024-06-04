@@ -1,6 +1,7 @@
 package com.unicam.cs.PiattaformaTuristi.Controllers;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
+import com.unicam.cs.PiattaformaTuristi.Model.DTO.PoiDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiEvento;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
@@ -8,82 +9,54 @@ import com.unicam.cs.PiattaformaTuristi.Model.Factories.PoiFactory;
 import com.unicam.cs.PiattaformaTuristi.Model.Periodo;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Segnalazione;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
+import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class PoiController {
+    //TODO Rimuovere
     private Comune comune;
+
+    @Autowired
+    ComuneRepository comuneRepository;
+
     public PoiController(){}
 
     public PoiController(Comune comune){
         this.comune = comune;
     }
 
-    public void creaPoiDaValidare(PoiFactory factory, PoiGenerico poi, Contenuto con, Periodo periodo){
+    public void creaPoiDaValidare(PoiFactory factory, PoiDTO poi){
         PoiGenerico poiDaInserire = factory.creaPoi(poi.getCoord());
-        if(poi.getTitolo()==null || poi.getTitolo().isEmpty())
-            throw new IllegalArgumentException("Titolo vuoto o nullo");
-        if(comune.poiDuplicato(poiDaInserire))
-            throw new IllegalArgumentException("Punto già presente");
-        if(!comune.internoAlComune(poi.getCoord()))
-            throw new IllegalArgumentException("Punto fuori dal comune");
-        //Punto con informazioni valide
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
-        poiDaInserire.setIdPoi(comune.getUltimoIdPoi());
-        if(con != null){
-            validaEstensioneFile(con);
-            poiDaInserire.inserisciContenutoValidato(con);
-        }
+        if(poi.getContenuto()!=null)
+            poiDaInserire.inserisciContenutoDaValidare(poi.getContenuto());
         if(poiDaInserire instanceof PoiEvento poiE)
-            poiE.setPeriodo(periodo);
-        comune.inserisciPoiDaValidare(poiDaInserire);
+            poiE.setPeriodo(poi.getPeriodo());
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        c.inserisciPoiDaValidare(poiDaInserire);
+        this.comuneRepository.save(c);
     }
 
-    public void creaPoiValidato(PoiFactory factory, PoiGenerico poi, Contenuto con, Periodo periodo){
+    public void creaPoiValidato(PoiFactory factory, PoiDTO poi){
         PoiGenerico poiDaInserire = factory.creaPoi(poi.getCoord());
-        if(poi.getTitolo().isEmpty() || poi.getTitolo()==null)
-            throw new IllegalArgumentException("Titolo vuoto o nullo");
-        if(comune.poiDuplicato(poiDaInserire))
-            throw new IllegalArgumentException("Punto già presente");
-        if(!comune.internoAlComune(poi.getCoord()))
-            throw new IllegalArgumentException("Punto fuori dal comune");
-        //Punto con informazioni valide
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
-        poiDaInserire.setIdPoi(comune.getUltimoIdPoi());
-        if(con != null){
-            validaEstensioneFile(con);
-            poiDaInserire.inserisciContenutoValidato(con);
-        }
+        if(poi.getContenuto()!=null)
+            poiDaInserire.inserisciContenutoValidato(poi.getContenuto());
         if(poiDaInserire instanceof PoiEvento poiE)
-            poiE.setPeriodo(periodo);
-        comune.inserisciPoiValidato(poiDaInserire);
+            poiE.setPeriodo(poi.getPeriodo());
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        c.inserisciPoiValidato(poiDaInserire);
+        this.comuneRepository.save(c);
     }
 
-    public void caricaContenutoDaValidare(Contenuto contenuto, int idPoi){
-        validaEstensioneFile(contenuto);
-        if(this.selezionaPoi(idPoi)==null)
-            throw new IllegalArgumentException("Nessun poi trovato");
-        contenuto.setIdContenuto(comune.getLastIdContenuto());
-        this.selezionaPoi(idPoi).inserisciContenutoDaValidare(contenuto);
-    }
-
-    public void caricaContenutoValidato(Contenuto contenuto, int idPoi){
-        validaEstensioneFile(contenuto);
-        if(this.selezionaPoi(idPoi)==null)
-            throw new IllegalArgumentException("Nessun poi trovato");
-        contenuto.setIdContenuto(comune.getLastIdContenuto());
-        this.selezionaPoi(idPoi).inserisciContenutoValidato(contenuto);
-    }
-
-    private void validaEstensioneFile(Contenuto c){
-        String nome = c.getFile().getName();
+    public boolean validaEstensioneFile(String nome){
         String extension = nome.substring(nome.lastIndexOf('.') + 1);
-        if(!(extension.equals("pdf")||extension.equals("png")||extension.equals("jpg")))
-            throw new IllegalArgumentException("Estensione non valida");
+        return extension.equals("pdf") || extension.equals("png") || extension.equals("jpg");
     }
 
     public void validaPoi(PoiGenerico poi, boolean esito){
@@ -122,7 +95,9 @@ public class PoiController {
 
     public void rimuoviPoi(int idPoi){ this.comune.rimuoviPoi(idPoi); }
 
-    public List<PoiGenerico> getPoiValidati(){ return this.comune.getPoiValidati(); }
+    public List<PoiGenerico> getPoiValidati(){
+        return this.comuneRepository.findById("Camerino").get().getPoiValidati();
+    }
 
     public List<PoiEvento> getPoiEventoValidati(){ return this.comune.getPoiValidati().stream().filter(p -> p.getTipo() == TipoPoi.EVENTO).map(p -> (PoiEvento) p).toList(); }
 
