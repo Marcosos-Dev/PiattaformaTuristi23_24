@@ -94,7 +94,7 @@ public class ComuneController {
                                                                 @RequestPart("file") MultipartFile fileContenuto,
                                                                 @RequestPart("descr") String descrContenuto) {
 
-        if(!(this.comuneRepository.findById("Camerino").get().getPoiValidati().stream().filter(p -> p.getIdPoi()==idPoi).findFirst().isPresent())){
+        if(this.comuneRepository.findById("Camerino").get().getPoi(idPoi)==null){
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
         }
         if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
@@ -102,15 +102,15 @@ public class ComuneController {
 
         Contenuto contenuto = new Contenuto(new File(fileContenuto.getOriginalFilename()),descrContenuto);
         this.poiController.caricaContenutoValidato(contenuto,idPoi);
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return new ResponseEntity<>("Contenuto validato, caricato con successo", HttpStatus.OK);
     }
 
-    @PostMapping("contributore_autorizzato/inserisciContenutoDaValidarePoi")
+    @PostMapping("contributore/inserisciContenutoDaValidarePoi")
     public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("idPOI") Integer idPoi,
                                                                   @RequestPart("file") MultipartFile fileContenuto,
                                                                   @RequestPart("descr") String descrContenuto) {
 
-        if(!(this.comuneRepository.findById("Camerino").get().getPoiValidati().stream().filter(p -> p.getIdPoi()==idPoi).findFirst().isPresent())){
+        if(this.comuneRepository.findById("Camerino").get().getPoi(idPoi)==null){
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
         }
         if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
@@ -118,6 +118,6 @@ public class ComuneController {
 
         Contenuto contenuto = new Contenuto(new File(fileContenuto.getOriginalFilename()),descrContenuto);
         this.poiController.caricaContenutoDaValidare(contenuto,idPoi);
-        return new ResponseEntity<>("ok", HttpStatus.OK);
+        return new ResponseEntity<>("Contenuto da validare, caricato con successo", HttpStatus.OK);
     }
 }
