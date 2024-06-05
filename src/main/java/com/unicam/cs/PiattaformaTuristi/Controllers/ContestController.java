@@ -5,13 +5,24 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.ContenutoContest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
+import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Stream;
 
+@Service
 public class ContestController {
+    @Autowired
+    ComuneRepository comuneRepository;
+
     private Comune comune;
     private UtentiController utentiController;
+
+    public ContestController(){
+
+    }
 
     public ContestController(Comune comune){
         this.comune = comune;
@@ -19,11 +30,10 @@ public class ContestController {
     }
 
     public void creaContest(Contest contest, UtenteAutenticato animatore){
-        if(contest.getTitolo()==null || contest.getTitolo().isEmpty())
-            throw new IllegalArgumentException("Titolo vuoto o nullo");
-        contest.setIdContest(comune.getUltimoIdContest()); //TODO rimuovere con aggiunto di database
         contest.setCreatoreContest(animatore);
-        this.comune.inserisciContestAperto(contest);
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        c.inserisciContestAperto(contest);
+        this.comuneRepository.save(c);
     }
 
 
@@ -49,9 +59,9 @@ public class ContestController {
         return comune.getContestAperti().stream().filter(c -> c.getPrivato() && c.getCreatoreContest().equals(utente)).toList();
     }
 
-    public List<Contest> getContestChiusi(){
-        return comune.getContestChiusi();
-    }
+    public List<Contest> getContestChiusi(){ return this.comuneRepository.findById("Camerino").get().getContestChiusi(); }
+
+    public List<Contest> getContestAperti(){ return this.comuneRepository.findById("Camerino").get().getContestAperti(); }
 
     public void invitaUtenti(Contest contest, List<UtenteAutenticato> utentiDaInvitare){
         contest.inserisciTuttiInvitati(utentiDaInvitare);

@@ -1,50 +1,56 @@
 package com.unicam.cs.PiattaformaTuristi.Controllers;
 
 import com.unicam.cs.PiattaformaTuristi.Model.*;
+import com.unicam.cs.PiattaformaTuristi.Model.DTO.ItinerarioDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.ItinerarioFactory;
+import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ItinerarioController {
     private Comune comune;
+    @Autowired
+    ComuneRepository comuneRepository;
+
+    public ItinerarioController() {}
 
     public ItinerarioController(Comune comune){
         this.comune = comune;
     }
 
-    public void creaItinerarioDaValidare(ItinerarioFactory factory, ItinerarioGenerico itinerario, List<PoiGenerico> pois, Periodo periodo){
+    public void creaItinerarioDaValidare(ItinerarioFactory factory, ItinerarioDTO itinerario){
+        Comune c = this.comuneRepository.findById("Camerino").get();
         ItinerarioGenerico itinerarioDaInserire = factory.creaItinerario();
-        if(itinerario.getTitolo()==null || itinerario.getTitolo().isEmpty())
-            throw new IllegalArgumentException("Titolo vuoto o nullo");
-        if(pois.size()<2)
-            throw new IllegalArgumentException("Devono essere presenti almeno 2 punti");
         itinerarioDaInserire.setTitolo(itinerario.getTitolo());
         itinerarioDaInserire.setDescrizione(itinerario.getDescrizione());
-        itinerarioDaInserire.setPoi(pois);
-        itinerarioDaInserire.setIdItinerario(comune.getLastIdItinerario());
+        itinerarioDaInserire.setPoi(itinerario.getPoi().stream().map(p -> c.getPoi(p)).toList());
         if(itinerarioDaInserire instanceof ItinerarioEvento itinerarioE)
-            itinerarioE.setPeriodo(periodo);
+            itinerarioE.setPeriodo(itinerario.getPeriodo());
         if(itinerarioDaInserire instanceof PercorsoEvento percorsoE)
-            percorsoE.setPeriodo(periodo);
-        comune.inserisciItinerarioDaValidare(itinerarioDaInserire);
+            percorsoE.setPeriodo(itinerario.getPeriodo());
+
+        c.inserisciItinerarioDaValidare(itinerarioDaInserire);
+        this.comuneRepository.save(c);
     }
 
-    public void creaItinerarioValidato(ItinerarioFactory factory, ItinerarioGenerico itinerario, List<PoiGenerico> pois, Periodo periodo){
+    public void creaItinerarioValidato(ItinerarioFactory factory, ItinerarioDTO itinerario){
+        Comune c = this.comuneRepository.findById("Camerino").get();
         ItinerarioGenerico itinerarioDaInserire = factory.creaItinerario();
-        if(itinerario.getTitolo()==null || itinerario.getTitolo().isEmpty())
-            throw new IllegalArgumentException("Titolo vuoto o nullo");
-        if(pois.size()<2)
-            throw new IllegalArgumentException("Devono essere presenti almeno 2 punti");
         itinerarioDaInserire.setTitolo(itinerario.getTitolo());
         itinerarioDaInserire.setDescrizione(itinerario.getDescrizione());
-        itinerarioDaInserire.setPoi(pois);
-        itinerarioDaInserire.setIdItinerario(comune.getLastIdItinerario());
+        itinerarioDaInserire.setPoi(itinerario.getPoi().stream().map(p -> c.getPoi(p)).toList());
         if(itinerarioDaInserire instanceof ItinerarioEvento itinerarioE)
-            itinerarioE.setPeriodo(periodo);
+            itinerarioE.setPeriodo(itinerario.getPeriodo());
         if(itinerarioDaInserire instanceof PercorsoEvento percorsoE)
-            percorsoE.setPeriodo(periodo);
-        comune.inserisciItinerarioValidato(itinerarioDaInserire);
+            percorsoE.setPeriodo(itinerario.getPeriodo());
+
+        c.inserisciItinerarioValidato(itinerarioDaInserire);
+        this.comuneRepository.save(c);
     }
 
     public void validaItinerario(ItinerarioGenerico itinerario, boolean esito){
@@ -70,11 +76,11 @@ public class ItinerarioController {
 
     public ItinerarioGenerico selezionaItinerario(int idItinerario){ return this.comune.getItinerario(idItinerario); }
 
-    public List<ItinerarioGenerico> getItinerariValidati(){ return this.comune.getItinerariValidati(); }
+    public List<ItinerarioGenerico> getItinerariValidati(){ return this.comuneRepository.findById("Camerino").get().getItinerariValidati(); }
 
-    public List<ItinerarioEvento> getItinerariEventoValidati(){ return this.comune.getItinerariValidati().stream().filter(i -> i.getTipo() == TipoItinerario.ITINERARIO_EVENTO).map(i -> (ItinerarioEvento) i).toList(); }
+    public List<ItinerarioEvento> getItinerariEventoValidati(){ return this.comuneRepository.findById("Camerino").get().getItinerariValidati().stream().filter(i -> i.getTipo() == TipoItinerario.ITINERARIO_EVENTO).map(i -> (ItinerarioEvento) i).toList(); }
 
-    public List<ItinerarioGenerico> getItinerarioDaValidare(){ return this.comune.getItinerariDaValidare(); }
+    public List<ItinerarioGenerico> getItinerarioDaValidare(){ return this.comuneRepository.findById("Camerino").get().getItinerariDaValidare(); }
 
-    public List<PercorsoEvento> getPercorsiEventoValidati(){ return this.comune.getItinerariValidati().stream().filter(i -> i.getTipo() == TipoItinerario.PERCORSO_EVENTO).map(i -> (PercorsoEvento) i).toList(); }
+    public List<PercorsoEvento> getPercorsiEventoValidati(){ return this.comuneRepository.findById("Camerino").get().getItinerariValidati().stream().filter(i -> i.getTipo() == TipoItinerario.PERCORSO_EVENTO).map(i -> (PercorsoEvento) i).toList(); }
 }

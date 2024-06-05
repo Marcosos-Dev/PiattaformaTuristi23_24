@@ -19,7 +19,8 @@ public class Contest {
     private List<ContenutoContest> contenutiCaricati;
     @OneToOne
     private ContenutoContest contenutoVincitore;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "ID_UTENTE")
     private UtenteAutenticato creatoreContest;
 
     public Contest(){

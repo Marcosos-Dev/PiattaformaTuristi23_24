@@ -20,12 +20,4 @@ public class RichiestaDTO {
     public RuoloUtente getRuoloRichiesto() {
         return ruoloRichiesto;
     }
-
-    public void setIdUtente(int idUtente) {
-        this.idUtente = idUtente;
-    }
-
-    public void setRuoloRichiesto(RuoloUtente ruoloRichiesto) {
-        this.ruoloRichiesto = ruoloRichiesto;
-    }
 }

@@ -58,10 +58,12 @@ public class InterfacciaContributore {
                 throw new IllegalArgumentException("Tipo non valido");
             }
         }
-        if(this.utente.getRuolo() == RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
+        /*if(this.utente.getRuolo() == RuoloUtente.CONTRIBUTORE_AUTORIZZATO)
             this.itinerarioController.creaItinerarioValidato(factory,itinerario,listaPoi,periodo);
         else
             this.itinerarioController.creaItinerarioDaValidare(factory,itinerario,listaPoi,periodo);
+            */
+
     }
 
     public void partecipaContest(Contest contest,Contenuto contenuto){

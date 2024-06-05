@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Entity
 public class ContenutoContest {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contenuto_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contenutoContest_generator")
     private int idContenutoContest;
     @OneToOne
     private UtenteAutenticato utente;
