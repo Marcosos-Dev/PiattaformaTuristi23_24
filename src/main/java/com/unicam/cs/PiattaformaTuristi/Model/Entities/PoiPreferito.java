@@ -1,14 +1,24 @@
 package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
+import jakarta.persistence.*;
+
+@Entity
 public class PoiPreferito {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "poipreferito_generator")
     private int idElemento;
+    @ManyToOne
+    @JoinColumn(name = "ID_POI")
     private PoiGenerico poi;
+    @ManyToOne
+    @JoinColumn(name = "ID_UTENTE")
     private UtenteAutenticato utente;
 
     public PoiPreferito(PoiGenerico poi, UtenteAutenticato utente){
         this.poi = poi;
         this.utente = utente;
     }
+    public PoiPreferito(){}
 
     public void setIdElemento(int idElemento) { this.idElemento = idElemento; }
 

@@ -1,14 +1,23 @@
 package com.unicam.cs.PiattaformaTuristi.Springboot;
 
+import com.unicam.cs.PiattaformaTuristi.Controllers.ElementiSalvatiController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.RichiestaDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.UtenteAutenticatoDto;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Richiesta;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
+import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
 import com.unicam.cs.PiattaformaTuristi.Repositories.RichiesteRepository;
 import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.regex.Pattern;
@@ -19,13 +28,19 @@ import java.util.regex.Pattern;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UtenteController {
     @Autowired
-    public UtenteRepository utentiRepository;
+    public UtenteRepository utenteRepository;
 
     @Autowired
     public RichiesteRepository richiesteRepository;
 
     @Autowired
     private UtentiController utentiController;
+    @Autowired
+    private ElementiSalvatiController elementiSalvatiController;
+    @Autowired
+    private PoiController poiController;
+    @Autowired
+    private ItinerarioController itinerarioController;
 
     @PostMapping("/registrazione")
     public ResponseEntity<Object> registrationUser(@RequestBody UtenteAutenticatoDto utente) {
@@ -48,7 +63,7 @@ public class UtenteController {
 
     @PostMapping("/animatore/richiediRuolo")
     public ResponseEntity<Object> richiediRuolo(@RequestBody RichiestaDTO richiesta){
-        if(utentiRepository.findById(richiesta.getIdUtente()).isEmpty())
+        if(utenteRepository.findById(richiesta.getIdUtente()).isEmpty())
             return new ResponseEntity<>("Utente non presente", HttpStatus.BAD_REQUEST);
         this.utentiController.aggiungiRichiestaRuolo(new Richiesta(richiesta.getIdUtente(), richiesta.getRuoloRichiesto()));
         return new ResponseEntity<>("Richiesta creata con successo", HttpStatus.OK);
@@ -66,6 +81,43 @@ public class UtenteController {
     @GetMapping("/gestore/visualizzaUtenti")
     public ResponseEntity<Object> visualizzaUtentiAutenticati() {
         return new ResponseEntity<>(this.utentiController.getUtenti(), HttpStatus.OK);
+    }
+
+    @PostMapping("/turista_autenticato/salvaElemento")
+    public ResponseEntity<Object> salvaElemento(@RequestParam("id") Integer idElemento,@RequestParam("tipo") String tipoElemento) {
+
+        UtenteAutenticato utente = utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+        if(tipoElemento.toUpperCase().equals("POI")){
+            PoiGenerico poi = this.poiController.selezionaPoi(idElemento);
+            if(poi == null)
+                return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+            this.elementiSalvatiController.salvaPoi(utente, poi);
+        }
+        else if(tipoElemento.toUpperCase().equals(("ITINERARIO"))){
+            ItinerarioGenerico itinerario = this.itinerarioController.selezionaItinerario(idElemento);
+            if(itinerario == null)
+                return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+            this.elementiSalvatiController.salvaItinerario(utente,itinerario);
+        }
+        else{
+            return new ResponseEntity<>(tipoElemento+" non esiste", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(tipoElemento+" salvato con successo",HttpStatus.OK);
+    }
+
+    @GetMapping("/turista_autenticato/visualizzaElementiSalvati")
+    public ResponseEntity<Object> visualizzaElementiSalvati(@RequestParam("tipo") String tipoElemento) {
+
+        UtenteAutenticato utente = utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+        if(tipoElemento.toUpperCase().equals("POI")){
+            return new ResponseEntity<>(this.elementiSalvatiController.getPoiPreferiti(utente.getIdUtente()).stream().map(x->x.getPoi()),HttpStatus.OK);
+        }
+        else if(tipoElemento.toUpperCase().equals(("ITINERARIO"))){
+            return new ResponseEntity<>(this.elementiSalvatiController.getItinerariPreferiti(utente.getIdUtente()).stream().map(x->x.getItinerario()),HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(tipoElemento+" non esiste", HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

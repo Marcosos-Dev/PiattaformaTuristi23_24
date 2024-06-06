@@ -74,7 +74,7 @@ public class ItinerarioController {
 
     public void rimuoviItinerario(int idItinerario){ this.comune.rimuoviItinerario(idItinerario); }
 
-    public ItinerarioGenerico selezionaItinerario(int idItinerario){ return this.comune.getItinerario(idItinerario); }
+    public ItinerarioGenerico selezionaItinerario(int idItinerario){ return this.comuneRepository.findById("Camerino").get().getItinerario(idItinerario); }
 
     public List<ItinerarioGenerico> getItinerariValidati(){ return this.comuneRepository.findById("Camerino").get().getItinerariValidati(); }
 

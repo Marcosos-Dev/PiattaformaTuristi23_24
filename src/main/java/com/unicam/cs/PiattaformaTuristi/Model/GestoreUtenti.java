@@ -4,6 +4,8 @@ import com.unicam.cs.PiattaformaTuristi.Model.Entities.Richiesta;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Repositories.RichiesteRepository;
 import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,8 +19,9 @@ public class GestoreUtenti {
 
     @Autowired
     public RichiesteRepository richiesteRepository;
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UtenteAutenticato> utenti;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Richiesta> richiesteCambioRuolo;
 
     public GestoreUtenti(){

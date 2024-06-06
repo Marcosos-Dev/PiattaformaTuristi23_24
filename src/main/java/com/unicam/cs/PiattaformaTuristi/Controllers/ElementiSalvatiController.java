@@ -2,9 +2,10 @@ package com.unicam.cs.PiattaformaTuristi.Controllers;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ElementiSalvatiController {
     private GestoreElementiSalvati elementi;
 
@@ -28,9 +29,9 @@ public class ElementiSalvatiController {
 
     public void eliminaItinerari(ItinerarioPreferito itinerario) { this.elementi.eliminaItinerarioPreferito(itinerario); }
 
-    public List<PoiPreferito> getPoiPreferiti(){ return this.elementi.getPoiPreferiti(); }
+    public List<PoiPreferito> getPoiPreferiti(int idUtente){ return this.elementi.getPoiPreferiti(idUtente); }
 
-    public List<ItinerarioPreferito> getItinerariPreferiti() { return this.elementi.getItinerariPreferiti(); }
+    public List<ItinerarioPreferito> getItinerariPreferiti(int idUtente) { return this.elementi.getItinerariPreferiti(idUtente); }
 
     public List<PoiGenerico> selezionaPoiSalvato(int idUtente){ return this.elementi.getPoiPreferitiUtente(idUtente); }
 

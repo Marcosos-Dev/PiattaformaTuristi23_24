@@ -9,6 +9,8 @@ import com.unicam.cs.PiattaformaTuristi.Model.DTO.ItinerarioDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.PoiDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.*;
 import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
 import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
@@ -35,6 +37,28 @@ public class ComuneController {
     ComuneRepository comuneRepository;
     @Autowired
     UtenteRepository utenteRepository;
+
+    @GetMapping(value = {"turista_autenticato/visualizzaItinerario", "/contributore/visualizzaItinerario","contributore_autorizzato/visualizzaItinerario"})
+    public ResponseEntity<Object> GetItinerario(@RequestParam("idItinerario") int idItinerario) {
+        ItinerarioGenerico itinerario = this.itinerarioController.selezionaItinerario(idItinerario);
+        if(itinerario == null)
+            return new ResponseEntity<>("Itinerario non trovato", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(itinerario, HttpStatus.OK);
+    }
+    @GetMapping(value = {"turista_autenticato/visualizzaContestChiuso", "/contributore/visualizzaContestChiuso","contributore_autorizzato/visualizzaContestChiuso"})
+    public ResponseEntity<Object> GetContest(@RequestParam("idContest") int idContest) {
+        Contest contest = this.contestController.selezionaContest(idContest);
+        if(contest == null)
+            return new ResponseEntity<>("Contest non trovato", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(contest, HttpStatus.OK);
+    }
+    @GetMapping(value = {"turista_autenticato/visualizzaPoi", "/contributore/visualizzaPoi","contributore_autorizzato/visualizzaPoi"})
+    public ResponseEntity<Object> GetPoi(@RequestParam("idPoi") int idPoi) {
+        PoiGenerico poi = this.poiController.selezionaPoi(idPoi);
+        if(poi == null)
+            return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(poi, HttpStatus.OK);
+    }
 
     @GetMapping(value = {"turista_autenticato/visualizzaTuttiPoi", "/contributore/visualizzaTuttiPoi","contributore_autorizzato/visualizzaTuttiPoi"})
     public ResponseEntity<Object> GetTuttiPoi() {
@@ -185,4 +209,6 @@ public class ComuneController {
                 utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()));
         return new ResponseEntity<>("Contenuto da validare caricato con successo", HttpStatus.OK);
     }
+
+
 }

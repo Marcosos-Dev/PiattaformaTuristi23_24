@@ -80,7 +80,7 @@ public class PoiController {
         this.comune.inserisciSegnalazionePoi(segnalazione,poi);
     }
 
-    public PoiGenerico selezionaPoi(int idPoi){ return this.comune.getPoi(idPoi); }
+    public PoiGenerico selezionaPoi(int idPoi){ return this.comuneRepository.findById("Camerino").get().getPoi(idPoi); }
 
     public Segnalazione selezionaSegnalazionePoi(int idSegnalazione){ return this.comune.getSegnalazionePoi(idSegnalazione); }
 

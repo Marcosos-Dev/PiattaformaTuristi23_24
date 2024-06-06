@@ -37,7 +37,9 @@ public class ContestController {
     }
 
 
-    public Contest selezionaContest(int idContest){ return this.comune.getContest(idContest); }
+    public Contest selezionaContest(int idContest){
+        return this.comuneRepository.findById("Camerino").get().getContest(idContest);
+    }
 
     public List<Contest> getContestUtente(UtenteAutenticato utente){
         return comune.getContestAperti().stream().filter(c -> c.getCreatoreContest().equals(utente)).toList();
