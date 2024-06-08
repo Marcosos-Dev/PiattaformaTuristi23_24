@@ -215,7 +215,7 @@ public class ComuneController {
                 (utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()))
                 .stream().findFirst().filter(c -> c.getPrivato() && c.getIdContest()==IdContest).orElse(null);
         if(contestUtente==null)
-            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.NOT_FOUND);
         List<UtenteAutenticato> utentiInvitabili = this.contestController.getUtentiInvitabili(contestUtente);
         if(utentiInvitabili.size()<IdUtenti.size())
             return new ResponseEntity<>("Assicurarsi che tutti gli utenti da invitare esistano", HttpStatus.BAD_REQUEST);
@@ -233,7 +233,7 @@ public class ComuneController {
         Contest contestUtente =  this.contestController.getTuttiContestPartecipabili(utente)
                 .stream().findFirst().filter(c -> c.getIdContest()==IdContest).orElse(null);
         if(contestUtente==null)
-            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.NOT_FOUND);
         Contenuto contenuto;
         try{
             contenuto = new Contenuto(new File(fileContenuto.getOriginalFilename()), descrContenuto);
@@ -251,7 +251,7 @@ public class ComuneController {
                         (utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()))
                 .stream().findFirst().filter(c -> c.getIdContest()==IdContest).orElse(null);
         if(contestUtente==null)
-            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.NOT_FOUND);
         if(contestUtente.getPrivato() && contestUtente.getInvitati().stream().noneMatch(u -> u.getIdUtente()==IdUtente))
             return new ResponseEntity<>("L'utente fornito non è stato invitato al contest", HttpStatus.BAD_REQUEST);
         ContenutoContest vincitore = contestUtente.getContenutiCaricati().stream().findFirst().filter(c -> c.getUtente().getIdUtente()==IdUtente).orElse(null);
@@ -260,6 +260,36 @@ public class ComuneController {
         this.contestController.setVincitoreContest(contestUtente, vincitore);
         return new ResponseEntity<>("Vincitore selezionato con successo", HttpStatus.OK);
     }
+    @PostMapping("curatore/validaElemento")
+    public ResponseEntity<Object> validaElemento(@RequestParam("id") Integer idElemento, @RequestParam("tipo") String tipoElemento, @RequestParam("esito") boolean esito){
+        switch(tipoElemento.toUpperCase()){
+            case "POI":{
+                PoiGenerico poi = this.poiController.getPoiDaValidare().stream().findFirst().filter(p->p.getIdPoi()==idElemento).orElse(null);
+                if(poi == null)
+                    return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+                this.poiController.validaPoi(poi,esito);
+                break;
+            }
 
-
+            case "ITINERARIO":{
+                ItinerarioGenerico itinerario = this.itinerarioController.getItinerarioDaValidare().stream().findFirst().filter(i->i.getIdItinerario()==idElemento).orElse(null);
+                if(itinerario == null)
+                    return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+                this.itinerarioController.validaItinerario(itinerario,esito);
+                break;
+            }
+            case "CONTENUTO":{
+                PoiGenerico poiDelContenuto = this.poiController.getPoiConContenutiDaValidare().stream().findFirst().filter(
+                        p -> this.poiController.getContenuto(p,idElemento) != null
+                ).orElse(null);
+                if(poiDelContenuto == null)
+                    return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+                this.poiController.validaContenuto(poiDelContenuto,this.poiController.getContenuto(poiDelContenuto,idElemento),esito);
+                break;
+            }
+            default :
+                return new ResponseEntity<>(tipoElemento+" non esiste", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(tipoElemento+" "+(esito ? "validato":"eliminato")+" con successo", HttpStatus.OK);
+    }
 }

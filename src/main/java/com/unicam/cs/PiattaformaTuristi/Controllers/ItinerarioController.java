@@ -54,8 +54,10 @@ public class ItinerarioController {
     }
 
     public void validaItinerario(ItinerarioGenerico itinerario, boolean esito){
-        if(esito) this.comune.inserisciItinerarioValidato(itinerario);
-        this.comune.rimuoviItinerarioDaValidare(itinerario);
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        if(esito) c.inserisciItinerarioValidato(itinerario);
+        c.rimuoviItinerarioDaValidare(itinerario);
+        this.comuneRepository.save(c);
     }
 
     public void creaSegnalazione(String descrizione, ItinerarioGenerico itinerario){

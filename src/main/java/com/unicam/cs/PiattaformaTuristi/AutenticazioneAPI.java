@@ -5,12 +5,14 @@ import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
 @Configuration
 @EnableWebSecurity
@@ -48,7 +50,16 @@ public class AutenticazioneAPI {
                     )
                     .csrf((csrf) -> csrf.ignoringRequestMatchers("/**"))
                     .headers((headers) -> headers.frameOptions(option -> option.disable()))
-                    .logout((logout) -> logout.permitAll());
+                    .logout(logout ->
+                            logout
+                                    .logoutUrl("/logout")
+                                    .invalidateHttpSession(true)
+                                    .deleteCookies("JSESSIONID")
+                                    .permitAll().logoutSuccessHandler((request, response, authentication) -> response.setStatus(200))
+                    ).exceptionHandling(exceptionHandling ->
+                            exceptionHandling
+                                    .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+                    );
 
             return http.build();
         }

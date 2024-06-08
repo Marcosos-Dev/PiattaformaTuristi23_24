@@ -32,7 +32,7 @@ public class PoiController {
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
         if(poi.getContenuto()!=null)
-            poiDaInserire.inserisciContenutoDaValidare(poi.getContenuto());
+            poiDaInserire.inserisciContenutoValidato(poi.getContenuto());
         if(poiDaInserire instanceof PoiEvento poiE)
             poiE.setPeriodo(poi.getPeriodo());
         Comune c = this.comuneRepository.findById("Camerino").get();
@@ -59,19 +59,23 @@ public class PoiController {
     }
 
     public void validaPoi(PoiGenerico poi, boolean esito){
-        if(esito) this.comune.inserisciPoiValidato(poi);
-        this.comune.rimuoviPoiDaValidare(poi);
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        if(esito) c.inserisciPoiValidato(poi);
+        c.rimuoviPoiDaValidare(poi);
+        this.comuneRepository.save(c);
     }
 
-    public List<PoiGenerico> getPoiConContenutiDaValidare(){ return this.comune.getPoiValidati().stream().filter(p -> !p.getContenutiDaValidare().isEmpty()).toList(); }
+    public List<PoiGenerico> getPoiConContenutiDaValidare(){ return this.comuneRepository.findById("Camerino").get().getPoiValidati().stream().filter(p -> !p.getContenutiDaValidare().isEmpty()).toList(); }
 
     public List<Contenuto> getContenutiDaValidarePoi(PoiGenerico poi){ return poi.getContenutiDaValidare(); }
 
     public Contenuto getContenuto(PoiGenerico poi, int idContenuto){ return getContenutiDaValidarePoi(poi).stream().filter(c -> c.getIdContenuto() == idContenuto).findFirst().orElse(null); }
 
-    public void validaContenuto(PoiGenerico poi, Contenuto c, boolean esito){
-        if(esito) poi.inserisciContenutoValidato(c);
-        poi.rimuoviContenutoDaValidare(c);
+    public void validaContenuto(PoiGenerico poi, Contenuto contenuto, boolean esito){
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        if(esito) poi.inserisciContenutoValidato(contenuto);
+        poi.rimuoviContenutoDaValidare(contenuto);
+        this.comuneRepository.save(c);
     }
 
     public void creaSegnalazione(String descrizione, PoiGenerico poi){
@@ -100,7 +104,7 @@ public class PoiController {
 
     public List<PoiEvento> getPoiEventoValidati(){ return this.comune.getPoiValidati().stream().filter(p -> p.getTipo() == TipoPoi.EVENTO).map(p -> (PoiEvento) p).toList(); }
 
-    public List<PoiGenerico> getPoiDaValidare(){ return this.comune.getPoiDaValidare(); }
+    public List<PoiGenerico> getPoiDaValidare(){ return this.comuneRepository.findById("Camerino").get().getPoiDaValidare(); }
 
     public void caricaContenutoDaValidare(Contenuto contenuto, int idPoi){
         validaEstensioneFile(contenuto.getFile().getName());
