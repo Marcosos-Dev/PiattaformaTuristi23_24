@@ -36,7 +36,9 @@ public class Contest {
         this.privato = privato;
     }
 
-    public void inserisciTuttiInvitati(List<UtenteAutenticato> invitati) { this.invitati.addAll(invitati); }
+    public void inserisciTuttiInvitati(List<UtenteAutenticato> invitati) {
+        this.invitati.addAll(invitati);
+    }
 
     public void setCreatoreContest(UtenteAutenticato creatoreContest) { this.creatoreContest = creatoreContest; }
 

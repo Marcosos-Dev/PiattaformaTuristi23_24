@@ -7,10 +7,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.*;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.ContestDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.ItinerarioDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.PoiDTO;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.*;
 import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
 import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
@@ -23,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -177,7 +176,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore_autorizzato/inserisciContenutoValidatoPoi")
-    public ResponseEntity<Object> inserisciContenutoValidatoPoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestPart("descr") String descrContenuto) {
+    public ResponseEntity<Object> inserisciContenutoValidatoPoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
         if(this.comuneRepository.findById("Camerino").get().getPoi(idPoi)==null)
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
         if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
@@ -189,7 +188,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore/inserisciContenutoDaValidarePoi")
-    public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestPart("descr") String descrContenuto) {
+    public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
         if(this.comuneRepository.findById("Camerino").get().getPoi(idPoi)==null)
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
         if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
@@ -207,7 +206,59 @@ public class ComuneController {
         this.contestController.creaContest(
                 new Contest(contest.getTitolo(),contest.getDescrizione(),contest.getPrivato()),
                 utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()));
-        return new ResponseEntity<>("Contenuto da validare caricato con successo", HttpStatus.OK);
+        return new ResponseEntity<>("Contest creato con successo", HttpStatus.OK);
+    }
+
+    @PostMapping("animatore/invitaUtente")
+    public ResponseEntity<Object> invitaUtenteContest(@RequestParam("id") Integer IdContest, @RequestParam("Utenti") List<Integer> IdUtenti) {
+        Contest contestUtente = this.contestController.getContestUtente
+                (utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()))
+                .stream().findFirst().filter(c -> c.getPrivato() && c.getIdContest()==IdContest).orElse(null);
+        if(contestUtente==null)
+            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+        List<UtenteAutenticato> utentiInvitabili = this.contestController.getUtentiInvitabili(contestUtente);
+        if(utentiInvitabili.size()<IdUtenti.size())
+            return new ResponseEntity<>("Assicurarsi che tutti gli utenti da invitare esistano", HttpStatus.BAD_REQUEST);
+        if(utentiInvitabili.stream().anyMatch(u -> IdUtenti.stream().noneMatch(i -> i == u.getIdUtente())))
+            return new ResponseEntity<>("Assicurarsi che tutti gli utenti da invitare non siano già stati invitati", HttpStatus.BAD_REQUEST);
+        List<UtenteAutenticato> utentiDaInvitare = new ArrayList<>();
+        this.utenteRepository.findAllById(IdUtenti).iterator().forEachRemaining(utentiDaInvitare::add);
+        this.contestController.invitaUtenti(contestUtente, utentiDaInvitare);
+        return new ResponseEntity<>("Utenti invitati con successo", HttpStatus.OK);
+    }
+
+    @PostMapping(value = {"/contributore/caricaContenutoContest","contributore_autorizzato/caricaContenutoContest"})
+    public ResponseEntity<Object> caricaContenutoContest(@RequestParam("id") Integer IdContest, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
+        UtenteAutenticato utente = utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
+        Contest contestUtente =  this.contestController.getTuttiContestPartecipabili(utente)
+                .stream().findFirst().filter(c -> c.getIdContest()==IdContest).orElse(null);
+        if(contestUtente==null)
+            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+        Contenuto contenuto;
+        try{
+            contenuto = new Contenuto(new File(fileContenuto.getOriginalFilename()), descrContenuto);
+        } catch(Exception e) {
+            return new ResponseEntity<>("File non ottenuto", HttpStatus.BAD_REQUEST);
+        }
+
+        this.contestController.partecipaContest(contestUtente, new ContenutoContest(contenuto,utente));
+        return new ResponseEntity<>("Contenuto caricato con successo", HttpStatus.OK);
+    }
+
+    @PostMapping("animatore/selezionaVincitoreContest")
+    public ResponseEntity<Object> selezionaVincitoreContest(@RequestParam("id") Integer IdContest, @RequestParam("utente") Integer IdUtente) {
+        Contest contestUtente = this.contestController.getContestUtente
+                        (utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()))
+                .stream().findFirst().filter(c -> c.getIdContest()==IdContest).orElse(null);
+        if(contestUtente==null)
+            return new ResponseEntity<>("Nessun contest trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+        if(contestUtente.getPrivato() && contestUtente.getInvitati().stream().noneMatch(u -> u.getIdUtente()==IdUtente))
+            return new ResponseEntity<>("L'utente fornito non è stato invitato al contest", HttpStatus.BAD_REQUEST);
+        ContenutoContest vincitore = contestUtente.getContenutiCaricati().stream().findFirst().filter(c -> c.getUtente().getIdUtente()==IdUtente).orElse(null);
+        if(vincitore==null)
+            return new ResponseEntity<>("L'utente fornito non ha partecipato al contest", HttpStatus.BAD_REQUEST);
+        this.contestController.setVincitoreContest(contestUtente, vincitore);
+        return new ResponseEntity<>("Vincitore selezionato con successo", HttpStatus.OK);
     }
 
 

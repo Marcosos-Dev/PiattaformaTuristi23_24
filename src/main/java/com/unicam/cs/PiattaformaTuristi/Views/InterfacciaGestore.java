@@ -16,17 +16,17 @@ public class InterfacciaGestore {
     }
 
     public void autenticazione(String username, String password){
-        if(!this.utentiController.autenticaUtente(username,password))
-            throw new IllegalArgumentException("Credenziali errate");
+        //if(!this.utentiController.autenticaUtente(username,password))
+        //    throw new IllegalArgumentException("Credenziali errate");
     }
 
     //Modifica il ruolo a piacimento
     public void gestisciRuolo(int idUtente, RuoloUtente nuovoRuolo){
-        this.utentiController.gestisciRuolo(idUtente,nuovoRuolo);
+        //this.utentiController.gestisciRuolo(idUtente,nuovoRuolo);
     }
 
     //accetta o rifiuta i cambi di ruolo
     public void gestisciRichiestaRuolo(Richiesta richiesta, boolean esito){
-        this.utentiController.gestisciRichiestaRuolo(richiesta,esito);
+        //this.utentiController.gestisciRichiestaRuolo(richiesta,esito);
     }
 }

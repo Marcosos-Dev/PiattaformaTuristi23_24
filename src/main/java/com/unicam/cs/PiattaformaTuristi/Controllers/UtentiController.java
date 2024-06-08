@@ -26,9 +26,9 @@ public class UtentiController {
         this.gestoreUtenti.aggiungiUtente(new UtenteAutenticato(username,password));
     }
 
-    public boolean autenticaUtente(String username, String password){
-        return this.gestoreUtenti.autenticaUtente(username,password);
-    }
+    //public boolean autenticaUtente(String username, String password){
+    //    return this.gestoreUtenti.autenticaUtente(username,password);
+    //}
 
     public List<RuoloUtente> getPossibiliRuoli(RuoloUtente ruolo){
         return RuoloUtente.getPossibiliRuoliDefault().stream().filter(x -> !x.equals(ruolo)).toList();

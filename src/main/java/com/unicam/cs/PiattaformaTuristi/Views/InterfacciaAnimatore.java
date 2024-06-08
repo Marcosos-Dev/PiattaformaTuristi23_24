@@ -19,18 +19,18 @@ public class InterfacciaAnimatore {
 
     public InterfacciaAnimatore(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore){
         this.comune = comune;
-        this.contestController = new ContestController(this.comune);
+        //this.contestController = new ContestController(this.comune);
         this.utentiController = new UtentiController(gestore);
         this.utente = utente;
     }
 
     public void creaContest(Contest contest){
-        this.contestController.creaContest(contest, this.utente);
+        //this.contestController.creaContest(contest, this.utente);
     }
 
     public void autenticazione(String username, String password){
-        if(!this.utentiController.autenticaUtente(username,password))
-            throw new IllegalArgumentException("Credenziali errate");
+        //if(!this.utentiController.autenticaUtente(username,password))
+            //throw new IllegalArgumentException("Credenziali errate");
     }
 
     public void selezionaVincitoreContest(Contest c, ContenutoContest vincitore){
@@ -38,7 +38,7 @@ public class InterfacciaAnimatore {
         // -getContestUtente per ottenere i contest selezionabili dall'utente -> c
         // -getContenutiContest per ottenere i contenuti selezionabili come vincitori -> vincitore
         //rimuovendo la necessità dei parametri
-        this.contestController.setVincitoreContest(c,vincitore);
+        //this.contestController.setVincitoreContest(c,vincitore);
     }
 
     public void invitaUtente(Contest contest, List<UtenteAutenticato> utentiDaInvitare){
@@ -46,11 +46,11 @@ public class InterfacciaAnimatore {
         // -getTuttiContestPartecipabili per ottenere il contest -> contest
         // -getUtentiInvitabili per ottenere gli utenti da invitare -> utentiDaInvitare
         //rimuovendo la necessità dei parametri
-        contestController.invitaUtenti(contest, utentiDaInvitare);
+        //contestController.invitaUtenti(contest, utentiDaInvitare);
     }
 
     public void richiestaCambioRuolo(RuoloUtente nuovoRuolo){
         //Ottieni possibili ruoli -> utentiController.getPossibiliRuoli(this.utente.getRuolo());
-        this.utentiController.richiediRuolo(this.utente.getIdUtente(),nuovoRuolo);
+        //this.utentiController.richiediRuolo(this.utente.getIdUtente(),nuovoRuolo);
     }
 }

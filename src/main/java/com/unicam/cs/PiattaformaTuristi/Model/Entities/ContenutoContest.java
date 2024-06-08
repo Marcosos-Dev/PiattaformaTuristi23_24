@@ -11,15 +11,15 @@ public class ContenutoContest {
     private int idContenutoContest;
     @OneToOne
     private UtenteAutenticato utente;
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contenuto_id")
     private Contenuto contenuto;
 
     public ContenutoContest(){
 
     }
 
-    public ContenutoContest(int idContenutoContest,Contenuto contenuto, UtenteAutenticato utente){
-        this.idContenutoContest = idContenutoContest;
+    public ContenutoContest(Contenuto contenuto, UtenteAutenticato utente){
         this.contenuto = contenuto;
         this.utente = utente;
     }

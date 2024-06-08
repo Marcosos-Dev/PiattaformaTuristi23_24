@@ -15,19 +15,21 @@ public class ElementiSalvatiController {
 
     public void salvaPoi(UtenteAutenticato utente, PoiGenerico poi){
         PoiPreferito preferito = new PoiPreferito(poi, utente);
-        preferito.setIdElemento(this.elementi.getUltimoIdPreferito());
         this.elementi.aggiungiPoiPreferito(preferito);
     }
 
     public void salvaItinerario(UtenteAutenticato utente, ItinerarioGenerico itinerario){
         ItinerarioPreferito preferito = new ItinerarioPreferito(itinerario, utente);
-        preferito.setIdElemento(this.elementi.getUltimoIdPreferito());
         this.elementi.aggiungiItinerarioPreferito(preferito);
     }
 
-    public void eliminaPoi(PoiPreferito preferito) { this.elementi.eliminaPoiPreferito(preferito); }
+    public void rimuoviPoiSalvato(UtenteAutenticato utente, PoiPreferito poi) {
+        this.elementi.eliminaPoiPreferito(poi);
+    }
 
-    public void eliminaItinerari(ItinerarioPreferito itinerario) { this.elementi.eliminaItinerarioPreferito(itinerario); }
+    public void rimuoviItinerarioSalvato(UtenteAutenticato utente, ItinerarioPreferito itinerario) {
+        this.elementi.eliminaItinerarioPreferito(itinerario);
+    }
 
     public List<PoiPreferito> getPoiPreferiti(int idUtente){ return this.elementi.getPoiPreferiti(idUtente); }
 

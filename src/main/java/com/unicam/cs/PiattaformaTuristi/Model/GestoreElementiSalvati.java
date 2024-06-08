@@ -40,20 +40,23 @@ public class GestoreElementiSalvati {
 
     public List<ItinerarioGenerico> getItinerariPreferitiUtente(int idUtente) { return itinerariPreferiti.stream().filter(i -> i.getUtente().getIdUtente()==idUtente).map(i -> i.getItinerario()).toList(); }
 
-    public void aggiungiPoiPreferito(PoiPreferito poi){ this.poiPreferiti.add(poi); this.poiPreferitoRepository.save(poi);}
+    public void aggiungiPoiPreferito(PoiPreferito poi){
+        this.poiPreferiti.add(poi);
+        this.poiPreferitoRepository.save(poi);
+    }
 
-    public void aggiungiItinerarioPreferito(ItinerarioPreferito itinerario){ this.itinerariPreferiti.add(itinerario); this.itinerarioPreferitoRepository.save(itinerario); }
+    public void aggiungiItinerarioPreferito(ItinerarioPreferito itinerario){
+        this.itinerariPreferiti.add(itinerario);
+        this.itinerarioPreferitoRepository.save(itinerario);
+    }
 
-    public void eliminaPoiPreferito(PoiPreferito poi){ this.poiPreferiti.remove(poi); }
+    public void eliminaPoiPreferito(PoiPreferito poi){
+        this.poiPreferiti.remove(poi);
+        this.poiPreferitoRepository.delete(poi);
+    }
 
-    public void eliminaItinerarioPreferito(ItinerarioPreferito itinerario){ this.itinerariPreferiti.remove(itinerario); }
-
-    public int getUltimoIdPreferito(){
-        return Math.max(
-                this.poiPreferiti.isEmpty() ?
-                        1 : this.poiPreferiti.getLast().getIdElemento()+1,
-                this.itinerariPreferiti.isEmpty() ?
-                        1 : this.itinerariPreferiti.getLast().getIdElemento()+1
-        );
+    public void eliminaItinerarioPreferito(ItinerarioPreferito itinerario){
+        this.itinerariPreferiti.remove(itinerario);
+        this.itinerarioPreferitoRepository.delete(itinerario);
     }
 }

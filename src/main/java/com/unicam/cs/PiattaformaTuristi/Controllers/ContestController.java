@@ -16,18 +16,17 @@ import java.util.stream.Stream;
 public class ContestController {
     @Autowired
     ComuneRepository comuneRepository;
-
-    private Comune comune;
+    @Autowired
     private UtentiController utentiController;
 
     public ContestController(){
 
     }
 
-    public ContestController(Comune comune){
+    /*public ContestController(Comune comune){
         this.comune = comune;
         this.utentiController = new UtentiController();
-    }
+    }*/
 
     public void creaContest(Contest contest, UtenteAutenticato animatore){
         contest.setCreatoreContest(animatore);
@@ -42,24 +41,27 @@ public class ContestController {
     }
 
     public List<Contest> getContestUtente(UtenteAutenticato utente){
-        return comune.getContestAperti().stream().filter(c -> c.getCreatoreContest().equals(utente)).toList();
+        return this.comuneRepository.findById("Camerino").get().getContestAperti().stream().filter(c -> c.getCreatoreContest().equals(utente)).toList();
     }
 
     public List<ContenutoContest> getContenutiContest(Contest contest){
+        Comune comune = this.comuneRepository.findById("Camerino").get();
         Contest contenuti = comune.getContestAperti().stream().filter(c -> c.equals(contest)).findFirst().orElse(null);
         if(contenuti==null)
             throw new RuntimeException("Contest senza partecipanti");
         return contenuti.getContenutiCaricati();
     }
 
-    public void setVincitoreContest(Contest c, ContenutoContest vincitore){
-        c.setContenutoVincitore(vincitore);
-        this.comune.chiudiContest(c);
+    public void setVincitoreContest(Contest contest, ContenutoContest vincitore){
+        contest.setContenutoVincitore(vincitore);
+        Comune comune = this.comuneRepository.findById("Camerino").get();
+        comune.chiudiContest(contest);
+        this.comuneRepository.save(comune);
     }
 
-    public List<Contest> getContestPrivati(UtenteAutenticato utente){
-        return comune.getContestAperti().stream().filter(c -> c.getPrivato() && c.getCreatoreContest().equals(utente)).toList();
-    }
+    //public List<Contest> getContestPrivati(UtenteAutenticato utente){
+    //    return this.comuneRepository.findById("Camerino").get().getContestAperti().stream().filter(c -> c.getPrivato() && c.getCreatoreContest().equals(utente)).toList();
+    //}
 
     public List<Contest> getContestChiusi(){ return this.comuneRepository.findById("Camerino").get().getContestChiusi(); }
 
@@ -67,33 +69,32 @@ public class ContestController {
 
     public void invitaUtenti(Contest contest, List<UtenteAutenticato> utentiDaInvitare){
         contest.inserisciTuttiInvitati(utentiDaInvitare);
+        comuneRepository.save(this.comuneRepository.findById("Camerino").get());
     }
 
-    public void partecipaContest(Contest contest, Contenuto contenuto, UtenteAutenticato utente){
-        int idContenutoContest = contest.getContenutiCaricati().isEmpty() ? 1 : contest.getContenutiCaricati().getLast().getIdContenutoContest()+1;
-        contest.inserisciContenuto(new ContenutoContest(idContenutoContest,contenuto,utente));
+    public void partecipaContest(Contest contest, ContenutoContest contenuto){
+        contest.inserisciContenuto(contenuto);
+        comuneRepository.save(this.comuneRepository.findById("Camerino").get());
     }
 
-    //Metodo per far selezionare all'utente il contest
-    //Per semplificare l'utilizzo non è stato usato nella vista
     public List<Contest> getTuttiContestPartecipabili(UtenteAutenticato utente){
-        List<Contest> contestPrivatiNonPartecipati = this.comune.getContestAperti().stream().filter(c ->
+        Comune comune = this.comuneRepository.findById("Camerino").get();
+        List<Contest> contestPrivatiNonPartecipati = comune.getContestAperti().stream().filter(c ->
                 c.getPrivato() &&
                 c.getInvitati().contains(utente) &&
                 c.getContenutiCaricati().stream().noneMatch(contenuto -> contenuto.getUtente().equals(utente))).toList();
-        List<Contest> contestPubbliciNonPartecipati = this.comune.getContestAperti().stream().filter(c ->
+        List<Contest> contestPubbliciNonPartecipati = comune.getContestAperti().stream().filter(c ->
                 !c.getPrivato() &&
                 c.getContenutiCaricati().stream().noneMatch(contenuto -> contenuto.getUtente().equals(utente))).toList();
 
         return Stream.concat(contestPrivatiNonPartecipati.stream(), contestPubbliciNonPartecipati.stream()).toList();
     }
 
-    //Metodo di utilità per far selezionare all'utente il contest
-    //Per semplificare l'utilizzo non è stato usato nella vista
     public List<UtenteAutenticato> getUtentiInvitabili(Contest contest){
         List<UtenteAutenticato> utentiInvitati = contest.getInvitati();
         List<UtenteAutenticato> contributori = utentiController.getTuttiContributori();
-        contributori.removeAll(utentiInvitati);
+        if(!utentiInvitati.isEmpty())
+            contributori.removeAll(utentiInvitati);
         return contributori;
     }
 }

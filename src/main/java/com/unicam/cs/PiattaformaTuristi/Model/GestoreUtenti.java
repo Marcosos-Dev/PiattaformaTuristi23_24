@@ -29,7 +29,9 @@ public class GestoreUtenti {
         this.richiesteCambioRuolo = new ArrayList<>();
     }
 
-    public boolean autenticaUtente(String username, String password){ return this.utenti.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(password)); }
+    //public boolean autenticaUtente(String username, String password){
+    //    return this.utenti.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(password));
+    //}
 
     public void aggiungiUtente(UtenteAutenticato utente){
         this.utenti.add(utente);
@@ -47,8 +49,9 @@ public class GestoreUtenti {
     }
 
     public void modificaRuolo(int idUtente, RuoloUtente ruolo){
-        this.getUtente(idUtente).setRuolo(ruolo);
-        this.utentiRepository.save(getUtente(idUtente));
+        UtenteAutenticato utente  = this.getUtente(idUtente);
+        utente.setRuolo(ruolo);
+        this.utentiRepository.save(utente);
     }
 
     public List<Richiesta> getRichiesteCambioRuolo() { return richiesteCambioRuolo; }

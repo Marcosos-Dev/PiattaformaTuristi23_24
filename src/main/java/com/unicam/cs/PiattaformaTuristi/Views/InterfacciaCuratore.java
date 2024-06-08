@@ -24,8 +24,8 @@ public class InterfacciaCuratore {
     }
 
     public void autenticazione(String username, String password){
-        if(!this.utentiController.autenticaUtente(username,password))
-            throw new IllegalArgumentException("Credenziali errate");
+        //if(!this.utentiController.autenticaUtente(username,password))
+        //    throw new IllegalArgumentException("Credenziali errate");
     }
 
     public void validaElemento(String elemento, PoiGenerico poi, ItinerarioGenerico itinerario, int idContenuto, boolean esito){
