@@ -8,7 +8,6 @@ import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,7 +56,7 @@ public class ItinerarioController {
 
     public void creaSegnalazione(String descrizione, ItinerarioGenerico itinerario){
         Comune c = this.comuneRepository.findById("Camerino").get();
-        c.inserisciSegnalazioneItinerari(new Segnalazione(descrizione),itinerario);
+        c.inserisciSegnalazioneItinerario(new Segnalazione(descrizione),itinerario);
         this.comuneRepository.save(c);
     }
 

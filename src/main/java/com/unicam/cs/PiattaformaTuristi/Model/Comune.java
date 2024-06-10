@@ -53,7 +53,7 @@ public class Comune {
 
     public void inserisciSegnalazionePoi(Segnalazione segnalazione, PoiGenerico poi) { this.segnalazioniPoi.add(new SegnalazionePoi(segnalazione,poi)); }
 
-    public void inserisciSegnalazioneItinerari(Segnalazione segnalazione, ItinerarioGenerico itinerario) { this.segnalazioniItinerari.add(new SegnalazioneItinerario(segnalazione,itinerario)); }
+    public void inserisciSegnalazioneItinerario(Segnalazione segnalazione, ItinerarioGenerico itinerario) { this.segnalazioniItinerari.add(new SegnalazioneItinerario(segnalazione,itinerario)); }
 
     public void inserisciContestAperto(Contest contest){ this.contestAperti.add(contest); }
 

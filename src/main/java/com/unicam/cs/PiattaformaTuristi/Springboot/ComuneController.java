@@ -32,7 +32,7 @@ public class ComuneController {
     @Autowired
     private ItinerarioController itinerarioController;
     @Autowired
-    private ElementiSalvatiController elementiSalvatiController;
+        private ElementiSalvatiController elementiSalvatiController;
     @Autowired
     private ContestController contestController;
     @Autowired
