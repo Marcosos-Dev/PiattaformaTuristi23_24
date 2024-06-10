@@ -1,6 +1,5 @@
 package com.unicam.cs.PiattaformaTuristi.Controllers;
 
-import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
 import org.springframework.stereotype.Service;
@@ -32,11 +31,11 @@ public class ElementiSalvatiController {
         this.elementi.eliminaItinerarioPreferito(itinerario);
     }
 
-    public void gestisciSegnalazionePoi(PoiGenerico poi, boolean esito){
+    public void gestisciSegnalazionePoiPreferiti(PoiGenerico poi, boolean esito){
         if(esito) { this.elementi.eliminaPoiDaiPreferiti(poi); }
     }
 
-    public void gestisciSegnalazioneItinerario(ItinerarioGenerico itinerario, boolean esito){
+    public void gestisciSegnalazioneItinerariPreferiti(ItinerarioGenerico itinerario, boolean esito){
         if(esito) { this.elementi.eliminaItinerarioDaiPreferiti(itinerario); }
     }
 

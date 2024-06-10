@@ -330,7 +330,7 @@ public class ComuneController {
                 SegnalazionePoi segnalazione = this.poiController.selezionaSegnalazionePoi(idElemento);
                 if(segnalazione == null)
                     return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
-                this.elementiSalvatiController.gestisciSegnalazionePoi(segnalazione.getPoiGenerico(),esito);
+                this.elementiSalvatiController.gestisciSegnalazionePoiPreferiti(segnalazione.getPoiGenerico(),esito);
                 this.poiController.gestisciSegnalazione(segnalazione,esito);
                 break;
             }
@@ -339,7 +339,7 @@ public class ComuneController {
                 SegnalazioneItinerario segnalazione = this.itinerarioController.selezionaSegnalazioneItinerario(idElemento);
                 if(segnalazione == null)
                     return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
-                this.elementiSalvatiController.gestisciSegnalazioneItinerario(segnalazione.getItinerarioGenerico(),esito);
+                this.elementiSalvatiController.gestisciSegnalazioneItinerariPreferiti(segnalazione.getItinerarioGenerico(),esito);
                 this.itinerarioController.gestisciSegnalazione(segnalazione,esito);
                 break;
             }
