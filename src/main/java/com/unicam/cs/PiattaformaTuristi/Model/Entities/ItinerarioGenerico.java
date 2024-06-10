@@ -4,6 +4,7 @@ import com.unicam.cs.PiattaformaTuristi.Model.TipoItinerario;
 import jakarta.persistence.*;
 
 import java.util.List;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class ItinerarioGenerico {
@@ -12,7 +13,12 @@ public abstract class ItinerarioGenerico {
     private int idItinerario;
     private String titolo;
     private String descrizione;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "itinerario_poi",
+            joinColumns = @JoinColumn(name = "id_itinerario"),
+            inverseJoinColumns = @JoinColumn(name = "id_poi")
+    )
     private List<PoiGenerico>  poi;
 
     private TipoItinerario tipo;

@@ -24,17 +24,7 @@ public class AutenticazioneAPI {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http.authorizeHttpRequests((requests) -> requests
-                                    //.requestMatchers("/h2-console/**").permitAll()
-                                    //.requestMatchers("/login").permitAll()
-                                    .requestMatchers("/","/h2-console/**","/registrazione").permitAll()
-                                    .requestMatchers(
-                                            "/v2/api-docs", // se usi Swagger 2
-                                            "/v3/api-docs/**", // se usi OpenAPI 3
-                                            "/swagger-resources/**",
-                                            "/swagger-ui/**",
-                                            "/webjars/**",
-                                            "/swagger-ui.html").permitAll()
-
+                                    .requestMatchers("/","/h2-console/**","/registrazione","/segnalaPoi","/segnalaItinerario").permitAll()
                                     .requestMatchers("/turista_autenticato/**").hasRole("TURISTA_AUTENTICATO")
                                     .requestMatchers("/contributore/**").hasRole("CONTRIBUTORE")
                                     .requestMatchers("/contributore_autorizzato/**").hasRole("CONTRIBUTORE_AUTORIZZATO")
@@ -54,6 +44,7 @@ public class AutenticazioneAPI {
                             logout
                                     .logoutUrl("/logout")
                                     .invalidateHttpSession(true)
+                                    .clearAuthentication(true)
                                     .deleteCookies("JSESSIONID")
                                     .permitAll().logoutSuccessHandler((request, response, authentication) -> response.setStatus(200))
                     ).exceptionHandling(exceptionHandling ->

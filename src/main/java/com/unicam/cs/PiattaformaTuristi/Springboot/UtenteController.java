@@ -13,25 +13,15 @@ import com.unicam.cs.PiattaformaTuristi.Repositories.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.regex.Pattern;
 
-//http://localhost:8080/swagger-ui/index.html#/
-//http://localhost:8080/h2-console/
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UtenteController {
-    @Autowired
-    public UtenteRepository utenteRepository;
-
-    @Autowired
-    public RichiesteRepository richiesteRepository;
-
     @Autowired
     private UtentiController utentiController;
     @Autowired
@@ -40,10 +30,14 @@ public class UtenteController {
     private PoiController poiController;
     @Autowired
     private ItinerarioController itinerarioController;
+    @Autowired
+    public UtenteRepository utenteRepository;
+    @Autowired
+    public RichiesteRepository richiesteRepository;
 
     @PostMapping("/registrazione")
     public ResponseEntity<Object> registrationUser(@RequestBody UtenteAutenticatoDto utente) {
-        if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
+        if (!(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))) {
             return new ResponseEntity<>("Utente già autenticato", HttpStatus.BAD_REQUEST);
         }
         Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!()_-])(?=\\S+$).{8,}$");
@@ -58,7 +52,7 @@ public class UtenteController {
     }
 
     @PostMapping("/animatore/richiediRuolo")
-    public ResponseEntity<Object> richiediRuolo(@RequestBody RichiestaDTO richiesta){
+    public ResponseEntity<Object> richiediRuolo(@RequestPart("richiesta") RichiestaDTO richiesta){
         if(utenteRepository.findById(richiesta.getIdUtente()).isEmpty())
             return new ResponseEntity<>("Utente non presente", HttpStatus.BAD_REQUEST);
         if(!RuoloUtente.getPossibiliRuoliDefault().contains(richiesta.getRuoloRichiesto()))

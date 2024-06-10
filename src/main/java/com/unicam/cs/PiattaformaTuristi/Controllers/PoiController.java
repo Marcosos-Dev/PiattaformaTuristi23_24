@@ -2,11 +2,8 @@ package com.unicam.cs.PiattaformaTuristi.Controllers;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.PoiDTO;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiEvento;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
+import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Factories.PoiFactory;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Segnalazione;
 import com.unicam.cs.PiattaformaTuristi.Model.TipoPoi;
 import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +12,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class PoiController {
-    //TODO Rimuovere
-    private Comune comune;
-
     @Autowired
     ComuneRepository comuneRepository;
 
     public PoiController(){}
-
-    public PoiController(Comune comune){
-        this.comune = comune;
-    }
 
     public void creaPoiDaValidare(PoiFactory factory, PoiDTO poi){
         PoiGenerico poiDaInserire = factory.creaPoi(poi.getCoord());
@@ -79,30 +69,33 @@ public class PoiController {
     }
 
     public void creaSegnalazione(String descrizione, PoiGenerico poi){
-        Segnalazione segnalazione = new Segnalazione(descrizione);
-        segnalazione.setIdSegnalazione(this.comune.getUltimoIdSegnalazione());
-        this.comune.inserisciSegnalazionePoi(segnalazione,poi);
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        c.inserisciSegnalazionePoi(new Segnalazione(descrizione),poi);
+        this.comuneRepository.save(c);
     }
 
     public PoiGenerico selezionaPoi(int idPoi){ return this.comuneRepository.findById("Camerino").get().getPoi(idPoi); }
 
-    public Segnalazione selezionaSegnalazionePoi(int idSegnalazione){ return this.comune.getSegnalazionePoi(idSegnalazione); }
+    public SegnalazionePoi selezionaSegnalazionePoi(int idSegnalazione){ return this.comuneRepository.findById("Camerino").get().getSegnalazionePoi(idSegnalazione); }
 
-    public void gestisciSegnalazione(boolean esito, Segnalazione segnalazione){
-        int idPoi = this.comune.getPoiSegnalato(segnalazione);
+    public void gestisciSegnalazione(SegnalazionePoi segnalazione, boolean esito){
+        Comune comune = this.comuneRepository.findById("Camerino").get();
         if(esito) {
-            this.comune.rimuoviPoi(idPoi);
-            this.comune.rimuoviSegnalazioniPoi(idPoi);
-        } else { this.comune.rimuoviSegnalazione(segnalazione); }
+            comune.rimuoviPoi(segnalazione.getPoiGenerico().getIdPoi());
+            comune.rimuoviSegnalazioniPoi(segnalazione.getPoiGenerico());
+        } else {
+            comune.getSegnalazioniPoi().remove(segnalazione);
+        }
+        this.comuneRepository.save(comune);
     }
 
-    public void rimuoviPoi(int idPoi){ this.comune.rimuoviPoi(idPoi); }
+    public void rimuoviPoi(int idPoi){ this.comuneRepository.findById("Camerino").get().rimuoviPoi(idPoi); }
 
     public List<PoiGenerico> getPoiValidati(){
         return this.comuneRepository.findById("Camerino").get().getPoiValidati();
     }
 
-    public List<PoiEvento> getPoiEventoValidati(){ return this.comune.getPoiValidati().stream().filter(p -> p.getTipo() == TipoPoi.EVENTO).map(p -> (PoiEvento) p).toList(); }
+    public List<PoiEvento> getPoiEventoValidati(){ return this.comuneRepository.findById("Camerino").get().getPoiValidati().stream().filter(p -> p.getTipo() == TipoPoi.EVENTO).map(p -> (PoiEvento) p).toList(); }
 
     public List<PoiGenerico> getPoiDaValidare(){ return this.comuneRepository.findById("Camerino").get().getPoiDaValidare(); }
 

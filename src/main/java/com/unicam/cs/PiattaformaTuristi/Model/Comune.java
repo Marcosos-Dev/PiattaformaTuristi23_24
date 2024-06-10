@@ -51,10 +51,9 @@ public class Comune {
         this.contestAperti.remove(c);
     }
 
-    //non funziona!
-    public void inserisciSegnalazionePoi(Segnalazione segnalazione, PoiGenerico poi) { this.segnalazioniPoi.add(new SegnalazionePoi()); }
-    //non funziona!
-    public void inserisciSegnalazioneItinerari(Segnalazione segnalazione, ItinerarioGenerico itinerario) { this.segnalazioniItinerari.add(new SegnalazioneItinerario()); }
+    public void inserisciSegnalazionePoi(Segnalazione segnalazione, PoiGenerico poi) { this.segnalazioniPoi.add(new SegnalazionePoi(segnalazione,poi)); }
+
+    public void inserisciSegnalazioneItinerari(Segnalazione segnalazione, ItinerarioGenerico itinerario) { this.segnalazioniItinerari.add(new SegnalazioneItinerario(segnalazione,itinerario)); }
 
     public void inserisciContestAperto(Contest contest){ this.contestAperti.add(contest); }
 
@@ -76,7 +75,15 @@ public class Comune {
 
     public void rimuoviItinerario(int idItinerario){ this.itinerariValidati.remove(this.getItinerario(idItinerario)); }
 
-    public void rimuoviSegnalazione(Segnalazione segnalazione) { this.segnalazioniPoi.remove(segnalazione); }
+    public void rimuoviSegnalazioniPoi(PoiGenerico poi) { this.segnalazioniPoi.removeAll(this.segnalazioniPoi.stream().filter(s -> s.getPoiGenerico().equals(poi)).toList()); }
+
+    public void rimuoviSegnalazioniItinerari(ItinerarioGenerico itinerario) {
+        this.segnalazioniItinerari.removeAll(this.segnalazioniItinerari.stream().filter(s -> s.getItinerarioGenerico().equals(itinerario)).toList());
+    }
+
+    public void rimuoviSegnalazionePoi(SegnalazionePoi segnalazione) { this.segnalazioniPoi.remove(segnalazione); }
+
+    public void rimuoviSegnalazioneItinerario(SegnalazioneItinerario segnalazione) { this.segnalazioniItinerari.remove(segnalazione); }
 
     public void rimuoviPoi(int idPoi){
         PoiGenerico poi = this.getPoi(idPoi);
@@ -92,25 +99,15 @@ public class Comune {
         }
     }
 
-    public void rimuoviSegnalazioniPoi(int idPoi) { //this.segnalazioniPoi.entrySet().removeIf(entry -> entry.getValue().getIdPoi() == idPoi);
-        }
-
-    public void rimuoviSegnalazioniItinerario(int idItinerario) { //this.segnalazioniItinerari.entrySet().removeIf(entry -> entry.getValue().getIdItinerario() == idItinerario);
-         }
-
     public PoiGenerico getPoi(int idPoi) { return this.getPoiValidati().stream().filter(p -> p.getIdPoi() == idPoi).findFirst().orElse(null); }
 
     public ItinerarioGenerico getItinerario(int idItinerario) { return this.getItinerariValidati().stream().filter(i -> i.getIdItinerario() == idItinerario).findFirst().orElse(null); }
 
     public Contest getContest(int idContest) { return this.getContestChiusi().stream().filter(c -> c.getIdContest()==idContest).findFirst().orElse(null); }
 
-    public Segnalazione getSegnalazionePoi(int idSegnalazione) { return this.getSegnalazioniPoi().stream().filter(s -> s.getIdSegnalazione() == idSegnalazione).findFirst().orElse(null); }
+    public SegnalazionePoi getSegnalazionePoi(int idSegnalazione) { return this.getSegnalazioniPoi().stream().filter(s -> s.getIdSegnalazionePoi() == idSegnalazione).findFirst().orElse(null); }
 
-    public int getPoiSegnalato(Segnalazione segnalazione) { return 0; //this.segnalazioniPoi.get(segnalazione).getIdPoi();
-         }
-
-    public int getItinerarioSegnalato(Segnalazione segnalazione) { return 0; //return this.segnalazioniItinerari.get(segnalazione).getIdItinerario();
-         }
+    public SegnalazioneItinerario getSegnalazioneItinerario(int idSegnalazione) { return this.getSegnalazioniItinerari().stream().filter(s -> s.getIdSegnalazioneItinerario() == idSegnalazione).findFirst().orElse(null); }
 
     public List<PoiGenerico> getPoiValidati() { return poiValidati; }
 
@@ -128,52 +125,10 @@ public class Comune {
 
     public List<Contenuto> getContenutiDaValidare() { return this.getPoiValidati().stream().filter(c -> !c.getContenutiDaValidare().isEmpty()).flatMap(p -> p.getContenutiDaValidare().stream()).toList(); }
 
-    public List<Segnalazione> getSegnalazioniPoi() { return null; //return this.segnalazioniPoi.keySet().stream().toList();
-         }
+    public List<SegnalazionePoi> getSegnalazioniPoi() { return this.segnalazioniPoi; }
 
-    public List<Segnalazione> getSegnalazioniItinerari() { return null; // return this.segnalazioniItinerari.keySet().stream().toList();
-         }
+    public List<SegnalazioneItinerario> getSegnalazioniItinerari() { return this.segnalazioniItinerari; }
 
-    public int getLastIdContenuto(){
-        return Math.max(
-                this.getContenutiDaValidare().isEmpty() ?
-                        1 : this.getContenutiDaValidare().getLast().getIdContenuto()+1,
-                this.getContenutiValidati().isEmpty() ?
-                        1 : this.getContenutiValidati().getLast().getIdContenuto()+1
-        );
-    }
-
-    public int getLastIdItinerario(){
-        return Math.max(
-                this.getItinerariDaValidare().isEmpty() ?
-                        1 : this.getItinerariDaValidare().getLast().getIdItinerario()+1,
-                this.getItinerariValidati().isEmpty() ?
-                        1 : this.getItinerariValidati().getLast().getIdItinerario()+1
-        );
-    }
-
-    public int getUltimoIdPoi(){
-        return Math.max(
-                this.getPoiValidati().isEmpty() ?
-                    1 : this.getPoiValidati().getLast().getIdPoi()+1,
-                this.getPoiDaValidare().isEmpty() ?
-                        1 : this.getPoiDaValidare().getLast().getIdPoi()+1
-        );
-    }
-
-    public int getUltimoIdContest(){
-        return this.getContestAperti().isEmpty() ?
-                1 : this.getContestAperti().getLast().getIdContest()+1;
-    }
-
-    public int getUltimoIdSegnalazione(){
-        return Math.max(
-                this.getSegnalazioniPoi().isEmpty() ?
-                        1 : this.getSegnalazioniPoi().getLast().getIdSegnalazione()+1,
-                this.getSegnalazioniItinerari().isEmpty() ?
-                        1 : this.getSegnalazioniItinerari().getLast().getIdSegnalazione()+1
-        );
-    }
 
     public boolean internoAlComune(Coordinate coord) {
         String apiUrl = String.format(Locale.US, "https://nominatim.openstreetmap.org/reverse?format=json&lat=%.6f&lon=%.6f&zoom=10&addressdetails=1",
@@ -201,42 +156,5 @@ public class Comune {
                 return true;
         }
         return false;
-    }
-
-    //Metodi usati nei test
-    public void stampaPOIValidati(){
-        for(PoiGenerico p : getPoiValidati()){
-            System.out.println(p);
-        }
-    }
-
-    public void stampaPOIDaValidare(){
-        for(PoiGenerico p : getPoiDaValidare()){
-            System.out.println(p);
-        }
-    }
-
-    public void stampaItinerariValidati(){
-        for(ItinerarioGenerico i : getItinerariValidati()){
-            System.out.println(i);
-        }
-    }
-
-    public void stampaItinerariDaValidare(){
-        for(ItinerarioGenerico i : getItinerariDaValidare()){
-            System.out.println(i);
-        }
-    }
-
-    public void stampaContestAperti(){
-        for(Contest p : getContestAperti()){
-            System.out.println(p);
-        }
-    }
-
-    public void stampaContestChiusi(){
-        for(Contest p : getContestChiusi()){
-            System.out.println(p);
-        }
     }
 }

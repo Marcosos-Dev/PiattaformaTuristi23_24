@@ -59,4 +59,16 @@ public class GestoreElementiSalvati {
         this.itinerariPreferiti.remove(itinerario);
         this.itinerarioPreferitoRepository.delete(itinerario);
     }
+
+    public void eliminaPoiDaiPreferiti(PoiGenerico poi){
+        List<PoiPreferito> toRemove = this.poiPreferiti.stream().filter(p -> p.getPoi().equals(poi)).toList();
+        this.poiPreferiti.removeAll(toRemove);
+        this.poiPreferitoRepository.deleteAll(toRemove);
+    }
+
+    public void eliminaItinerarioDaiPreferiti(ItinerarioGenerico itinerario){
+        List<ItinerarioPreferito> toRemove = this.itinerariPreferiti.stream().filter(i -> i.getItinerario().equals(itinerario)).toList();
+        this.itinerariPreferiti.removeAll(toRemove);
+        this.itinerarioPreferitoRepository.deleteAll(toRemove);
+    }
 }

@@ -2,20 +2,33 @@ package com.unicam.cs.PiattaformaTuristi.Model.Entities;
 
 import jakarta.persistence.*;
 
-import java.io.Serializable;
-
 @Entity
-public class SegnalazioneItinerario implements Serializable {
+public class SegnalazioneItinerario{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "segnalazioneItinerario_generator")
+    private int idSegnalazioneItinerario;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_SEGNALAZIONE")
     private Segnalazione segnalazione;
 
     @ManyToOne
+    @JoinColumn(name = "ID_ITINERARIO")
     private ItinerarioGenerico itinerarioGenerico;
 
-    // Constructors, getters, and setters
+    public SegnalazioneItinerario() {
+
+    }
+
+    public SegnalazioneItinerario(Segnalazione segnalazione, ItinerarioGenerico itinerario) {
+        this.segnalazione = segnalazione;
+        this.itinerarioGenerico = itinerario;
+    }
+
+    public int getIdSegnalazioneItinerario() { return idSegnalazioneItinerario; }
+
+    public Segnalazione getSegnalazione() { return segnalazione; }
+
+    public ItinerarioGenerico getItinerarioGenerico() { return itinerarioGenerico; }
 }

@@ -1,5 +1,6 @@
 package com.unicam.cs.PiattaformaTuristi.Controllers;
 
+import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
 import org.springframework.stereotype.Service;
@@ -31,11 +32,19 @@ public class ElementiSalvatiController {
         this.elementi.eliminaItinerarioPreferito(itinerario);
     }
 
+    public void gestisciSegnalazionePoi(PoiGenerico poi, boolean esito){
+        if(esito) { this.elementi.eliminaPoiDaiPreferiti(poi); }
+    }
+
+    public void gestisciSegnalazioneItinerario(ItinerarioGenerico itinerario, boolean esito){
+        if(esito) { this.elementi.eliminaItinerarioDaiPreferiti(itinerario); }
+    }
+
     public List<PoiPreferito> getPoiPreferiti(int idUtente){ return this.elementi.getPoiPreferiti(idUtente); }
 
     public List<ItinerarioPreferito> getItinerariPreferiti(int idUtente) { return this.elementi.getItinerariPreferiti(idUtente); }
 
-    public List<PoiGenerico> selezionaPoiSalvato(int idUtente){ return this.elementi.getPoiPreferitiUtente(idUtente); }
+    //public List<PoiGenerico> selezionaPoiSalvato(int idUtente){ return this.elementi.getPoiPreferitiUtente(idUtente); }
 
-    public List<ItinerarioGenerico> selezionaItinerarioSalvato(int idUtente){ return this.elementi.getItinerariPreferitiUtente(idUtente); }
+    //public List<ItinerarioGenerico> selezionaItinerarioSalvato(int idUtente){ return this.elementi.getItinerariPreferitiUtente(idUtente); }
 }

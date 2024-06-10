@@ -18,10 +18,10 @@ public class InterfacciaAnimatore {
     private UtenteAutenticato utente;
 
     public InterfacciaAnimatore(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore){
-        this.comune = comune;
+        //this.comune = comune;
         //this.contestController = new ContestController(this.comune);
-        this.utentiController = new UtentiController(gestore);
-        this.utente = utente;
+        //this.utentiController = new UtentiController(gestore);
+        //this.utente = utente;
     }
 
     public void creaContest(Contest contest){

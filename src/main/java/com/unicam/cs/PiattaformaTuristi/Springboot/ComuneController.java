@@ -1,6 +1,7 @@
 package com.unicam.cs.PiattaformaTuristi.Springboot;
 
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.ElementiSalvatiController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
 import com.unicam.cs.PiattaformaTuristi.Model.*;
@@ -27,32 +28,34 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ComuneController {
     @Autowired
-    PoiController poiController;
+    private PoiController poiController;
     @Autowired
-    ItinerarioController itinerarioController;
+    private ItinerarioController itinerarioController;
     @Autowired
-    ContestController contestController;
+    private ElementiSalvatiController elementiSalvatiController;
+    @Autowired
+    private ContestController contestController;
     @Autowired
     ComuneRepository comuneRepository;
     @Autowired
     UtenteRepository utenteRepository;
 
     @GetMapping(value = {"turista_autenticato/visualizzaItinerario", "/contributore/visualizzaItinerario","contributore_autorizzato/visualizzaItinerario"})
-    public ResponseEntity<Object> GetItinerario(@RequestParam("idItinerario") int idItinerario) {
+    public ResponseEntity<Object> GetItinerario(@RequestParam("id") int idItinerario) {
         ItinerarioGenerico itinerario = this.itinerarioController.selezionaItinerario(idItinerario);
         if(itinerario == null)
             return new ResponseEntity<>("Itinerario non trovato", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(itinerario, HttpStatus.OK);
     }
     @GetMapping(value = {"turista_autenticato/visualizzaContestChiuso", "/contributore/visualizzaContestChiuso","contributore_autorizzato/visualizzaContestChiuso"})
-    public ResponseEntity<Object> GetContest(@RequestParam("idContest") int idContest) {
+    public ResponseEntity<Object> GetContest(@RequestParam("id") int idContest) {
         Contest contest = this.contestController.selezionaContest(idContest);
         if(contest == null)
             return new ResponseEntity<>("Contest non trovato", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(contest, HttpStatus.OK);
     }
     @GetMapping(value = {"turista_autenticato/visualizzaPoi", "/contributore/visualizzaPoi","contributore_autorizzato/visualizzaPoi"})
-    public ResponseEntity<Object> GetPoi(@RequestParam("idPoi") int idPoi) {
+    public ResponseEntity<Object> GetPoi(@RequestParam("id") int idPoi) {
         PoiGenerico poi = this.poiController.selezionaPoi(idPoi);
         if(poi == null)
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
@@ -80,7 +83,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore/inserisciPoiDaValidare")
-    public ResponseEntity<Object> creaPoiDaValidare(@RequestPart("poiDto") PoiDTO poi, @RequestPart("Contenuto") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
+    public ResponseEntity<Object> creaPoiDaValidare(@RequestPart("poi") PoiDTO poi, @RequestPart("contenuto") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
         Comune c = this.comuneRepository.findById("Camerino").get();
         if(poi.getTitolo().isEmpty() || poi.getTitolo()==null)
             return new ResponseEntity<>("Titolo vuoto o nullo", HttpStatus.BAD_REQUEST);
@@ -108,7 +111,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore_autorizzato/inserisciPoiValidato")
-    public ResponseEntity<Object> creaPoiValidato(@RequestPart("poiDto") PoiDTO poi, @RequestPart("Contenuto") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
+    public ResponseEntity<Object> creaPoiValidato(@RequestPart("poi") PoiDTO poi, @RequestPart("contenuto") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
         Comune c = this.comuneRepository.findById("Camerino").get();
         if(poi.getTitolo().isEmpty() && poi.getTitolo()==null)
             return new ResponseEntity<>("Titolo vuoto o nullo", HttpStatus.BAD_REQUEST);
@@ -136,7 +139,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore_autorizzato/inserisciItinerarioValidato")
-    public ResponseEntity<Object> creaItinerarioValidato(@RequestPart("itinerarioDto") ItinerarioDTO itinerario) {
+    public ResponseEntity<Object> creaItinerarioValidato(@RequestPart("itinerario") ItinerarioDTO itinerario) {
         if(itinerario.getTitolo()==null || itinerario.getTitolo().isEmpty())
             return new ResponseEntity<>("Titolo vuoto o nullo", HttpStatus.BAD_REQUEST);
         if(itinerario.getPoi().size()<2)
@@ -156,7 +159,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore_autorizzato/inserisciItinerarioDaValidare")
-    public ResponseEntity<Object> creaItinerarioDaValidare(@RequestPart("itinerarioDto") ItinerarioDTO itinerario) {
+    public ResponseEntity<Object> creaItinerarioDaValidare(@RequestPart("itinerario") ItinerarioDTO itinerario) {
         if(itinerario.getTitolo()==null || itinerario.getTitolo().isEmpty())
             return new ResponseEntity<>("Titolo vuoto o nullo", HttpStatus.BAD_REQUEST);
         if(itinerario.getPoi().size()<2)
@@ -176,7 +179,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore_autorizzato/inserisciContenutoValidatoPoi")
-    public ResponseEntity<Object> inserisciContenutoValidatoPoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
+    public ResponseEntity<Object> inserisciContenutoValidatoPoi(@RequestParam("id") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
         if(this.comuneRepository.findById("Camerino").get().getPoi(idPoi)==null)
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
         if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
@@ -188,7 +191,7 @@ public class ComuneController {
     }
 
     @PostMapping("contributore/inserisciContenutoDaValidarePoi")
-    public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("idPOI") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
+    public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("id") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
         if(this.comuneRepository.findById("Camerino").get().getPoi(idPoi)==null)
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);
         if(!this.poiController.validaEstensioneFile(fileContenuto.getOriginalFilename()))
@@ -200,7 +203,7 @@ public class ComuneController {
     }
 
     @PostMapping("animatore/creaContest")
-    public ResponseEntity<Object> creaContest(@RequestPart("ContestDTO") ContestDTO contest) {
+    public ResponseEntity<Object> creaContest(@RequestPart("contest") ContestDTO contest) {
         if(contest.getTitolo()==null || contest.getTitolo().isEmpty())
             return new ResponseEntity<>("Titolo vuoto o nullo", HttpStatus.BAD_REQUEST);
         this.contestController.creaContest(
@@ -210,7 +213,7 @@ public class ComuneController {
     }
 
     @PostMapping("animatore/invitaUtente")
-    public ResponseEntity<Object> invitaUtenteContest(@RequestParam("id") Integer IdContest, @RequestParam("Utenti") List<Integer> IdUtenti) {
+    public ResponseEntity<Object> invitaUtenteContest(@RequestParam("id") Integer IdContest, @RequestParam("utenti") List<Integer> IdUtenti) {
         Contest contestUtente = this.contestController.getContestUtente
                 (utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()))
                 .stream().findFirst().filter(c -> c.getPrivato() && c.getIdContest()==IdContest).orElse(null);
@@ -260,6 +263,33 @@ public class ComuneController {
         this.contestController.setVincitoreContest(contestUtente, vincitore);
         return new ResponseEntity<>("Vincitore selezionato con successo", HttpStatus.OK);
     }
+
+    @PostMapping("/segnalaPoi")
+    public ResponseEntity<Object> segnalaPoi(@RequestParam("id") Integer IdPoi, @RequestParam("descr") String descrizione){
+        if (!(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))) {
+            return new ResponseEntity<>("Utente già autenticato", HttpStatus.BAD_REQUEST);
+        }
+        PoiGenerico poi = this.poiController.selezionaPoi(IdPoi);
+        if (poi==null) {
+            return new ResponseEntity<>("Nessun poi trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+        }
+        this.poiController.creaSegnalazione(descrizione,poi);
+        return new ResponseEntity<>("Segnalazione effettuata con successo", HttpStatus.OK);
+    }
+
+    @PostMapping("/segnalaItinerario")
+    public ResponseEntity<Object> segnalaItinerario(@RequestParam("id") Integer IdItinerario, @RequestParam("descr") String descrizione){
+        if (!(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))) {
+            return new ResponseEntity<>("Utente già autenticato", HttpStatus.BAD_REQUEST);
+        }
+        ItinerarioGenerico itinerario = this.itinerarioController.selezionaItinerario(IdItinerario);
+        if (itinerario==null) {
+            return new ResponseEntity<>("Nessun itinerario trovato con l'ID fornito", HttpStatus.BAD_REQUEST);
+        }
+        this.itinerarioController.creaSegnalazione(descrizione,itinerario);
+        return new ResponseEntity<>("Segnalazione effettuata con successo", HttpStatus.OK);
+    }
+
     @PostMapping("curatore/validaElemento")
     public ResponseEntity<Object> validaElemento(@RequestParam("id") Integer idElemento, @RequestParam("tipo") String tipoElemento, @RequestParam("esito") boolean esito){
         switch(tipoElemento.toUpperCase()){
@@ -274,7 +304,7 @@ public class ComuneController {
             case "ITINERARIO":{
                 ItinerarioGenerico itinerario = this.itinerarioController.getItinerarioDaValidare().stream().findFirst().filter(i->i.getIdItinerario()==idElemento).orElse(null);
                 if(itinerario == null)
-                    return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+                    return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
                 this.itinerarioController.validaItinerario(itinerario,esito);
                 break;
             }
@@ -283,7 +313,7 @@ public class ComuneController {
                         p -> this.poiController.getContenuto(p,idElemento) != null
                 ).orElse(null);
                 if(poiDelContenuto == null)
-                    return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+                    return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
                 this.poiController.validaContenuto(poiDelContenuto,this.poiController.getContenuto(poiDelContenuto,idElemento),esito);
                 break;
             }
@@ -292,4 +322,32 @@ public class ComuneController {
         }
         return new ResponseEntity<>(tipoElemento+" "+(esito ? "validato":"eliminato")+" con successo", HttpStatus.OK);
     }
+
+    @PostMapping("curatore/validaSegnalazione")
+    public ResponseEntity<Object> validaSegnalazione(@RequestParam("id") Integer idElemento, @RequestParam("tipo") String tipoElemento, @RequestParam("esito") boolean esito){
+        switch(tipoElemento.toUpperCase()){
+            case "POI":{
+                SegnalazionePoi segnalazione = this.poiController.selezionaSegnalazionePoi(idElemento);
+                if(segnalazione == null)
+                    return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
+                this.elementiSalvatiController.gestisciSegnalazionePoi(segnalazione.getPoiGenerico(),esito);
+                this.poiController.gestisciSegnalazione(segnalazione,esito);
+                break;
+            }
+
+            case "ITINERARIO":{
+                SegnalazioneItinerario segnalazione = this.itinerarioController.selezionaSegnalazioneItinerario(idElemento);
+                if(segnalazione == null)
+                    return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
+                this.elementiSalvatiController.gestisciSegnalazioneItinerario(segnalazione.getItinerarioGenerico(),esito);
+                this.itinerarioController.gestisciSegnalazione(segnalazione,esito);
+                break;
+            }
+            default :
+                return new ResponseEntity<>(tipoElemento+" non esiste", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>("Segnalazione gestita con successo", HttpStatus.OK);
+    }
+
+
 }

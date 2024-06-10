@@ -21,13 +21,13 @@ public class InterfacciaTuristaAutenticato {
 
 
     public InterfacciaTuristaAutenticato(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore,GestoreElementiSalvati elementi){
-        this.comune = comune;
-        this.poiController = new PoiController(this.comune);
-        this.itinerarioController = new ItinerarioController(this.comune);
+        //this.comune = comune;
+        //this.poiController = new PoiController(this.comune);
+        //this.itinerarioController = new ItinerarioController(this.comune);
         //this.contestController = new ContestController(this.comune);
-        this.utentiController = new UtentiController(gestore);
-        this.elementiSalvatiController = new ElementiSalvatiController(elementi);
-        this.utente = utente;
+        //this.utentiController = new UtentiController(gestore);
+        //this.elementiSalvatiController = new ElementiSalvatiController(elementi);
+        //this.utente = utente;
     }
 
     public void autenticazione(String username, String password){

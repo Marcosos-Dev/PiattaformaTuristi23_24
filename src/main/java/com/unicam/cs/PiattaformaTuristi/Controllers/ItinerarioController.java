@@ -13,15 +13,10 @@ import java.util.List;
 
 @Service
 public class ItinerarioController {
-    private Comune comune;
     @Autowired
     ComuneRepository comuneRepository;
 
     public ItinerarioController() {}
-
-    public ItinerarioController(Comune comune){
-        this.comune = comune;
-    }
 
     public void creaItinerarioDaValidare(ItinerarioFactory factory, ItinerarioDTO itinerario){
         Comune c = this.comuneRepository.findById("Camerino").get();
@@ -61,20 +56,25 @@ public class ItinerarioController {
     }
 
     public void creaSegnalazione(String descrizione, ItinerarioGenerico itinerario){
-        Segnalazione segnalazione = new Segnalazione(descrizione);
-        segnalazione.setIdSegnalazione(this.comune.getUltimoIdSegnalazione());
-        this.comune.inserisciSegnalazioneItinerari(segnalazione,itinerario);
+        Comune c = this.comuneRepository.findById("Camerino").get();
+        c.inserisciSegnalazioneItinerari(new Segnalazione(descrizione),itinerario);
+        this.comuneRepository.save(c);
     }
 
-    public void gestisciSegnalazione(boolean esito, Segnalazione segnalazione){
-        int idItinerario = this.comune.getItinerarioSegnalato(segnalazione);
+    public void gestisciSegnalazione(SegnalazioneItinerario segnalazione, boolean esito){
+        Comune comune = this.comuneRepository.findById("Camerino").get();
         if(esito) {
-            this.comune.rimuoviItinerario(idItinerario);
-            this.comune.rimuoviSegnalazioniItinerario(idItinerario); //Rimuove tutte le segnalazioni che hanno in oggetto l'itinerario
-        } else  { this.comune.rimuoviSegnalazione(segnalazione); }
+            comune.rimuoviItinerario(segnalazione.getItinerarioGenerico().getIdItinerario());
+            comune.rimuoviSegnalazioniItinerari(segnalazione.getItinerarioGenerico());
+        } else {
+            comune.rimuoviSegnalazioneItinerario(segnalazione);
+        }
+        this.comuneRepository.save(comune);
     }
 
-    public void rimuoviItinerario(int idItinerario){ this.comune.rimuoviItinerario(idItinerario); }
+    public SegnalazioneItinerario selezionaSegnalazioneItinerario(int idSegnalazione){ return this.comuneRepository.findById("Camerino").get().getSegnalazioneItinerario(idSegnalazione); }
+
+    public void rimuoviItinerario(int idItinerario){ this.comuneRepository.findById("Camerino").get().rimuoviItinerario(idItinerario); }
 
     public ItinerarioGenerico selezionaItinerario(int idItinerario){ return this.comuneRepository.findById("Camerino").get().getItinerario(idItinerario); }
 

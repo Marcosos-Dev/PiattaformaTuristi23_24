@@ -19,12 +19,12 @@ public class InterfacciaContributore {
     private UtenteAutenticato utente;
 
     public InterfacciaContributore(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore){
-        this.comune = comune;
-        this.poiController = new PoiController(this.comune);
-        this.itinerarioController = new ItinerarioController(this.comune);
+        //this.comune = comune;
+        //this.poiController = new PoiController(this.comune);
+        //this.itinerarioController = new ItinerarioController(this.comune);
         //this.contestController = new ContestController(this.comune);
-        this.utentiController = new UtentiController(gestore);
-        this.utente = utente;
+        //this.utentiController = new UtentiController(gestore);
+        //this.utente = utente;
     }
 
     public void autenticazione(String username, String password){

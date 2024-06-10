@@ -20,11 +20,11 @@ public class InterfacciaTurista {
     private UtentiController utentiController;
 
     public InterfacciaTurista(Comune comune, GestoreUtenti gestoreUtenti){
-        this.comune = comune;
-        this.poiController = new PoiController(this.comune);
-        this.itinerarioController = new ItinerarioController(this.comune);
+        //this.comune = comune;
+        //this.poiController = new PoiController(this.comune);
+        //this.itinerarioController = new ItinerarioController(this.comune);
         //this.contestController = new ContestController(this.comune);
-        this.utentiController = new UtentiController(gestoreUtenti);
+        //this.utentiController = new UtentiController(gestoreUtenti);
     }
 
     public PoiGenerico visualizzaPoi(int idPoi){
@@ -52,7 +52,7 @@ public class InterfacciaTurista {
         //this.utentiController.registraUtente(username,password);
     }
 
-    public void segnalaPoi(String descrizione, PoiGenerico poi){ this.poiController.creaSegnalazione(descrizione,poi); }
+    public void segnalaPoi(String descrizione, PoiGenerico poi){ /*this.poiController.creaSegnalazione(descrizione,poi);*/ }
 
-    public void segnalaItinerario(String descrizione, ItinerarioGenerico itinerario){ this.itinerarioController.creaSegnalazione(descrizione,itinerario); }
+    public void segnalaItinerario(String descrizione, ItinerarioGenerico itinerario){ /*this.itinerarioController.creaSegnalazione(descrizione,itinerario);*/ }
 }

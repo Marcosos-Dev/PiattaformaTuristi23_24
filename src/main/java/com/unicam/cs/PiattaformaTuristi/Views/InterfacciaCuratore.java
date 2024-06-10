@@ -17,10 +17,10 @@ public class InterfacciaCuratore {
     private UtentiController utentiController;
 
     public InterfacciaCuratore(Comune comune, GestoreUtenti gestore){
-        this.comune = comune;
-        this.poiController = new PoiController(comune);
-        this.itinerarioController = new ItinerarioController(comune);
-        this.utentiController = new UtentiController(gestore);
+        //this.comune = comune;
+        //this.poiController = new PoiController(comune);
+        //this.itinerarioController = new ItinerarioController(comune);
+        //this.utentiController = new UtentiController(gestore);
     }
 
     public void autenticazione(String username, String password){
@@ -29,7 +29,7 @@ public class InterfacciaCuratore {
     }
 
     public void validaElemento(String elemento, PoiGenerico poi, ItinerarioGenerico itinerario, int idContenuto, boolean esito){
-        switch(elemento){
+        /*switch(elemento){
             case "Poi":{
                 //richiede lista poi
                 //richiedi esito
@@ -54,11 +54,11 @@ public class InterfacciaCuratore {
             }
             default :
                 throw new IllegalArgumentException("Tipo non valido");
-        }
+        }*/
     }
 
     public void gestisciSegnalazione(String elemento, Segnalazione segnalazione, boolean esito){
-        switch(elemento){
+        /*switch(elemento){
             case "Poi":{
                 poiController.gestisciSegnalazione(esito,segnalazione);
                 break;
@@ -70,6 +70,6 @@ public class InterfacciaCuratore {
             }
             default :
                 throw new IllegalArgumentException("Tipo non valido");
-        }
+        }*/
     }
 }

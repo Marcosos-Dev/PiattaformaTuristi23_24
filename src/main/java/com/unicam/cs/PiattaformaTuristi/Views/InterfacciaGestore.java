@@ -10,9 +10,9 @@ public class InterfacciaGestore {
     private UtentiController utentiController;
 
     public InterfacciaGestore(UtenteAutenticato utente, GestoreUtenti gestore){
-        if(!utente.getRuolo().equals(RuoloUtente.GESTORE_PIATTAFORMA))
-            throw new IllegalArgumentException("Accesso non consentito");
-        this.utentiController = new UtentiController(gestore);
+        //if(!utente.getRuolo().equals(RuoloUtente.GESTORE_PIATTAFORMA))
+        //    throw new IllegalArgumentException("Accesso non consentito");
+        //this.utentiController = new UtentiController(gestore);
     }
 
     public void autenticazione(String username, String password){

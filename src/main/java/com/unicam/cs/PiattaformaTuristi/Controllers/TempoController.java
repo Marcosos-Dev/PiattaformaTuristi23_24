@@ -8,9 +8,13 @@ public class TempoController {
     private ItinerarioController itinerarioController;
     private PoiController poiController;
 
+    public TempoController(){
+
+    }
+
     public TempoController(Comune comune){
-        this.poiController = new PoiController(comune);
-        this.itinerarioController = new ItinerarioController(comune);
+        //this.poiController = new PoiController(comune);
+        //this.itinerarioController = new ItinerarioController(comune);
     }
 
     public void EliminaElementiScaduti(){
