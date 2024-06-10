@@ -1,4 +1,4 @@
-package com.unicam.cs.PiattaformaTuristi.Model.EventChecker;
+/*package com.unicam.cs.PiattaformaTuristi.Model.EventChecker;
 
 import com.unicam.cs.PiattaformaTuristi.Controllers.TempoController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
@@ -14,4 +14,4 @@ public class EventChecker {
     public void EliminaElementiScaduti(){
         this.tempoController.EliminaElementiScaduti();
     }
-}
+}*/

@@ -4,7 +4,6 @@ import com.unicam.cs.PiattaformaTuristi.Controllers.ElementiSalvatiController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
-import com.unicam.cs.PiattaformaTuristi.Model.DTO.RichiestaDTO;
 import com.unicam.cs.PiattaformaTuristi.Model.DTO.UtenteAutenticatoDto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
@@ -51,13 +50,13 @@ public class UtenteController {
         return new ResponseEntity<>("Utente registrato con successo", HttpStatus.OK);
     }
 
-    @PostMapping("/animatore/richiediRuolo")
-    public ResponseEntity<Object> richiediRuolo(@RequestPart("richiesta") RichiestaDTO richiesta){
-        if(utenteRepository.findById(richiesta.getIdUtente()).isEmpty())
-            return new ResponseEntity<>("Utente non presente", HttpStatus.BAD_REQUEST);
-        if(!RuoloUtente.getPossibiliRuoliDefault().contains(richiesta.getRuoloRichiesto()))
+    @PostMapping(value = {"turista_autenticato/richiediRuolo", "/contributore/richiediRuolo","contributore_autorizzato/richiediRuolo","animatore/richiediRuolo"})
+    public ResponseEntity<Object> richiediRuolo(@RequestParam("ruolo") RuoloUtente ruoloRichiesto){
+        if(!RuoloUtente.getPossibiliRuoliDefault().contains(ruoloRichiesto))
             return new ResponseEntity<>("Il ruolo richiesto non è valido", HttpStatus.BAD_REQUEST);
-        this.utentiController.aggiungiRichiestaRuolo(new Richiesta(richiesta.getIdUtente(), richiesta.getRuoloRichiesto()));
+        this.utentiController.aggiungiRichiestaRuolo(new Richiesta(
+                utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername()).getIdUtente(),
+                ruoloRichiesto));
         return new ResponseEntity<>("Richiesta creata con successo", HttpStatus.OK);
     }
 
