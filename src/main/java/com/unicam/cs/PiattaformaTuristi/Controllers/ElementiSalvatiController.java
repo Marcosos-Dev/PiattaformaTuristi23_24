@@ -23,9 +23,9 @@ public class ElementiSalvatiController {
         this.elementi.aggiungiItinerarioPreferito(preferito);
     }
 
-    public void rimuoviPoiSalvato(UtenteAutenticato utente, PoiPreferito poi) { this.elementi.eliminaPoiPreferito(poi); }
+    public void rimuoviPoiPreferito(UtenteAutenticato utente, PoiPreferito poi) { this.elementi.eliminaPoiPreferito(poi); }
 
-    public void rimuoviItinerarioSalvato(UtenteAutenticato utente, ItinerarioPreferito itinerario) { this.elementi.eliminaItinerarioPreferito(itinerario); }
+    public void rimuoviItinerarioPreferito(UtenteAutenticato utente, ItinerarioPreferito itinerario) { this.elementi.eliminaItinerarioPreferito(itinerario); }
 
     public void gestisciSegnalazionePoiPreferiti(PoiGenerico poi, boolean esito){
         if(esito) { this.elementi.eliminaPoiDaiPreferiti(poi); }
@@ -38,8 +38,4 @@ public class ElementiSalvatiController {
     public List<PoiPreferito> getPoiPreferiti(int idUtente){ return this.elementi.getPoiPreferiti(idUtente); }
 
     public List<ItinerarioPreferito> getItinerariPreferiti(int idUtente) { return this.elementi.getItinerariPreferiti(idUtente); }
-
-    //public List<PoiGenerico> selezionaPoiSalvato(int idUtente){ return this.elementi.getPoiPreferitiUtente(idUtente); }
-
-    //public List<ItinerarioGenerico> selezionaItinerarioSalvato(int idUtente){ return this.elementi.getItinerariPreferitiUtente(idUtente); }
 }

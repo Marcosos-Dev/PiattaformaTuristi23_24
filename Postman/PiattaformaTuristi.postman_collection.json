@@ -1,0 +1,1749 @@
+{
+	"info": {
+		"_postman_id": "7d19c5b6-f338-45c4-8b2d-76bb4421195a",
+		"name": "PiattaformaTuristi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31463823"
+	},
+	"item": [
+		{
+			"name": "Visualizzazioni",
+			"item": [
+				{
+					"name": "visualizzaTuttiPoiTuristaAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaTuttiPoi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaTuttiPoi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaTuttiItinerariTuristaAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaTuttiItinerari",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaTuttiItinerari"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaContestApertiTuristaAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaContestAperti",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaContestAperti"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaContestChiusiTuristaAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaContestAperti",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaContestAperti"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaTuttiPoiContributoreAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/visualizzaTuttiPoi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"visualizzaTuttiPoi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloPoiTuristaAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaPoi?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaPoi"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloPoiContributore",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contributore/visualizzaPoi?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore",
+								"visualizzaPoi"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloPoiContributoreAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/visualizzaPoi?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"visualizzaPoi"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloItinerarioTuristaAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaItinerario?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaItinerario"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloItinerarioContributore",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contributore/visualizzaItinerario?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore",
+								"visualizzaItinerario"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloItinerarioContributoreAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/visualizzaContest?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"visualizzaContest"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloContestChiusoTuristaAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaContestChiuso?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaContestChiuso"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloContestChiusoContributore",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contributore/visualizzaContestChiuso?id=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore",
+								"visualizzaContestChiuso"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "visualizzaSingoloContestChiusoContributoreAuth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/visualizzaContestChiuso?id=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"visualizzaContestChiuso"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VisualizzaUtentiRegistrati",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/gestore/visualizzaUtenti",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gestore",
+								"visualizzaUtenti"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VisualizzaPoiSalvati",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaElementiSalvati?tipo=POI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaElementiSalvati"
+							],
+							"query": [
+								{
+									"key": "tipo",
+									"value": "POI"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "VisualizzaItinerariSalvati",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/visualizzaElementiSalvati?tipo=ITINERARI",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"visualizzaElementiSalvati"
+							],
+							"query": [
+								{
+									"key": "tipo",
+									"value": "ITINERARI"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POI",
+			"item": [
+				{
+					"name": "inserisciPoiValidatoConFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "poi",
+									"value": "{\n  \"titolo\": \"PrimoPoi\",\n  \"descrizione\": \"Descrizione\",\n  \"coord\": {\n    \"latitudine\": 43.1357641,\n    \"longitudine\": 13.067\n  },\n  \"periodo\": {\n    \"dataInizio\": \"2024-06-03T21:31:26.597536800\",\n    \"dataFine\": \"2024-06-03T21:31:26.597536800\"\n  },\n  \"tipo\": \"POI\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "contenuto",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/Users/marco/Downloads/AINA_2021_DIVERSITY-15.pdf"
+								},
+								{
+									"key": "descr",
+									"value": "File da inserire",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/inserisciPoiValidato",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"inserisciPoiValidato"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserisciPoiValidatoNoFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "poi",
+									"value": "{\n  \"titolo\": \"PrimoPoi2\",\n  \"descrizione\": \"Descrizione\",\n  \"coord\": {\n    \"latitudine\": 43.1357641,\n    \"longitudine\": 13.068\n  },\n  \"periodo\": {\n    \"dataInizio\": \"2025-06-03T21:31:26.597536800\",\n    \"dataFine\": \"2026-06-03T21:31:26.597536800\"\n  },\n  \"tipo\": \"EVENTO\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "contenuto",
+									"contentType": "",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "descr",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/inserisciPoiValidato",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"inserisciPoiValidato"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserisciPoiDaValidare",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "poi",
+									"value": "{\n  \"titolo\": \"PrimoPoi\",\n  \"descrizione\": \"Descrizione\",\n  \"coord\": {\n    \"latitudine\": 43.1357641,\n    \"longitudine\": 13.068\n  },\n  \"periodo\": {\n    \"dataInizio\": \"2025-06-03T21:31:26.597536800\",\n    \"dataFine\": \"2026-06-03T21:31:26.597536800\"\n  },\n  \"tipo\": \"EVENTO\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "contenuto",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/Users/marco/Downloads/AINA_2021_DIVERSITY-15.pdf"
+								},
+								{
+									"key": "descr",
+									"value": "Descrizione",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore/inserisciPoiDaValidare",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore",
+								"inserisciPoiDaValidare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserisciContenutoValidato",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/marco/Downloads/AINA_2021_DIVERSITY-15.pdf"
+								},
+								{
+									"key": "descr",
+									"value": "validated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/inserisciContenutoValidatoPoi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"inserisciContenutoValidatoPoi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserisciContenutoDaValidare",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/marco/Desktop/ProgettoIDS/PiattaformaTuristi23_24/src/main/resources/correct.pdf"
+								},
+								{
+									"key": "descr",
+									"value": "validated",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore/inserisciContenutoDaValidarePoi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore",
+								"inserisciContenutoDaValidarePoi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserisciContenutoPoi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/marco/Desktop/ProgettoIDS/PiattaformaTuristi23_24/src/main/resources/correct.pdf"
+								},
+								{
+									"key": "descr",
+									"value": "Test",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/inserisciContenutoPoi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"inserisciContenutoPoi"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvaElemento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "POI",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/salvaElemento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"salvaElemento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rimuoviElementoSalvatoPoi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "POI",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/rimuoviElementoSalvato",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"rimuoviElementoSalvato"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validaElementoPoi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "POI",
+									"type": "text"
+								},
+								{
+									"key": "esito",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/curatore/validaElemento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curatore",
+								"validaElemento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validaElementoContenuto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "CONTENUTO",
+									"type": "text"
+								},
+								{
+									"key": "esito",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/curatore/validaElemento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curatore",
+								"validaElemento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "segnalaPOI",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/segnalaPoi?id=1&descr=SegnalazioneTest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"segnalaPoi"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "descr",
+									"value": "SegnalazioneTest"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "segnalaItinerario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/segnalaItinerario?id=1&descr=non del comune",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"segnalaItinerario"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "descr",
+									"value": "non del comune"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validaSegnalazionePoi",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/curatore/validaSegnalazione?id=1&tipo=POI&esito=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curatore",
+								"validaSegnalazione"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "tipo",
+									"value": "POI"
+								},
+								{
+									"key": "esito",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Autenticazione",
+			"item": [
+				{
+					"name": "Registrazione",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"ProvaUtente\",\r\n  \"password\": \"ProvaPassword123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/registrazione",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"registrazione"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginGestore",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "gestore@gmail.it",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "gestore",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginCuratore",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "curatore@gmail.it",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "curatore",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginAnimatore",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "animatore@gmail.it",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "animatore",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginContributore",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "contributore@gmail.it",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "contributore",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginContributoreAuth",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "contributore_auth@gmail.it",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "contributore_auth",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginTuristaAuth",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "turista_auth@gmail.it",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "turista_auth",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LoginNuovaRegister",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "ProvaUtente",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "ProvaPassword123!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contest",
+			"item": [
+				{
+					"name": "creaContest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "contest",
+									"value": "{\n    \"titolo\": \"PrimoContest\",\n    \"descrizione\": \"NonImporta\",\n    \"privato\": false\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/animatore/creaContest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"animatore",
+								"creaContest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invitaContest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "utenti",
+									"value": "2",
+									"contentType": "",
+									"type": "text"
+								},
+								{
+									"key": "utenti",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/animatore/invitaUtente",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"animatore",
+								"invitaUtente"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "selezionaVincitoreContest",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "utente",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/animatore/selezionaVincitoreContest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"animatore",
+								"selezionaVincitoreContest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "caricaContenutoContest Contributore",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/marco/Downloads/AINA_2021_DIVERSITY-15.pdf"
+								},
+								{
+									"key": "descr",
+									"value": "NonImportante",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore/caricaContenutoContest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore",
+								"caricaContenutoContest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "caricaContenutoContest ContributoreAuth",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "descr",
+									"value": "NonImportante",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/caricaContenutoContest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"caricaContenutoContest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GestioneUtenti",
+			"item": [
+				{
+					"name": "GestisciRichiestaRuolo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/gestore/gesticiRichiestaRuolo?id=1&esito=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gestore",
+								"gesticiRichiestaRuolo"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "esito",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GestisciRuolo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/gestore/gesticiRuolo?id=4&ruolo=ANIMATORE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"gestore",
+								"gesticiRuolo"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "4"
+								},
+								{
+									"key": "ruolo",
+									"value": "ANIMATORE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RichiestaCambioRuolo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:8080/animatore/richiediRuolo?ruolo=CONTRIBUTORE",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"animatore",
+								"richiediRuolo"
+							],
+							"query": [
+								{
+									"key": "ruolo",
+									"value": "CONTRIBUTORE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Itinerari",
+			"item": [
+				{
+					"name": "inserisciItinerarioValidato",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "itinerario",
+									"value": "{\n  \"titolo\": \"ItinerarioTest\",\n  \"descrizione\": \"Descrizione\",\n  \"poi\": [\n    1,\n    2\n  ],\n  \"periodo\": {\n    \"dataInizio\": \"2024-06-03T21:31:26.597536800\",\n    \"dataFine\": \"2024-06-03T21:31:26.597536800\"\n  },\n  \"tipo\": \"ITINERARIO\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore_autorizzato/inserisciItinerarioValidato",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore_autorizzato",
+								"inserisciItinerarioValidato"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "inserisciItinerarioDaValidare",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "itinerario",
+									"value": "{\n  \"titolo\": \"ItinerarioTest\",\n  \"descrizione\": \"Descrizione\",\n  \"poi\": [\n    1,\n    2\n  ],\n  \"periodo\": {\n    \"dataInizio\": \"2024-06-03T21:31:26.597536800\",\n    \"dataFine\": \"2024-06-03T21:31:26.597536800\"\n  },\n  \"tipo\": \"ITINERARIO\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/contributore/inserisciItinerarioDaValidare",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contributore",
+								"inserisciItinerarioDaValidare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "salvaElemento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "ITINERARIO",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/salvaElemento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"salvaElemento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "rimuoviElementoSalvatoItinerario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "ITINERARIO",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/turista_autenticato/salvaElemento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"turista_autenticato",
+								"salvaElemento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validaElemento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "tipo",
+									"value": "ITINERARIO",
+									"type": "text"
+								},
+								{
+									"key": "esito",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/curatore/validaElemento",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curatore",
+								"validaElemento"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "segnalaItinerario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/segnalaItinerario?id=1&descr=Segnalazione Itinerario",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"segnalaItinerario"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "descr",
+									"value": "Segnalazione Itinerario"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validaSegnalazioneItinerario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/curatore/validaSegnalazione?id=1&tipo=ITINERARIO&esito=false",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curatore",
+								"validaSegnalazione"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								},
+								{
+									"key": "tipo",
+									"value": "ITINERARIO"
+								},
+								{
+									"key": "esito",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

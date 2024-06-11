@@ -35,7 +35,7 @@ public class    UtenteController {
     public RichiesteRepository richiesteRepository;
 
     @PostMapping("/registrazione")
-    public ResponseEntity<Object> registrationUser(@RequestBody UtenteAutenticatoDto utente) {
+    public ResponseEntity<Object> registrazione(@RequestBody UtenteAutenticatoDto utente) {
         if (!(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))) {
             return new ResponseEntity<>("Utente già autenticato", HttpStatus.BAD_REQUEST);
         }
@@ -84,18 +84,21 @@ public class    UtenteController {
 
     @PostMapping("/turista_autenticato/salvaElemento")
     public ResponseEntity<Object> salvaElemento(@RequestParam("id") Integer idElemento,@RequestParam("tipo") String tipoElemento) {
-
         UtenteAutenticato utente = utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
         if(tipoElemento.toUpperCase().equals("POI")){
             PoiGenerico poi = this.poiController.getPoi(idElemento);
             if(poi == null)
                 return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+            if(this.elementiSalvatiController.getPoiPreferiti(utente.getIdUtente()).stream().anyMatch(p -> p.getPoi().equals(poi)))
+                return new ResponseEntity<>(tipoElemento+" già salvato", HttpStatus.BAD_REQUEST);
             this.elementiSalvatiController.salvaPoi(utente, poi);
         }
         else if(tipoElemento.toUpperCase().equals(("ITINERARIO"))){
             ItinerarioGenerico itinerario = this.itinerarioController.getItinerario(idElemento);
             if(itinerario == null)
                 return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
+            if(this.elementiSalvatiController.getItinerariPreferiti(utente.getIdUtente()).stream().anyMatch(p -> p.getItinerario().equals(itinerario)))
+                return new ResponseEntity<>(tipoElemento+" già salvato", HttpStatus.BAD_REQUEST);
             this.elementiSalvatiController.salvaItinerario(utente,itinerario);
         }
         else{
@@ -127,14 +130,14 @@ public class    UtenteController {
                     .stream().findFirst().filter(p -> p.getIdElemento()==idElemento).orElse(null);
             if(poi == null)
                 return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
-            this.elementiSalvatiController.rimuoviPoiSalvato(utente, poi);
+            this.elementiSalvatiController.rimuoviPoiPreferito(utente, poi);
         }
         else if(tipoElemento.toUpperCase().equals(("ITINERARIO"))){
             ItinerarioPreferito itinerario = this.elementiSalvatiController.getItinerariPreferiti(utente.getIdUtente())
                     .stream().findFirst().filter(p -> p.getIdElemento()==idElemento).orElse(null);
             if(itinerario == null)
                 return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
-            this.elementiSalvatiController.rimuoviItinerarioSalvato(utente,itinerario);
+            this.elementiSalvatiController.rimuoviItinerarioPreferito(utente,itinerario);
         }
         else{
             return new ResponseEntity<>(tipoElemento+" non esiste", HttpStatus.BAD_REQUEST);

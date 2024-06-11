@@ -39,9 +39,9 @@ public class ContestController {
 
     public List<Contest> getContestUtente(UtenteAutenticato utente){ return this.comuneRepository.findById("Camerino").get().getContestAperti().stream().filter(c -> c.getCreatoreContest().equals(utente)).toList(); }
 
-    public List<ContenutoContest> getContenutiContest(Contest contest){
+    public List<ContenutoContest> getContenutiContest(int Idcontest){
         Comune comune = this.comuneRepository.findById("Camerino").get();
-        Contest contenuti = comune.getContestAperti().stream().filter(c -> c.equals(contest)).findFirst().orElse(null);
+        Contest contenuti = comune.getContestAperti().stream().filter(c -> c.getIdContest()==Idcontest).findFirst().orElse(null);
         if(contenuti==null)
             throw new RuntimeException("Contest senza partecipanti");
         return contenuti.getContenutiCaricati();

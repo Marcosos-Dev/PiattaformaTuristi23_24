@@ -33,7 +33,7 @@ public abstract class ItinerarioGenerico {
         this.poi = poi;
     }
 
-    public void addPoi(PoiGenerico poi) {
+    public void aggiungiPoi(PoiGenerico poi) {
         this.poi.add(poi);
     }
 
