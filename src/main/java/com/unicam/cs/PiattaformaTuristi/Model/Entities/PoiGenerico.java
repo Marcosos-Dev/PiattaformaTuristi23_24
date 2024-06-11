@@ -51,13 +51,13 @@ public abstract class PoiGenerico  {
         this.coord = coord;
     }
 
-    public void inserisciContenutoValidato(Contenuto contenuto) {
+    public void aggiungiContenutoValidato(Contenuto contenuto) {
         this.contenutiValidati.add(contenuto);
     }
 
-    public void inserisciContenutoDaValidare(Contenuto contenuto) { this.contenutiDaValidare.add(contenuto); }
+    public void aggiungiContenutoDaValidare(Contenuto contenuto) { this.contenutiDaValidare.add(contenuto); }
 
-    public void removeContenutoValidato(Contenuto contenuto) {
+    public void rimuoviContenutoValidato(Contenuto contenuto) {
         this.contenutiDaValidare.remove(contenuto);
     }
 

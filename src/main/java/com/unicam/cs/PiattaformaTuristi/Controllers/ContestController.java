@@ -2,7 +2,6 @@ package com.unicam.cs.PiattaformaTuristi.Controllers;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ContenutoContest;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.UtenteAutenticato;
 import com.unicam.cs.PiattaformaTuristi.Repositories.ComuneRepository;
@@ -36,13 +35,9 @@ public class ContestController {
     }
 
 
-    public Contest selezionaContest(int idContest){
-        return this.comuneRepository.findById("Camerino").get().getContest(idContest);
-    }
+    public Contest getContest(int idContest){ return this.comuneRepository.findById("Camerino").get().getContest(idContest); }
 
-    public List<Contest> getContestUtente(UtenteAutenticato utente){
-        return this.comuneRepository.findById("Camerino").get().getContestAperti().stream().filter(c -> c.getCreatoreContest().equals(utente)).toList();
-    }
+    public List<Contest> getContestUtente(UtenteAutenticato utente){ return this.comuneRepository.findById("Camerino").get().getContestAperti().stream().filter(c -> c.getCreatoreContest().equals(utente)).toList(); }
 
     public List<ContenutoContest> getContenutiContest(Contest contest){
         Comune comune = this.comuneRepository.findById("Camerino").get();
@@ -59,21 +54,19 @@ public class ContestController {
         this.comuneRepository.save(comune);
     }
 
-    //public List<Contest> getContestPrivati(UtenteAutenticato utente){
-    //    return this.comuneRepository.findById("Camerino").get().getContestAperti().stream().filter(c -> c.getPrivato() && c.getCreatoreContest().equals(utente)).toList();
-    //}
+    public List<Contest> getContestPrivati(UtenteAutenticato utente){ return this.comuneRepository.findById("Camerino").get().getContestAperti().stream().filter(c -> c.getPrivato() && c.getCreatoreContest().equals(utente)).toList(); }
 
     public List<Contest> getContestChiusi(){ return this.comuneRepository.findById("Camerino").get().getContestChiusi(); }
 
     public List<Contest> getContestAperti(){ return this.comuneRepository.findById("Camerino").get().getContestAperti(); }
 
     public void invitaUtenti(Contest contest, List<UtenteAutenticato> utentiDaInvitare){
-        contest.inserisciTuttiInvitati(utentiDaInvitare);
+        contest.aggiungiInvitati(utentiDaInvitare);
         comuneRepository.save(this.comuneRepository.findById("Camerino").get());
     }
 
     public void partecipaContest(Contest contest, ContenutoContest contenuto){
-        contest.inserisciContenuto(contenuto);
+        contest.aggiungiContenuto(contenuto);
         comuneRepository.save(this.comuneRepository.findById("Camerino").get());
     }
 

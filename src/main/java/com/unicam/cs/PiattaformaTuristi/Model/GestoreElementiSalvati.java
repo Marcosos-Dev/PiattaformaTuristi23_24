@@ -30,15 +30,9 @@ public class GestoreElementiSalvati {
         this.itinerariPreferiti = new ArrayList<>();
     }
 
-    public List<PoiPreferito> getPoiPreferiti(int idUtente) {
-        return this.poiPreferitoRepository.GetPreferitiUtente(idUtente);
-    }
+    public List<PoiPreferito> getPoiPreferiti(int idUtente) { return this.poiPreferitoRepository.GetPreferitiUtente(idUtente); }
 
     public List<ItinerarioPreferito> getItinerariPreferiti(int idUtente) { return this.itinerarioPreferitoRepository.GetPreferitiUtente(idUtente); }
-
-    public List<PoiGenerico> getPoiPreferitiUtente(int idUtente) { return poiPreferiti.stream().filter(p -> p.getUtente().getIdUtente()==idUtente).map(p -> p.getPoi()).toList(); }
-
-    public List<ItinerarioGenerico> getItinerariPreferitiUtente(int idUtente) { return itinerariPreferiti.stream().filter(i -> i.getUtente().getIdUtente()==idUtente).map(i -> i.getItinerario()).toList(); }
 
     public void aggiungiPoiPreferito(PoiPreferito poi){
         this.poiPreferiti.add(poi);

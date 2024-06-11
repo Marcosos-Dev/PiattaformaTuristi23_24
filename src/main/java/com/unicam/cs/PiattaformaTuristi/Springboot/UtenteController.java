@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UtenteController {
+public class    UtenteController {
     @Autowired
     private UtentiController utentiController;
     @Autowired
@@ -42,7 +42,7 @@ public class UtenteController {
         Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!()_-])(?=\\S+$).{8,}$");
         if(utente.getUsername() == null || utente.getUsername().isEmpty())
             return new ResponseEntity<>("Username non valido (vuoto)", HttpStatus.BAD_REQUEST);
-        if(this.utentiController.getUtenteTramiteUsername(utente.getUsername())!=null)
+        if(this.utentiController.getUtenteDaUsername(utente.getUsername())!=null)
             return new ResponseEntity<>("Username non valido, esiste già un utente con lo stesso username", HttpStatus.BAD_REQUEST);
         if(utente.getPassword() == null || utente.getPassword().isEmpty() || !pattern.matcher(utente.getPassword()).matches())
             return new ResponseEntity<>("Password non valida", HttpStatus.BAD_REQUEST);
@@ -87,13 +87,13 @@ public class UtenteController {
 
         UtenteAutenticato utente = utenteRepository.GetUtenteDaUsername(((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername());
         if(tipoElemento.toUpperCase().equals("POI")){
-            PoiGenerico poi = this.poiController.selezionaPoi(idElemento);
+            PoiGenerico poi = this.poiController.getPoi(idElemento);
             if(poi == null)
                 return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
             this.elementiSalvatiController.salvaPoi(utente, poi);
         }
         else if(tipoElemento.toUpperCase().equals(("ITINERARIO"))){
-            ItinerarioGenerico itinerario = this.itinerarioController.selezionaItinerario(idElemento);
+            ItinerarioGenerico itinerario = this.itinerarioController.getItinerario(idElemento);
             if(itinerario == null)
                 return new ResponseEntity<>(tipoElemento+" non trovato", HttpStatus.NOT_FOUND);
             this.elementiSalvatiController.salvaItinerario(utente,itinerario);

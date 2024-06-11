@@ -8,10 +8,8 @@ public class Richiesta {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "richiesta_generator")
     private int idRichiesta;
-
     @Column(name = "idUtente", nullable = false)
     private int idUtente;
-
     private RuoloUtente ruoloRichiesto;
 
     public Richiesta(){}

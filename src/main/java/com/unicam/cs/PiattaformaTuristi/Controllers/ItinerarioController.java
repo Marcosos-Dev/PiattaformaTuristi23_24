@@ -64,18 +64,18 @@ public class ItinerarioController {
         Comune comune = this.comuneRepository.findById("Camerino").get();
         if(esito) {
             comune.rimuoviItinerario(segnalazione.getItinerarioGenerico().getIdItinerario());
-            comune.rimuoviSegnalazioniItinerari(segnalazione.getItinerarioGenerico());
+            comune.rimuoviSegnalazioniItinerario(segnalazione.getItinerarioGenerico());
         } else {
             comune.rimuoviSegnalazioneItinerario(segnalazione);
         }
         this.comuneRepository.save(comune);
     }
 
-    public SegnalazioneItinerario selezionaSegnalazioneItinerario(int idSegnalazione){ return this.comuneRepository.findById("Camerino").get().getSegnalazioneItinerario(idSegnalazione); }
+    public SegnalazioneItinerario getSegnalazioneItinerario(int idSegnalazione){ return this.comuneRepository.findById("Camerino").get().getSegnalazioneItinerario(idSegnalazione); }
 
     public void rimuoviItinerario(int idItinerario){ this.comuneRepository.findById("Camerino").get().rimuoviItinerario(idItinerario); }
 
-    public ItinerarioGenerico selezionaItinerario(int idItinerario){ return this.comuneRepository.findById("Camerino").get().getItinerario(idItinerario); }
+    public ItinerarioGenerico getItinerario(int idItinerario){ return this.comuneRepository.findById("Camerino").get().getItinerario(idItinerario); }
 
     public List<ItinerarioGenerico> getItinerariValidati(){ return this.comuneRepository.findById("Camerino").get().getItinerariValidati(); }
 

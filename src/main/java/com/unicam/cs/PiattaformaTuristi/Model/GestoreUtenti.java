@@ -16,7 +16,6 @@ import java.util.List;
 public class GestoreUtenti {
     @Autowired
     public UtenteRepository utentiRepository;
-
     @Autowired
     public RichiesteRepository richiesteRepository;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -29,9 +28,9 @@ public class GestoreUtenti {
         this.richiesteCambioRuolo = new ArrayList<>();
     }
 
-    //public boolean autenticaUtente(String username, String password){
-    //    return this.utenti.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(password));
-    //}
+    public boolean autenticaUtente(String username, String password){
+        return this.utenti.stream().anyMatch(u -> u.getUsername().equals(username) && u.getPassword().equals(password));
+    }
 
     public void aggiungiUtente(UtenteAutenticato utente){
         this.utenti.add(utente);
@@ -66,17 +65,7 @@ public class GestoreUtenti {
         return getUtenti().stream().filter(u -> u.getIdUtente()==idUtente).findFirst().orElse(null);
     }
 
-    public int getUltimoIdRichiesta(){
-        return this.getRichiesteCambioRuolo().isEmpty() ?
-                1 : this.getRichiesteCambioRuolo().getLast().getIdRichiesta()+1;
-    }
-
     public UtenteAutenticato getUtenteTramiteUsername(String username){
         return getUtenti().stream().filter(u -> u.getUsername().equals(username)).findFirst().orElse(null);
-    }
-
-    public int getUltimoIdUtente(){
-        return this.getUtenti().isEmpty() ?
-                1 : this.getUtenti().getLast().getIdUtente()+1;
     }
 }

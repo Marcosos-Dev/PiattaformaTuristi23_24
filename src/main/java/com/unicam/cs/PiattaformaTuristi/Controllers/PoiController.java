@@ -22,7 +22,7 @@ public class PoiController {
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
         if(poi.getContenuto()!=null)
-            poiDaInserire.inserisciContenutoValidato(poi.getContenuto());
+            poiDaInserire.aggiungiContenutoValidato(poi.getContenuto());
         if(poiDaInserire instanceof PoiEvento poiE)
             poiE.setPeriodo(poi.getPeriodo());
         Comune c = this.comuneRepository.findById("Camerino").get();
@@ -35,7 +35,7 @@ public class PoiController {
         poiDaInserire.setTitolo(poi.getTitolo());
         poiDaInserire.setDescrizione(poi.getDescrizione());
         if(poi.getContenuto()!=null)
-            poiDaInserire.inserisciContenutoValidato(poi.getContenuto());
+            poiDaInserire.aggiungiContenutoValidato(poi.getContenuto());
         if(poiDaInserire instanceof PoiEvento poiE)
             poiE.setPeriodo(poi.getPeriodo());
         Comune c = this.comuneRepository.findById("Camerino").get();
@@ -63,7 +63,7 @@ public class PoiController {
 
     public void validaContenuto(PoiGenerico poi, Contenuto contenuto, boolean esito){
         Comune c = this.comuneRepository.findById("Camerino").get();
-        if(esito) poi.inserisciContenutoValidato(contenuto);
+        if(esito) poi.aggiungiContenutoValidato(contenuto);
         poi.rimuoviContenutoDaValidare(contenuto);
         this.comuneRepository.save(c);
     }
@@ -74,9 +74,9 @@ public class PoiController {
         this.comuneRepository.save(c);
     }
 
-    public PoiGenerico selezionaPoi(int idPoi){ return this.comuneRepository.findById("Camerino").get().getPoi(idPoi); }
+    public PoiGenerico getPoi(int idPoi){ return this.comuneRepository.findById("Camerino").get().getPoi(idPoi); }
 
-    public SegnalazionePoi selezionaSegnalazionePoi(int idSegnalazione){ return this.comuneRepository.findById("Camerino").get().getSegnalazionePoi(idSegnalazione); }
+    public SegnalazionePoi getSegnalazionePoi(int idSegnalazione){ return this.comuneRepository.findById("Camerino").get().getSegnalazionePoi(idSegnalazione); }
 
     public void gestisciSegnalazione(SegnalazionePoi segnalazione, boolean esito){
         Comune comune = this.comuneRepository.findById("Camerino").get();
@@ -91,9 +91,7 @@ public class PoiController {
 
     public void rimuoviPoi(int idPoi){ this.comuneRepository.findById("Camerino").get().rimuoviPoi(idPoi); }
 
-    public List<PoiGenerico> getPoiValidati(){
-        return this.comuneRepository.findById("Camerino").get().getPoiValidati();
-    }
+    public List<PoiGenerico> getPoiValidati(){ return this.comuneRepository.findById("Camerino").get().getPoiValidati(); }
 
     public List<PoiEvento> getPoiEventoValidati(){ return this.comuneRepository.findById("Camerino").get().getPoiValidati().stream().filter(p -> p.getTipo() == TipoPoi.EVENTO).map(p -> (PoiEvento) p).toList(); }
 
@@ -102,14 +100,14 @@ public class PoiController {
     public void caricaContenutoDaValidare(Contenuto contenuto, int idPoi){
         validaEstensioneFile(contenuto.getFile().getName());
         Comune c = this.comuneRepository.findById("Camerino").get();
-        c.getPoi(idPoi).inserisciContenutoDaValidare(contenuto);
+        c.getPoi(idPoi).aggiungiContenutoDaValidare(contenuto);
         this.comuneRepository.save(c);
     }
 
     public void caricaContenutoValidato(Contenuto contenuto, int idPoi){
         validaEstensioneFile(contenuto.getFile().getName());
         Comune c = this.comuneRepository.findById("Camerino").get();
-        c.getPoi(idPoi).inserisciContenutoValidato(contenuto);
+        c.getPoi(idPoi).aggiungiContenutoValidato(contenuto);
         this.comuneRepository.save(c);
     }
 }

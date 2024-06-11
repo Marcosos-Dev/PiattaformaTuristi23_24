@@ -77,9 +77,7 @@ public class Comune {
 
     public void rimuoviSegnalazioniPoi(PoiGenerico poi) { this.segnalazioniPoi.removeAll(this.segnalazioniPoi.stream().filter(s -> s.getPoiGenerico().equals(poi)).toList()); }
 
-    public void rimuoviSegnalazioniItinerari(ItinerarioGenerico itinerario) {
-        this.segnalazioniItinerari.removeAll(this.segnalazioniItinerari.stream().filter(s -> s.getItinerarioGenerico().equals(itinerario)).toList());
-    }
+    public void rimuoviSegnalazioniItinerario(ItinerarioGenerico itinerario) { this.segnalazioniItinerari.removeAll(this.segnalazioniItinerari.stream().filter(s -> s.getItinerarioGenerico().equals(itinerario)).toList()); }
 
     public void rimuoviSegnalazionePoi(SegnalazionePoi segnalazione) { this.segnalazioniPoi.remove(segnalazione); }
 
