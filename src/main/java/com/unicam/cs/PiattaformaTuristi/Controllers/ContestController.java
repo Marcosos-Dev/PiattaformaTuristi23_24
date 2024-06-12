@@ -16,7 +16,7 @@ public class ContestController {
     @Autowired
     ComuneRepository comuneRepository;
     @Autowired
-    private UtentiController utentiController;
+    private UtenteController utenteController;
 
     public ContestController(){
 
@@ -85,7 +85,7 @@ public class ContestController {
 
     public List<UtenteAutenticato> getUtentiInvitabili(Contest contest){
         List<UtenteAutenticato> utentiInvitati = contest.getInvitati();
-        List<UtenteAutenticato> contributori = utentiController.getTuttiContributori();
+        List<UtenteAutenticato> contributori = utenteController.getTuttiContributori();
         if(!utentiInvitati.isEmpty())
             contributori.removeAll(utentiInvitati);
         return contributori;

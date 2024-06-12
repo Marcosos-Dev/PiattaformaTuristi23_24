@@ -3,7 +3,7 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
-import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.UtenteController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
@@ -17,7 +17,7 @@ public class InterfacciaTurista {
     private PoiController poiController;
     private ContestController contestController;
     private Comune comune;
-    private UtentiController utentiController;
+    private UtenteController utenteController;
 
     public InterfacciaTurista(Comune comune, GestoreUtenti gestoreUtenti){
         //this.comune = comune;

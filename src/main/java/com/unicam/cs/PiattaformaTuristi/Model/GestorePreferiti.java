@@ -10,12 +10,11 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.OneToMany;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 @Component
-public class GestoreElementiSalvati {
+public class GestorePreferiti {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PoiPreferito> poiPreferiti;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -25,7 +24,7 @@ public class GestoreElementiSalvati {
     @Autowired
     private ItinerarioPreferitoRepository itinerarioPreferitoRepository;
 
-    public GestoreElementiSalvati(){
+    public GestorePreferiti(){
         this.poiPreferiti = new ArrayList<>();
         this.itinerariPreferiti = new ArrayList<>();
     }

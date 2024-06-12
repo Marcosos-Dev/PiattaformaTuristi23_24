@@ -2,9 +2,8 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
-import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.UtenteController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
-import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contenuto;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ItinerarioGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.PoiGenerico;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
@@ -14,7 +13,7 @@ public class InterfacciaCuratore {
     private Comune comune;
     private ItinerarioController itinerarioController;
     private PoiController poiController;
-    private UtentiController utentiController;
+    private UtenteController utenteController;
 
     public InterfacciaCuratore(Comune comune, GestoreUtenti gestore){
         //this.comune = comune;

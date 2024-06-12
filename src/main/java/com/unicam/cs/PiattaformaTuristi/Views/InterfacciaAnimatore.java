@@ -1,7 +1,7 @@
 package com.unicam.cs.PiattaformaTuristi.Views;
 
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
-import com.unicam.cs.PiattaformaTuristi.Controllers.UtentiController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.UtenteController;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.ContenutoContest;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.Contest;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class InterfacciaAnimatore {
     private ContestController contestController;
-    private UtentiController utentiController;
+    private UtenteController utenteController;
     private Comune comune;
     private UtenteAutenticato utente;
 

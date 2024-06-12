@@ -10,15 +10,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UtentiController {
+public class UtenteController {
     @Autowired
     private GestoreUtenti gestoreUtenti;
 
-    public UtentiController(){
+    public UtenteController(){
 
     }
 
-    public UtentiController(GestoreUtenti gestoreUtenti){
+    public UtenteController(GestoreUtenti gestoreUtenti){
         this.gestoreUtenti = gestoreUtenti;
     }
 

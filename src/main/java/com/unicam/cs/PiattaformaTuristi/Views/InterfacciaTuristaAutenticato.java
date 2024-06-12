@@ -4,7 +4,7 @@ package com.unicam.cs.PiattaformaTuristi.Views;
 import com.unicam.cs.PiattaformaTuristi.Controllers.*;
 import com.unicam.cs.PiattaformaTuristi.Model.Comune;
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
-import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
+import com.unicam.cs.PiattaformaTuristi.Model.GestorePreferiti;
 import com.unicam.cs.PiattaformaTuristi.Model.GestoreUtenti;
 import com.unicam.cs.PiattaformaTuristi.Model.RuoloUtente;
 
@@ -14,13 +14,13 @@ public class InterfacciaTuristaAutenticato {
     private ItinerarioController itinerarioController;
     private PoiController poiController;
     private ContestController contestController;
-    private UtentiController utentiController;
+    private UtenteController utenteController;
     private Comune comune;
     private UtenteAutenticato utente;
-    private ElementiSalvatiController elementiSalvatiController;
+    private PreferitoController preferitoController;
 
 
-    public InterfacciaTuristaAutenticato(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore,GestoreElementiSalvati elementi){
+    public InterfacciaTuristaAutenticato(Comune comune, UtenteAutenticato utente, GestoreUtenti gestore, GestorePreferiti elementi){
         //this.comune = comune;
         //this.poiController = new PoiController(this.comune);
         //this.itinerarioController = new ItinerarioController(this.comune);

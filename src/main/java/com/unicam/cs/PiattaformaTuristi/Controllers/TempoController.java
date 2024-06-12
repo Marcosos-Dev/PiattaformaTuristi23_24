@@ -17,6 +17,8 @@ public class TempoController {
     private ItinerarioController itinerarioController;
     @Autowired
     private PoiController poiController;
+    @Autowired
+    private PreferitoController preferitoController;
 
     public TempoController(){
 
@@ -30,11 +32,20 @@ public class TempoController {
     @Scheduled(cron = "0 0 0 * * *")
     public void EliminaElementiScaduti(){
         this.poiController.getPoiEventoValidati().stream().filter(p -> LocalDateTime.now().isAfter(p.getPeriodo().getDataFine())).
-                forEach(p -> this.poiController.rimuoviPoi(p.getIdPoi()));
+                forEach(p -> {
+                    this.poiController.rimuoviPoi(p.getIdPoi());
+                    this.preferitoController.rimuoviPreferitiConPoi(p);
+                });
         this.itinerarioController.getItinerariEventoValidati().stream().filter(i -> LocalDateTime.now().isAfter(i.getPeriodo().getDataFine())).
-                forEach(i -> this.itinerarioController.rimuoviItinerario(i.getIdItinerario()));
+                forEach(i -> {
+                    this.itinerarioController.rimuoviItinerario(i.getIdItinerario());
+                    this.preferitoController.rimuoviPreferitiConItinerario(i);
+                });
         this.itinerarioController.getPercorsiEventoValidati().stream().filter(i -> LocalDateTime.now().isAfter(i.getPeriodo().getDataFine())).
-                forEach(i -> this.itinerarioController.rimuoviItinerario(i.getIdItinerario()));
+                forEach(i -> {
+                    this.itinerarioController.rimuoviItinerario(i.getIdItinerario());
+                    this.preferitoController.rimuoviPreferitiConItinerario(i);
+                });
         comuneRepository.save(this.comuneRepository.findById("Camerino").get());
     }
 

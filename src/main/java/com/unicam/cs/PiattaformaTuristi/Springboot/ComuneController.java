@@ -1,7 +1,7 @@
 package com.unicam.cs.PiattaformaTuristi.Springboot;
 
 import com.unicam.cs.PiattaformaTuristi.Controllers.ContestController;
-import com.unicam.cs.PiattaformaTuristi.Controllers.ElementiSalvatiController;
+import com.unicam.cs.PiattaformaTuristi.Controllers.PreferitoController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.ItinerarioController;
 import com.unicam.cs.PiattaformaTuristi.Controllers.PoiController;
 import com.unicam.cs.PiattaformaTuristi.Model.*;
@@ -32,7 +32,7 @@ public class ComuneController {
     @Autowired
     private ItinerarioController itinerarioController;
     @Autowired
-        private ElementiSalvatiController elementiSalvatiController;
+        private PreferitoController preferitoController;
     @Autowired
     private ContestController contestController;
     @Autowired
@@ -332,7 +332,7 @@ public class ComuneController {
                 SegnalazionePoi segnalazione = this.poiController.getSegnalazionePoi(idElemento);
                 if(segnalazione == null)
                     return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
-                this.elementiSalvatiController.gestisciSegnalazionePoiPreferiti(segnalazione.getPoiGenerico(),esito);
+                this.preferitoController.gestisciSegnalazionePoiPreferiti(segnalazione.getPoiGenerico(),esito);
                 this.poiController.gestisciSegnalazione(segnalazione,esito);
                 break;
             }
@@ -341,7 +341,7 @@ public class ComuneController {
                 SegnalazioneItinerario segnalazione = this.itinerarioController.getSegnalazioneItinerario(idElemento);
                 if(segnalazione == null)
                     return new ResponseEntity<>("segnalazione non trovata", HttpStatus.NOT_FOUND);
-                this.elementiSalvatiController.gestisciSegnalazioneItinerariPreferiti(segnalazione.getItinerarioGenerico(),esito);
+                this.preferitoController.gestisciSegnalazioneItinerariPreferiti(segnalazione.getItinerarioGenerico(),esito);
                 this.itinerarioController.gestisciSegnalazione(segnalazione,esito);
                 break;
             }

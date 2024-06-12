@@ -1,15 +1,15 @@
 package com.unicam.cs.PiattaformaTuristi.Controllers;
 
 import com.unicam.cs.PiattaformaTuristi.Model.Entities.*;
-import com.unicam.cs.PiattaformaTuristi.Model.GestoreElementiSalvati;
+import com.unicam.cs.PiattaformaTuristi.Model.GestorePreferiti;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
-public class ElementiSalvatiController {
-    private GestoreElementiSalvati elementi;
+public class PreferitoController {
+    private GestorePreferiti elementi;
 
-    public ElementiSalvatiController(GestoreElementiSalvati elementi){
+    public PreferitoController(GestorePreferiti elementi){
         this.elementi = elementi;
     }
 
@@ -33,6 +33,14 @@ public class ElementiSalvatiController {
 
     public void gestisciSegnalazioneItinerariPreferiti(ItinerarioGenerico itinerario, boolean esito){
         if(esito) { this.elementi.eliminaItinerarioDaiPreferiti(itinerario); }
+    }
+
+    public void rimuoviPreferitiConPoi(PoiGenerico poi){
+        this.elementi.eliminaPoiDaiPreferiti(poi);
+    }
+
+    public void rimuoviPreferitiConItinerario(ItinerarioGenerico itinerario){
+        this.elementi.eliminaItinerarioDaiPreferiti(itinerario);
     }
 
     public List<PoiPreferito> getPoiPreferiti(int idUtente){ return this.elementi.getPoiPreferiti(idUtente); }
