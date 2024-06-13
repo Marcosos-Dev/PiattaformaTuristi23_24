@@ -40,21 +40,21 @@ public class ComuneController {
     @Autowired
     UtenteRepository utenteRepository;
 
-    @GetMapping(value = {"turista_autenticato/visualizzaItinerario", "/contributore/visualizzaItinerario","contributore_autorizzato/visualizzaItinerario"})
+    @GetMapping(value = {"/visualizzaItinerario","turista_autenticato/visualizzaItinerario", "/contributore/visualizzaItinerario","contributore_autorizzato/visualizzaItinerario","curatore/visualizzaItinerario"})
     public ResponseEntity<Object> GetItinerario(@RequestParam("id") int idItinerario) {
         ItinerarioGenerico itinerario = this.itinerarioController.getItinerario(idItinerario);
         if(itinerario == null)
             return new ResponseEntity<>("Itinerario non trovato", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(itinerario, HttpStatus.OK);
     }
-    @GetMapping(value = {"turista_autenticato/visualizzaContestChiuso", "/contributore/visualizzaContestChiuso","contributore_autorizzato/visualizzaContestChiuso"})
+    @GetMapping(value = {"/visualizzaContestChiuso","turista_autenticato/visualizzaContestChiuso", "/contributore/visualizzaContestChiuso","contributore_autorizzato/visualizzaContestChiuso","curatore/visualizzaContestChiuso"})
     public ResponseEntity<Object> GetContest(@RequestParam("id") int idContest) {
         Contest contest = this.contestController.getContest(idContest);
         if(contest == null)
             return new ResponseEntity<>("Contest non trovato", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(contest, HttpStatus.OK);
     }
-    @GetMapping(value = {"turista_autenticato/visualizzaPoi", "/contributore/visualizzaPoi","contributore_autorizzato/visualizzaPoi"})
+    @GetMapping(value = {"/visualizzaPoi","turista_autenticato/visualizzaPoi", "/contributore/visualizzaPoi","contributore_autorizzato/visualizzaPoi","curatore/visualizzaPoi"})
     public ResponseEntity<Object> GetPoi(@RequestParam("id") int idPoi) {
         PoiGenerico poi = this.poiController.getPoi(idPoi);
         if(poi == null)
@@ -62,22 +62,22 @@ public class ComuneController {
         return new ResponseEntity<>(poi, HttpStatus.OK);
     }
 
-    @GetMapping(value = {"turista_autenticato/visualizzaTuttiPoi", "/contributore/visualizzaTuttiPoi","contributore_autorizzato/visualizzaTuttiPoi"})
+    @GetMapping(value = {"/visualizzaTuttiPoi","turista_autenticato/visualizzaTuttiPoi", "/contributore/visualizzaTuttiPoi","contributore_autorizzato/visualizzaTuttiPoi","curatore/visualizzaTuttiPoi"})
     public ResponseEntity<Object> GetTuttiPoi() {
         return new ResponseEntity<>(poiController.getPoiValidati(), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"turista_autenticato/visualizzaTuttiItinerari", "/contributore/visualizzaTuttiItinerari","contributore_autorizzato/visualizzaTuttiItinerari"})
+    @GetMapping(value = {"/visualizzaTuttiItinerari","turista_autenticato/visualizzaTuttiItinerari", "/contributore/visualizzaTuttiItinerari","contributore_autorizzato/visualizzaTuttiItinerari","curatore/visualizzaTuttiItinerari"})
     public ResponseEntity<Object> GetTuttiItinerari() {
         return new ResponseEntity<>(itinerarioController.getItinerariValidati(), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"turista_autenticato/visualizzaContestAperti", "/contributore/visualizzaContestAperti","contributore_autorizzato/visualizzaContestAperti"})
+    @GetMapping(value = {"turista_autenticato/visualizzaContestAperti", "/contributore/visualizzaContestAperti","contributore_autorizzato/visualizzaContestAperti","curatore/visualizzaContestAperti"})
     public ResponseEntity<Object> GetTuttiContestAperti() {
         return new ResponseEntity<>(contestController.getContestAperti(), HttpStatus.OK);
     }
 
-    @GetMapping(value = {"turista_autenticato/visualizzaContestChiusi", "/contributore/visualizzaContestChiusi","contributore_autorizzato/visualizzaContestChiusi"})
+    @GetMapping(value = {"/visualizzaContestChiusi","turista_autenticato/visualizzaContestChiusi", "/contributore/visualizzaContestChiusi","contributore_autorizzato/visualizzaContestChiusi","curatore/visualizzaContestChiusi"})
     public ResponseEntity<Object> GetTuttiContestChiusi() {
         return new ResponseEntity<>(contestController.getContestChiusi(), HttpStatus.OK);
     }
@@ -190,7 +190,7 @@ public class ComuneController {
         return new ResponseEntity<>("Contenuto validato caricato con successo", HttpStatus.OK);
     }
 
-    @PostMapping("contributore/inserisciContenutoDaValidarePoi")
+    @PostMapping(value = {"turista_autenticato/inserisciContenutoDaValidarePoi","contributore/inserisciContenutoDaValidarePoi"})
     public ResponseEntity<Object> inserisciContenutoDaValidarePoi(@RequestParam("id") Integer idPoi, @RequestPart("file") MultipartFile fileContenuto, @RequestParam("descr") String descrContenuto) {
         if(this.comuneRepository.findById("Camerino").get().getPoi(idPoi)==null)
             return new ResponseEntity<>("Poi non trovato", HttpStatus.NOT_FOUND);

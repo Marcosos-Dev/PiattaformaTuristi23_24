@@ -24,7 +24,9 @@ public class AutenticazioneAPI {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
             http.authorizeHttpRequests((requests) -> requests
-                                    .requestMatchers("/","/h2-console/**","/registrazione","/segnalaPoi","/segnalaItinerario").permitAll()
+                                    .requestMatchers("/","/h2-console/**","/registrazione","/segnalaPoi","/segnalaItinerario"
+                                            ,"/visualizzaItinerario","/visualizzaContestChiuso","/visualizzaPoi","/visualizzaTuttiPoi"
+                                            ,"/visualizzaTuttiItinerari","/visualizzaContestChiusi").permitAll()
                                     .requestMatchers("/turista_autenticato/**").hasRole("TURISTA_AUTENTICATO")
                                     .requestMatchers("/contributore/**").hasRole("CONTRIBUTORE")
                                     .requestMatchers("/contributore_autorizzato/**").hasRole("CONTRIBUTORE_AUTORIZZATO")
